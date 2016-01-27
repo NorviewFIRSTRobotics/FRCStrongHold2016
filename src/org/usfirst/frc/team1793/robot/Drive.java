@@ -48,39 +48,11 @@ public class Drive extends RobotDrive implements IComponent {
 		if(Robot.config.getBoolean(Robot.TANK)) {
 			tankDrive(rightStick,leftStick);
 		} else {
-			arcadeDrive(leftStick.getY(),-leftStick.getZ(),true);
+			double twist = leftStick.getThrottle() + .01d;
+			arcadeDrive(twist * leftStick.getY(),twist * -leftStick.getZ(),false);
 		}		
 	}
 	
 
 }
 
-//
-//	public double finesseYSpeed() {
-//		if (Math.abs(stick.getY()) < .8) {
-//			adjustedYSpeed = stick.getY() * (.5 / .8); // a = .75, b =
-//															// joystick value
-//		} else {
-//			adjustedYSpeed = ((.8 - stick.getY()) / (.95 - .8)); // a =
-//																		// .75,
-//																		// b =
-//																		// joystick
-//																		// value
-//		}
-//
-//		return -adjustedYSpeed;
-//	}
-//
-//	public double finesseTwistSpeed() {
-//		if (Math.abs(stick.getTwist()) < .75) {
-//			adjustedTwistSpeed = stick.getTwist() / .75; // a = .75, b =
-//																// joystick
-//																// value
-//		} else {
-//			// adjustedTwistSpeed = ((1-driveStick.getTwist())/(1-.90)); // a =
-//			// .75, b = joystick value
-//			adjustedTwistSpeed = stick.getTwist() * .75;
-//		}
-//
-//		return -adjustedTwistSpeed;
-//	}
