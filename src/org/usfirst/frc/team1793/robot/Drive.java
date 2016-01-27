@@ -48,7 +48,7 @@ public class Drive extends RobotDrive implements IComponent {
 		if(Robot.config.getBoolean(Robot.TANK)) {
 			tankDrive(rightStick,leftStick);
 		} else {
-			arcadeDrive(leftStick.getY(),leftStick.getZ(),true);
+			arcadeDrive(leftStick.getY(),-leftStick.getZ(),true);
 		}		
 	}
 	

@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
 	
 	
 	public void robotInit() {
-		config.put(TANK, true);
+		config.put(TANK, false);
 		config.put(AUTONOMOUS, true);
 		config.put(TELEOP, true);
 		drive = new Drive(leftVictor = new Victor(EnumMotor.LEFT.ordinal()), rightVictor = new Victor(EnumMotor.RIGHT.ordinal()));
