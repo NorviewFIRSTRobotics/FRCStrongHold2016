@@ -13,10 +13,12 @@ import edu.wpi.first.wpilibj.SpeedController;
  */
 public class Drive extends RobotDrive implements IComponent {
 	Joystick leftStick, rightStick;
-	
+	SpeedController leftMotor, rightMotor;
 
 	public Drive(SpeedController leftMotor, SpeedController rightMotor) {
 		super(leftMotor, rightMotor);
+		this.leftMotor = leftMotor;
+		this.rightMotor = rightMotor;
 		leftStick = new Joystick(0);
 		rightStick = new Joystick(1);
 	}
@@ -53,6 +55,6 @@ public class Drive extends RobotDrive implements IComponent {
 		}		
 	}
 	
-
+	
 }
 
