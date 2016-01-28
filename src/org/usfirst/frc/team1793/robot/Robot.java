@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	private ComponentList components = new ComponentList();
 	private SpeedController leftVictor, rightVictor, armVictor;
+
 	private AnalogGyro gyro;
+
 	public static Configuration config = new Configuration();
 	public enum EnumMotor {
 		LEFT,
@@ -27,6 +29,7 @@ public class Robot extends IterativeRobot {
 		config.put(TELEOP, true);
 		gyro = new AnalogGyro(0);
 		SmartDashboard.putNumber("GYRO", gyro.getAngle());
+
 		components.add(new Drive(leftVictor = new Victor(EnumMotor.LEFT.ordinal()), rightVictor = new Victor(EnumMotor.RIGHT.ordinal())));
 		components.add(new Arm(armVictor = new Victor(EnumMotor.ARM.ordinal())));
 	}
