@@ -8,6 +8,10 @@ public class ComponentList extends ArrayList<IComponent> implements IComponent {
 
 	@Override
 	public void autonomousInit() {
+		for(IComponent c: this) {
+			c.autonomousInit();
+		}
+		
 		forEach(c -> c.autonomousInit());	
 	}
 	@Override
