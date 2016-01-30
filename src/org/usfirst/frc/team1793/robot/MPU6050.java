@@ -2,11 +2,13 @@ package org.usfirst.frc.team1793.robot;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 @SuppressWarnings("unused")
 public class MPU6050  implements Gyro {
 	
@@ -124,6 +126,8 @@ public class MPU6050  implements Gyro {
 	private I2C i2c;
 	public MPU6050() {
 		i2c = new I2C(Port.kOnboard, ADDRESS);
+		
+		SmartDashboard.putBoolean("write?", i2c.write(RA_PWR_MGMT_1, 0));
 	}
 	
 	@Override
@@ -138,14 +142,34 @@ public class MPU6050  implements Gyro {
 	public double getAngle() {
 		return 0;
 	}
-
+	public byte[] getXLow()  {
+		byte[] array = new byte[1];
+		
+		return array;
+	}
+	public byte[] getXHigh()  {
+		byte[] array = new byte[1];
+		
+		return array;
+	}
+	public short both() {
+		ByteBuffer buffer = ByteBuffer.allocateDirect(2);
+		SmartDashboard.putBoolean("read1?", i2c.read(RA_GYRO_XOUT_L,2, buffer));
+//		SmartDashboard.putBoolean("read2?", i2c.read(RA_GYRO_XOUT_H, 1, buffer));
+		ShortBuffer sbuffer = buffer.order(ByteOrder.LITTLE_ENDIAN).asShortBuffer();
+		
+		return sbuffer.get(0);
+	}
+	/*TODO correct offset
+	 * 
+	 * rate as double in degrees per second
+	 * 250/<output>
+	 * integrate to get angle
+	*/
+	
 	@Override
 	public double getRate() {
-		byte[] bytes = new byte[2];
-		ByteBuffer buffer = ByteBuffer.wrap(bytes);
-		i2c.read(RA_GYRO_XOUT_H, 2, buffer);
-		buffer.flip();
-		return buffer.getShort();
+		return 0;
 	}
 
 	@Override
