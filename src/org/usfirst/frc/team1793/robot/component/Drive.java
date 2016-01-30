@@ -1,4 +1,6 @@
-package org.usfirst.frc.team1793.robot;
+package org.usfirst.frc.team1793.robot.component;
+
+import org.usfirst.frc.team1793.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;

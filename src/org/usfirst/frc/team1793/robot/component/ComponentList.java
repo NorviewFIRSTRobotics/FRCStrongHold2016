@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1793.robot;
+package org.usfirst.frc.team1793.robot.component;
 
 import java.util.ArrayList;
 
@@ -8,13 +8,6 @@ public class ComponentList extends ArrayList<IComponent> implements IComponent {
 
 	@Override
 	public void autonomousInit() {
-<<<<<<< HEAD
-=======
-		for(IComponent c: this) {
-			c.autonomousInit();
-		}
-		
->>>>>>> 855d2c61a0156d3286033fb840f2157b059fa5ca
 		forEach(c -> c.autonomousInit());	
 	}
 	@Override

@@ -5,10 +5,9 @@ import edu.wpi.first.wpilibj.Victor;
 
 public class SpeedControllerPair implements SpeedController {
 	public SpeedController left,right;
-	public SpeedControllerPair(Victor left, Victor right) {
+	public SpeedControllerPair(SpeedController left, SpeedController right) {
 		this.right = right;
 		this.left = left;
-		
 	}
 	@Override
 	public void pidWrite(double output) {

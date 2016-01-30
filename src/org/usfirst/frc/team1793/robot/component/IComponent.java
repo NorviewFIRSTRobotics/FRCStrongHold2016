@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1793.robot;
+package org.usfirst.frc.team1793.robot.component;
 
 public interface IComponent {
 		public void autonomousInit();

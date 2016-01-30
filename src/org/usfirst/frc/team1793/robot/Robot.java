@@ -1,16 +1,21 @@
 package org.usfirst.frc.team1793.robot;
 
+import org.usfirst.frc.team1793.robot.component.Arm;
+import org.usfirst.frc.team1793.robot.component.ComponentList;
+import org.usfirst.frc.team1793.robot.component.Drive;
+
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	private ComponentList components = new ComponentList();
 	private SpeedController leftVictor, rightVictor, armVictor;
 
-	private AnalogGyro gyro;
+	private Gyro gyro;
 
 	public static Configuration config = new Configuration();
 	public enum EnumMotor {
@@ -27,9 +32,7 @@ public class Robot extends IterativeRobot {
 		config.put(TANK, false);
 		config.put(AUTONOMOUS, true);
 		config.put(TELEOP, true);
-		gyro = new AnalogGyro(0);
-		SmartDashboard.putNumber("GYRO", gyro.getAngle());
-
+		gyro = new MPU6050();
 		components.add(new Drive(leftVictor = new Victor(EnumMotor.LEFT.ordinal()), rightVictor = new Victor(EnumMotor.RIGHT.ordinal())));
 		components.add(new Arm(armVictor = new Victor(EnumMotor.ARM.ordinal())));
 	}
@@ -56,6 +59,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		if(config.getBoolean(TELEOP)) {
 			components.teleopPeriodic();
+			SmartDashboard.putNumber("gryo-rate", gyro.getRate());
 		}
 	}
 
