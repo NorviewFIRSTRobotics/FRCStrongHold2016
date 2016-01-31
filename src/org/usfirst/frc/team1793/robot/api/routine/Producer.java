@@ -25,6 +25,14 @@ public abstract class Producer<S extends Signal<T>,T> implements Runnable{
 		}
 		signal.put(complete);
 	}
+	public void setInfo(T[] info) {
+		this.info = info;
+	}
+	public void setInfoIndex(int i, T t) {
+		if(info.length > i) {
+			info[i] = t;
+		}
+	}
 	@Override
 	public void run() {
 		produce();

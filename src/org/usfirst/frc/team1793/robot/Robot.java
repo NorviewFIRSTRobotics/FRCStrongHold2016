@@ -11,6 +11,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 @SuppressWarnings("unused")
 public class Robot extends IterativeRobot {
+
+	public static final String CONTROLTYPE = "CONTROLTYPE";
+	public static final String AUTONOMOUS = "AUTONOMOUS";
+	public static final String TELEOP = "TELEOP";
+	
 	private ComponentList components = new ComponentList();
 	
 	private SpeedController leftVictor, rightVictor, armVictor;
@@ -18,20 +23,17 @@ public class Robot extends IterativeRobot {
 	private MPU6050 gyro;
 
 	public static Configuration config = new Configuration();
+	
 	public enum EnumMotor {
 		LEFT,
 		RIGHT,
 		ARM;
 	}
-	
-	public static final String TANK = "TANK";
-	public static final String AUTONOMOUS = "AUTONOMOUS";
-	public static final String TELEOP = "TELEOP";
-	
+
 	public void robotInit() {
-		config.put(TANK, false);
-		config.put(AUTONOMOUS, true);
-		config.put(TELEOP, true);
+		config.putInt(CONTROLTYPE, 0);
+		config.putBoolean(AUTONOMOUS, true);
+		config.putBoolean(TELEOP, true);
 		gyro = new MPU6050();
 		components.add(new Drive(leftVictor = new Victor(EnumMotor.LEFT.ordinal()), rightVictor = new Victor(EnumMotor.RIGHT.ordinal())));
 		components.add(new Arm(armVictor = new Victor(EnumMotor.ARM.ordinal())));

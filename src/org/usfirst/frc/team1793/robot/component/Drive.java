@@ -17,6 +17,11 @@ public class Drive extends RobotDrive implements IComponent {
 	Joystick leftStick, rightStick;
 	SpeedController leftMotor, rightMotor;
 
+	public enum ControlType {
+		ARCADE, TANK, MECHANUM;
+		public static ControlType[] values = new ControlType[] { ARCADE, TANK, MECHANUM };
+	}
+
 	public Drive(SpeedController leftMotor, SpeedController rightMotor) {
 		super(leftMotor, rightMotor);
 		this.leftMotor = leftMotor;
@@ -27,36 +32,84 @@ public class Drive extends RobotDrive implements IComponent {
 
 	@Override
 	public void autonomousInit() {
-		
+
 	}
 
 	@Override
-	public void autonomousPeriodic() {
-	}
+	public void autonomousPeriodic() {}
 
 	@Override
-	public void disabledInit() {
-	}
+	public void disabledInit() {}
 
 	@Override
-	public void disabledPeriodic() {
-	}
+	public void disabledPeriodic() {}
 
 	@Override
 	public void teleopInit() {
-		
+
 	}
 
 	@Override
 	public void teleopPeriodic() {
-		if(Robot.config.getBoolean(Robot.TANK)) {
-			tankDrive(rightStick,leftStick);
-		} else {
-			double twist = leftStick.getThrottle() + .01d;
-			arcadeDrive(twist * leftStick.getY(),twist * -leftStick.getZ(),false);
-		}		
+		drive(ControlType.values[Robot.config.getInt(Robot.CONTROLTYPE)]);
 	}
-	
-	
-}
 
+	/**
+	 * $
+	 * 
+	 * @param type
+	 *            drive type drive to execute
+	 * @param val1
+	 *            leftstick.getY() or left speed between -1.0 and 1.0
+	 * @param val2
+	 *            Dependent on type
+	 *            ARCADE: leftStick.getZ() or rotation
+	 * 		      TANK: rightStick.getY() or right speed between -1.0 and 1.0
+	 */
+
+	public void drive(ControlType type, double val1, double val2) {
+		switch (type) {
+		case ARCADE: {
+			arcadeDrive(val1, -val2, false);
+			break;
+		}
+		case TANK: {
+			tankDrive(val2, val1);
+			break;
+		}
+		case MECHANUM:
+			// NO-OP
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	/**
+	 * $
+	 * 
+	 * @param type
+	 *            drive type drive to execute
+	 */
+	public void drive(ControlType type) {
+		switch (type) {
+		case ARCADE: {
+			double twist = leftStick.getThrottle() + .01d;
+			arcadeDrive(twist * leftStick.getY(), twist * -leftStick.getZ(), false);
+			break;
+		}
+		case TANK: {
+			tankDrive(rightStick.getY(), leftStick.getY());
+			break;
+		}
+		case MECHANUM:
+			// NO-OP
+			break;
+		default:
+			break;
+		}
+
+	}
+
+}

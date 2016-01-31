@@ -15,6 +15,7 @@ public abstract class Consumer<S extends Signal<T>, T> implements Runnable {
 		Random random = new Random();
 		for (T message = signal.take(); !message.equals(complete); message = signal.take()) {
 			System.out.format("MESSAGE RECEIVED: %s%n", message);
+			action(message);
 			try {
 				Thread.sleep(random.nextInt(5000));
 			} catch (InterruptedException e) {}
@@ -24,4 +25,7 @@ public abstract class Consumer<S extends Signal<T>, T> implements Runnable {
 	public void run() {
 		consume();
 	}
+	
+	public abstract boolean action(T message);
+
 }

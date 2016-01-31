@@ -16,6 +16,10 @@ public class Configuration {
 		SmartDashboard.putBoolean(name, value);
 	}
 	
+	public void putInt(String name, int value) {
+		put(name,value);	
+		SmartDashboard.putNumber(name, value);
+	}
 	public Object get(String name) {
 		return config.get(name);
 	}
@@ -25,4 +29,8 @@ public class Configuration {
 		return o instanceof Boolean ? (boolean) o : false;
 	}
 	
+	public int getInt(String name) {
+		Object o = this.get(name);
+		return o instanceof Integer ? (int) o : 0;
+	}
 }
