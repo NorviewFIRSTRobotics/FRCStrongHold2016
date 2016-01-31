@@ -1,0 +1,8 @@
+/build*
+/bin/
+/dist/
+*.swp
+.classpath
+.project
+
+

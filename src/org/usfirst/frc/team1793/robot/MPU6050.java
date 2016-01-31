@@ -122,10 +122,11 @@ public class MPU6050  implements Gyro {
 	private static final int RA_FIFO_COUNTL = 115;
 	private static final int RA_FIFO_R_W = 116;
 	private static final int RA_WHO_AM_I = 117;
-	private static final int ADDRESS = 0x68;
+	private static final int MPU6050_ADDRESS = 0x68;
+	private static final double MPU6050_250DPS = 0.00762939453;
 	private I2C i2c;
 	public MPU6050() {
-		i2c = new I2C(Port.kOnboard, ADDRESS);
+		i2c = new I2C(Port.kOnboard, MPU6050_ADDRESS);
 		
 		SmartDashboard.putBoolean("write?", i2c.write(RA_PWR_MGMT_1, 0));
 	}
@@ -142,34 +143,21 @@ public class MPU6050  implements Gyro {
 	public double getAngle() {
 		return 0;
 	}
-	public byte[] getXLow()  {
-		byte[] array = new byte[1];
-		
-		return array;
-	}
-	public byte[] getXHigh()  {
-		byte[] array = new byte[1];
-		
-		return array;
-	}
-	public short both() {
-		ByteBuffer buffer = ByteBuffer.allocateDirect(2);
-		SmartDashboard.putBoolean("read1?", i2c.read(RA_GYRO_XOUT_L,2, buffer));
-//		SmartDashboard.putBoolean("read2?", i2c.read(RA_GYRO_XOUT_H, 1, buffer));
-		ShortBuffer sbuffer = buffer.order(ByteOrder.LITTLE_ENDIAN).asShortBuffer();
-		
-		return sbuffer.get(0);
-	}
+
 	/*TODO correct offset
 	 * 
 	 * rate as double in degrees per second
 	 * 250/<output>
 	 * integrate to get angle
 	*/
-	
 	@Override
 	public double getRate() {
-		return 0;
+		ByteBuffer buffer = ByteBuffer.allocateDirect(2);
+		i2c.read(RA_GYRO_XOUT_H, 2, buffer);
+		byte lsb = buffer.get(0);
+		byte msb = buffer.get(1);
+		double rate = ((msb << 8)| lsb);
+		return rate*MPU6050_250DPS;
 	}
 
 	@Override

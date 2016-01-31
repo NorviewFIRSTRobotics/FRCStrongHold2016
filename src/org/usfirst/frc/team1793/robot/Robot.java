@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+@SuppressWarnings("unused")
 public class Robot extends IterativeRobot {
 	private ComponentList components = new ComponentList();
+	
 	private SpeedController leftVictor, rightVictor, armVictor;
 
 	private MPU6050 gyro;
@@ -57,15 +59,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		if(config.getBoolean(TELEOP)) {
 			components.teleopPeriodic();
-			byte[] array = gyro.getXLow();
-			for(int i = 0; i < array.length;i++) {
-				SmartDashboard.putNumber("low"+i+":", array[i]);
-			}
-			array = gyro.getXHigh();
-			for(int i = 0; i < array.length;i++) {
-				SmartDashboard.putNumber("high"+i+":", array[i]);
-			}
-			SmartDashboard.putNumber("short", gyro.both());
+			SmartDashboard.putNumber("rate", gyro.getRate());
 		}
 	}
 
