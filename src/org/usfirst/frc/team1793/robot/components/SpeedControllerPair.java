@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1793.robot;
+package org.usfirst.frc.team1793.robot.components;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;

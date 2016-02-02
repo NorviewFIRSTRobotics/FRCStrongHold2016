@@ -1,69 +1,69 @@
 package org.usfirst.frc.team1793.robot;
 
-import org.usfirst.frc.team1793.robot.component.Arm;
-import org.usfirst.frc.team1793.robot.component.ComponentList;
-import org.usfirst.frc.team1793.robot.component.Drive;
+import org.usfirst.frc.team1793.robot.state.game.Auto;
+import org.usfirst.frc.team1793.robot.state.game.Disable;
+import org.usfirst.frc.team1793.robot.state.game.GameState;
+import org.usfirst.frc.team1793.robot.state.game.Teleop;
+import org.usfirst.frc.team1793.robot.state.senarios.Senario;
+import org.usfirst.frc.team1793.robot.system.Drive;
+import org.usfirst.frc.team1793.robot.system.DriveController;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-@SuppressWarnings("unused")
 public class Robot extends IterativeRobot {
 
-	public static final String CONTROLTYPE = "CONTROLTYPE";
-	public static final String AUTONOMOUS = "AUTONOMOUS";
-	public static final String TELEOP = "TELEOP";
+	public static DriveController driveController;
+	GameState state;
+	public static Joystick leftStick, rightStick;
 	
-	private ComponentList components = new ComponentList();
-	
-	private SpeedController leftVictor, rightVictor, armVictor;
-
-	private MPU6050 gyro;
-
-	public static Configuration config = new Configuration();
-	
-	public enum EnumMotor {
-		LEFT,
-		RIGHT,
-		ARM;
-	}
-
+	@Override
 	public void robotInit() {
-		config.putInt(CONTROLTYPE, 0);
-		config.putBoolean(AUTONOMOUS, true);
-		config.putBoolean(TELEOP, true);
-		gyro = new MPU6050();
-		components.add(new Drive(leftVictor = new Victor(EnumMotor.LEFT.ordinal()), rightVictor = new Victor(EnumMotor.RIGHT.ordinal())));
-		components.add(new Arm(armVictor = new Victor(EnumMotor.ARM.ordinal())));
+		leftStick = new Joystick(0);
+		rightStick = new Joystick(1);
+		driveController = new DriveController(new Drive(new Victor(0), new Victor(1)));
 	}
-	
+
+	@Override
 	public void autonomousInit() {
-		if(config.getBoolean(AUTONOMOUS)) {
-			components.autonomousInit();
-		}
-		
+		state = new Auto();
 	}
 
+	@Override
 	public void autonomousPeriodic() {
-		if(config.getBoolean(AUTONOMOUS)) {
-			components.autonomousPeriodic();
-		}
+		state.run();
 	}
 
+	@Override
 	public void teleopInit() {
-		if(config.getBoolean(TELEOP)) {
-			components.teleopInit();
-		}
+		state = new Teleop();
 	}
 
-	public void teleopPeriodic() {
-		if(config.getBoolean(TELEOP)) {
-			components.teleopPeriodic();
-			SmartDashboard.putNumber("rate", gyro.getRate());
-		}
+	@Override
+	public void teleopPeriodic() {		
+		state.run();
 	}
 
+	@Override
+	public void disabledInit() {
+		state = new Disable();
+	}
+
+	@Override
+	public void disabledPeriodic() {
+		state.run();
+	}
+	public class SenarioButton extends JoystickButton {
+		Senario senario;
+		public SenarioButton(GenericHID joystick, int buttonNumber,Senario senario) {
+			super(joystick, buttonNumber);
+			this.senario = senario; 
+		}
+		public void run() {
+			senario.run();
+		}
+	}
 }
- 
