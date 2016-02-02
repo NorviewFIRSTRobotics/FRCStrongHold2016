@@ -13,7 +13,7 @@ public class Auto extends GameState {
 
 	@Override
 	public void run() {
-		new Turn(1).run();
+		new Turn(60f).run();
 	}
 
 }

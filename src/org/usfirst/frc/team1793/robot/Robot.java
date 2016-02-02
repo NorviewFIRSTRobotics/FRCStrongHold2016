@@ -56,8 +56,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		state = new Disable();
-		drive.shutdown();
-		arm.shutdown();
 	}
 
 	@Override
