@@ -5,10 +5,11 @@ import org.usfirst.frc.team1793.robot.state.game.Disable;
 import org.usfirst.frc.team1793.robot.state.game.GameState;
 import org.usfirst.frc.team1793.robot.state.game.Teleop;
 import org.usfirst.frc.team1793.robot.state.senarios.Senario;
+import org.usfirst.frc.team1793.robot.system.Arm;
+import org.usfirst.frc.team1793.robot.system.ArmController;
 import org.usfirst.frc.team1793.robot.system.Drive;
 import org.usfirst.frc.team1793.robot.system.DriveController;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,7 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
-	public static DriveController driveController;
+	public static DriveController drive;
+	public static ArmController arm;
 	private GameState state;
 	public static Joystick leftStick, rightStick;
 	
@@ -26,7 +28,8 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		leftStick = new Joystick(0);
 		rightStick = new Joystick(1);
-		driveController = new DriveController(new Drive(new Victor(0), new Victor(1)));
+		drive = new DriveController(new Drive(new Victor(0), new Victor(1)));
+		arm = new ArmController(new Arm(new Victor(2)));
 	}
 
 	@Override
@@ -53,6 +56,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		state = new Disable();
+		drive.shutdown();
+		arm.shutdown();
 	}
 
 	@Override

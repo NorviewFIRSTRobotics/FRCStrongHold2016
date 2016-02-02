@@ -12,7 +12,7 @@ public class Teleop  extends GameState{
 
 	@Override
 	public void run() {
-		Robot.driveController.arcadeDrive(Robot.leftStick.getY(), Robot.leftStick.getZ());
+		Robot.drive.arcadeDrive(Robot.leftStick.getY(), Robot.leftStick.getZ());
 	}
 
 }
