@@ -8,16 +8,18 @@ import org.usfirst.frc.team1793.robot.state.senarios.Senario;
 import org.usfirst.frc.team1793.robot.system.Drive;
 import org.usfirst.frc.team1793.robot.system.DriveController;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
 	public static DriveController driveController;
-	GameState state;
+	private GameState state;
 	public static Joystick leftStick, rightStick;
 	
 	@Override
@@ -43,7 +45,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
-	public void teleopPeriodic() {		
+	public void teleopPeriodic() {
+		SmartDashboard.putString("main", Thread.currentThread().toString());
 		state.run();
 	}
 

@@ -1,20 +1,15 @@
 package org.usfirst.frc.team1793.robot.system;
 
 public class DriveController extends Controller {
-
 	public DriveController(Drive drive) {
-		super(drive);
+		super(drive,2);
 	}
 	public void arcadeDrive(double move, double rotation) {
-		target = () -> { ((Drive)slave).arcadeDrive(move, rotation);};
-		run();
+		executor.execute(() -> ((Drive)slave).arcadeDrive(move,rotation));
+		
 	}
 	public void tankDrive(double leftY, double rightY) {
-		target = () -> ((Drive)slave).tankDrive(leftY, rightY);
-		run();
+		executor.execute(() -> ((Drive)slave).tankDrive(leftY, rightY));
 	}
-	@Override
-	public synchronized void start() {
-		super.start();
-	}
+	
 }
