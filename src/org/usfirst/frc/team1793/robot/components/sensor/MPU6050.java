@@ -5,12 +5,14 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
 
+import org.usfirst.frc.team1793.robot.system.ISystem;
+
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 @SuppressWarnings("unused")
-public class MPU6050  implements Gyro {
+public class MPU6050  implements Gyro, ISystem {
 	
 	private static final int RA_AUX_VDDIO = 0;
 	private static final int RA_YG_OFFS_TC = 1;
@@ -157,7 +159,7 @@ public class MPU6050  implements Gyro {
 		byte lsb = buffer.get(0);
 		byte msb = buffer.get(1);
 		double rate = ((msb << 8)| lsb);
-		return rate*MPU6050_250DPS;
+		return (rate-230)*MPU6050_250DPS;
 	}
 
 	@Override

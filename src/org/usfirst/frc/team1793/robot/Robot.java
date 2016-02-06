@@ -5,11 +5,11 @@ import org.usfirst.frc.team1793.robot.state.game.Disable;
 import org.usfirst.frc.team1793.robot.state.game.GameState;
 import org.usfirst.frc.team1793.robot.state.game.Teleop;
 import org.usfirst.frc.team1793.robot.state.senarios.Senario;
-import org.usfirst.frc.team1793.robot.system.Arm;
 import org.usfirst.frc.team1793.robot.system.ArmController;
-import org.usfirst.frc.team1793.robot.system.Drive;
 import org.usfirst.frc.team1793.robot.system.DriveController;
+import org.usfirst.frc.team1793.robot.system.ShooterController;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,15 +21,18 @@ public class Robot extends IterativeRobot {
 
 	public static DriveController drive;
 	public static ArmController arm;
-	private GameState state;
-	public static Joystick leftStick, rightStick;
+	public static ShooterController shooter;
 	
+	private GameState state;
+	public static Joystick leftStick, armStick;	
 	@Override
 	public void robotInit() {
-		leftStick = new Joystick(0);
-		rightStick = new Joystick(1);
-		drive = new DriveController(new Drive(new Victor(0), new Victor(1)));
-		arm = new ArmController(new Arm(new Victor(2)));
+//		leftStick = new Joystick(0);
+//		armStick = new Joystick(1);
+	
+//		drive = new DriveController(new Victor(0), new Victor(1));
+//		arm = new ArmController(new Victor(2));
+//		shooter = new ShooterController(new Victor(3), new Victor(4));
 	}
 
 	@Override
@@ -50,7 +53,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putString("main", Thread.currentThread().toString());
-		state.run();
+		AnalogInput irsensor = new AnalogInput(0);
+		SmartDashboard.putNumber("IR", irsensor.getVoltage());
+//		state.run();
 	}
 
 	@Override
@@ -62,6 +67,8 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		state.run();
 	}
+	
+	
 	public class SenarioButton extends JoystickButton {
 		Senario senario;
 		public SenarioButton(GenericHID joystick, int buttonNumber,Senario senario) {
