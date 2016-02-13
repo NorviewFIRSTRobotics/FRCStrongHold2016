@@ -5,7 +5,7 @@ import org.usfirst.frc.team1793.robot.state.game.Auto;
 import org.usfirst.frc.team1793.robot.state.game.Disable;
 import org.usfirst.frc.team1793.robot.state.game.GameState;
 import org.usfirst.frc.team1793.robot.state.game.Teleop;
-import org.usfirst.frc.team1793.robot.state.senarios.Senario;
+import org.usfirst.frc.team1793.robot.state.senarios.Scenario;
 import org.usfirst.frc.team1793.robot.system.ArmController;
 import org.usfirst.frc.team1793.robot.system.DriveController;
 import org.usfirst.frc.team1793.robot.system.ShooterController;
@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -54,10 +55,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putString("main", Thread.currentThread().toString());
-		AnalogInput irsensor = new AnalogInput(0);
-		SmartDashboard.putNumber("IR", irsensor.getVoltage());
-//		state.run();
+		state.run();
 	}
 
 	@Override
@@ -72,8 +70,8 @@ public class Robot extends IterativeRobot {
 	
 	
 	public class SenarioButton extends JoystickButton {
-		Senario senario;
-		public SenarioButton(GenericHID joystick, int buttonNumber,Senario senario) {
+		Scenario senario;
+		public SenarioButton(GenericHID joystick, int buttonNumber,Scenario senario) {
 			super(joystick, buttonNumber);
 			this.senario = senario; 
 		}

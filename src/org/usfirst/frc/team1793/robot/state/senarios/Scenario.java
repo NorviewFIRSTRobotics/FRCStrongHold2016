@@ -3,9 +3,9 @@ package org.usfirst.frc.team1793.robot.state.senarios;
 import org.usfirst.frc.team1793.robot.state.State;
 import org.usfirst.frc.team1793.robot.state.State.InvalidStateException;
 
-public class Senario extends State {
+public class Scenario extends State {
 	State currentState;
-	public Senario(State intial) {
+	public Scenario(State intial) {
 		currentState = intial;
 	}
 	@Override
