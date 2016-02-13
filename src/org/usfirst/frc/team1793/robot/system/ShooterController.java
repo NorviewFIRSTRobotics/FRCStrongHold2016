@@ -4,21 +4,21 @@ import edu.wpi.first.wpilibj.SpeedController;
 
 public class ShooterController extends Controller {
 	
-	public ShooterController(SpeedController front, SpeedController back) {
-		super(new Shooter(front, back), 2);
+	public ShooterController(SpeedController motor) {
+		super(new Shooter(motor), 2);
 	}
-	public void shoot(double frontSpeed, double backSpeed) {
-		executor.execute(() -> ((Shooter)slave).shoot(frontSpeed, backSpeed));
+	public void shoot(double motor) {
+		executor.execute(() -> ((Shooter)slave).shoot(motor));
 	}
 	public static class Shooter implements ISystem {
-		private SpeedController frontMotor, backMotor;
-		public Shooter(SpeedController front, SpeedController back) {
-			frontMotor = front;
-			backMotor = back;
+		private SpeedController motorMotor;
+		public Shooter(SpeedController motor) {
+			motorMotor = motor;
+			
 		}
-		public void shoot(double frontSpeed, double backSpeed) {
-			frontMotor.set(frontSpeed);
-			backMotor.set(backSpeed);
+		public void shoot(double motorSpeed) {
+			motorMotor.set(motorSpeed);
+			
 		}
 	}
 

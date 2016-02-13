@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1793.robot;
 
+import org.usfirst.frc.team1793.robot.components.SpeedControllerPair;
 import org.usfirst.frc.team1793.robot.state.game.Auto;
 import org.usfirst.frc.team1793.robot.state.game.Disable;
 import org.usfirst.frc.team1793.robot.state.game.GameState;
@@ -27,12 +28,13 @@ public class Robot extends IterativeRobot {
 	public static Joystick leftStick, armStick;	
 	@Override
 	public void robotInit() {
-//		leftStick = new Joystick(0);
-//		armStick = new Joystick(1);
-	
-//		drive = new DriveController(new Victor(0), new Victor(1));
-//		arm = new ArmController(new Victor(2));
-//		shooter = new ShooterController(new Victor(3), new Victor(4));
+		leftStick = new Joystick(0);
+		armStick = new Joystick(1);
+		SpeedControllerPair leftPair = new SpeedControllerPair(new Victor(0), new Victor(1));
+		SpeedControllerPair rightPair = new SpeedControllerPair(new Victor(2), new Victor(3));
+		drive = new DriveController(leftPair,rightPair);
+		arm = new ArmController(new Victor(4));
+		shooter = new ShooterController(new Victor(5));
 	}
 
 	@Override
