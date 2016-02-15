@@ -4,10 +4,11 @@ public abstract class State implements Runnable {
 	protected State next;
 	public abstract State next() throws InvalidStateException;
 	
-	public void setNext(State next) {
+	public State setNext(State next) {
 		this.next = next;
+		return this;
 	}
-
+	
 	public class InvalidStateException extends Exception {
 		private static final long serialVersionUID = 1L;
 		@Override

@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1793.robot;
 
+import static org.usfirst.frc.team1793.robot.Constants.BREACH;
+import static org.usfirst.frc.team1793.robot.Constants.FARENOUGH;
+import static org.usfirst.frc.team1793.robot.Constants.STRAIGHTENOUGH;
 import static org.usfirst.frc.team1793.robot.Sensors.back;
 import static org.usfirst.frc.team1793.robot.Sensors.front;
 import static org.usfirst.frc.team1793.robot.Sensors.leftBack;
@@ -7,18 +10,10 @@ import static org.usfirst.frc.team1793.robot.Sensors.leftFront;
 import static org.usfirst.frc.team1793.robot.Sensors.rightBack;
 import static org.usfirst.frc.team1793.robot.Sensors.rightFront;
 
+import org.usfirst.frc.team1793.robot.Constants.Progress;
+
 public class Position {
-	public enum Progress {
-		JUSTFRONT,
-		ALL,
-		JUSTBACK,
-		NONE;
-	}
-	//TODO convert to inches
-	private static final double FARENOUGH = 10;
-	private static final double STRAIGHTENOUGH = 25;
-	private static final double BREACH = 25;
-	
+
 	public static boolean straight;
 	public static boolean frontObstructed,backObstructed;
 	public static Progress breaching;

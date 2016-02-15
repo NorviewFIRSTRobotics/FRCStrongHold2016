@@ -2,9 +2,7 @@ package org.usfirst.frc.team1793.robot;
 
 import edu.wpi.first.wpilibj.Ultrasonic;
 
-public class Sensors {
-	//TODO NUMBERS
-	
+public class Sensors {	
 	public static Ultrasonic leftFront = new Ultrasonic(0,0);
 	public static Ultrasonic rightFront = new Ultrasonic(0,0);
 	public static Ultrasonic leftBack = new Ultrasonic(0,0);

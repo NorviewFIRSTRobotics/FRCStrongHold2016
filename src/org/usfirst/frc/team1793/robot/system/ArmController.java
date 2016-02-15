@@ -3,14 +3,15 @@ package org.usfirst.frc.team1793.robot.system;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class ArmController extends Controller {
-
+	Arm arm;
 	public ArmController(SpeedController motor) {
-		super(new Arm(motor), 2);
+		super(2);
+		arm = new Arm(motor);
 	}
 	public void lift(double speed) {
-		executor.execute( () -> ((Arm)slave).lift(speed));
+		executor.execute( () -> arm.lift(speed));
 	}
-	public static class Arm implements ISystem{
+	private static class Arm {
 		SpeedController motor;
 		public Arm(SpeedController motor) {
 			this.motor = motor;
