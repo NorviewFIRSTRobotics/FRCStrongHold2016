@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Teleop extends GameState {
-	JoystickButton test = new JoystickButton(Robot.leftStick, 2);
+	JoystickButton test = new JoystickButton(Robot.driveStick, 2);
 	boolean started = false;
 	Align align = (Align) new Align(Axis.SOUTH).setNext(null);
 	State state = null;
 	public void run() {
-		Robot.drive.arcadeDrive(Robot.leftStick.getY(), -Robot.leftStick.getZ());
+		Robot.drive.arcadeDrive(Robot.driveStick.getY(), -Robot.driveStick.getZ());
 
 		// TODO slow down arm
 		Robot.arm.lift(Robot.armStick.getY());

@@ -26,5 +26,5 @@ public class Constants {
 	public static final double TURN_SPEED = 0.75d;
 	public static final double TURN_THRESHOLD = 5d;
 	public static final double DRIVE_SPEED = 0.1d;
-	
+	public static final int GYRO_PID = 0, RE_PID = 1; 
 }
