@@ -10,7 +10,7 @@ public class Constants {
 	public enum Axis {
 		NORTH(0),
 		EAST(90),
-		SOUTH(-90),
+		SOUTH(270),
 		WEST(180);
 		public int degree;
 		Axis(int degree) {
@@ -23,7 +23,7 @@ public class Constants {
 	public static final double STRAIGHTENOUGH = 2.5;
 	public static final double BREACH = 25;
 	
-	public static final double TURN_SPEED = 0.1d;
+	public static final double TURN_SPEED = 0.75d;
 	public static final double TURN_THRESHOLD = 5d;
 	public static final double DRIVE_SPEED = 0.1d;
 	

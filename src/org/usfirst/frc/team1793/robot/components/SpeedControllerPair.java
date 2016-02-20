@@ -1,18 +1,17 @@
 package org.usfirst.frc.team1793.robot.components;
 
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Victor;
 
 public class SpeedControllerPair implements SpeedController {
 	public SpeedController left,right;
 	public SpeedControllerPair(SpeedController left, SpeedController right) {
 		this.right = right;
 		this.left = left;
+//		right.setInverted(true);
 	}
 	@Override
 	public void pidWrite(double output) {
 		left.pidWrite(output);
-		right.pidWrite(output);
 	}
 	@Override
 	public double get() {

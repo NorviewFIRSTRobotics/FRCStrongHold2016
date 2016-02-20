@@ -1,25 +1,28 @@
 package org.usfirst.frc.team1793.robot.state.drive;
 
-import java.util.concurrent.ExecutionException;
-
 import org.usfirst.frc.team1793.robot.Constants.Axis;
 import org.usfirst.frc.team1793.robot.Robot;
 import org.usfirst.frc.team1793.robot.state.State;
+import org.usfirst.frc.team1793.robot.system.DriveController;
 
 public class Align extends State {
 
 	public Axis axis;
+
 	public Align(Axis axis) {
 		this.axis = axis;
 	}
+	
 	@Override
 	public void run() {
-		double angle = axis.degree;
-		try {
-			if(Robot.drive.turn(angle).get())
+		if(!DriveController.turnFinished) {
+			Robot.drive.turn(axis.degree);
+		} else {
+			try {
 				next();
-		} catch (InterruptedException | ExecutionException | InvalidStateException e) {
-			e.printStackTrace();
+			} catch (InvalidStateException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
