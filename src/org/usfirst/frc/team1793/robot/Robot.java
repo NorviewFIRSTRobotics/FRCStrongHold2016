@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	public static int motorChannel = 0;
@@ -36,36 +37,38 @@ public class Robot extends IterativeRobot {
 		SpeedControllerPair rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
 		rightPair.setInverted(true);
 		drive = new DriveController(leftPair,rightPair);
-		arm = new ArmController(new Victor(nextChannel()));
 		shooter = new ShooterController(new Victor(nextChannel()));
+		arm = new ArmController(new Victor(nextChannel()));
 	}
 	Thread runThread;
 
 	@Override
 	public void autonomousInit() {
 		state = new Auto();
-		runThread = new Thread( () -> state.run() );
+//		runThread = new Thread( () -> state.run() );
 	}
 
 	@Override
 	public void autonomousPeriodic() {
-		if(state != null) {
-			runThread.start();
-		}
-		state= null;
+//		if(state != null) {
+//			runThread.start();
+//		}
+//		state= null;
 	}
 	
 	@Override
 	public void teleopInit() {
-		state = new Teleop();
+//		state = new Teleop();
+		
 	}
 	@Override
 	public void teleopPeriodic() {
-		state.run();
-		JoystickButton button = new JoystickButton(armStick, 2);
-		if(button.get()){
-			Sensors.test();
-		}
+//		state.run();
+
+//		JoystickButton button = new JoystickButton(armStick, 2);
+//		if(button.get()){
+//			Sensors.test();
+//		}
 	}
 
 	@Override

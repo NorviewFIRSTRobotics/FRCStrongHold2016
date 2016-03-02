@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1793.robot.state.senarios;
 
 import org.usfirst.frc.team1793.robot.state.State;
-import org.usfirst.frc.team1793.robot.state.State.InvalidStateException;
 
 public class Scenario extends State {
 	State currentState;
@@ -14,7 +13,7 @@ public class Scenario extends State {
 	}
 
 	@Override
-	public State next() throws InvalidStateException {
+	public State next() {
 		return currentState = currentState.next();
 	}
 

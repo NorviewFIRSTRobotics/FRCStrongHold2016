@@ -28,7 +28,7 @@ public class PeriodDrive extends State {
 	}
 
 	@Override
-	public State next() throws InvalidStateException {
+	public State next() {
 		return null;
 	}
 

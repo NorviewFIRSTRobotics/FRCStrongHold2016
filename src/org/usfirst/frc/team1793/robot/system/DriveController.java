@@ -4,44 +4,41 @@ import static org.usfirst.frc.team1793.robot.Constants.TURN_SPEED;
 import static org.usfirst.frc.team1793.robot.Constants.TURN_THRESHOLD;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
+import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.Robot;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveController extends Controller {
-	Drive drive;
+	private Drive drive;
 	public static volatile boolean turnFinished;
 
 	public DriveController(SpeedController leftMotor, SpeedController rightMotor) {
-		super(2);
+		super(4);
 		drive = new Drive(leftMotor, rightMotor);
 	}
-
-	public void arcadeDrive(double move, double rotation) {
-		executor.execute(() -> drive.arcadeDrive(move, rotation));
+	public void arcadeDrive(double speed, double rotation) {
+		executor.execute(() -> drive.arcadeDrive(speed,rotation));
 	}
-
-	public void tankDrive(double leftY, double rightY) {
-		executor.execute(() -> drive.tankDrive(leftY, rightY));
-	}
-
 	public void drive(double speed) {
-		executor.execute(() -> drive.drive(speed));
+		executor.execute(() -> drive.drive(Constants.DRIVE_SPEED*speed));
 	}
-
+	
 	public void turn(double angle) {
-
 		executor.execute(() -> {
 			turnFinished = drive.turn(angle);
 		});
 
-	}
-
-	public static class Drive extends RobotDrive {
+	}	
+	public void turnSpeed(double speed) {
+		executor.execute(() -> {
+			drive.turn(speed);
+		});
+	}	
+	
+	public static class Drive extends RobotDrive { 
 		public enum Turn {
 			LEFT, RIGHT, DONE
 		}
@@ -50,19 +47,17 @@ public class DriveController extends Controller {
 			super(leftMotor, rightMotor);
 			leftMotor.setInverted(true);
 		}
-
+	
 		@Override
 		public void arcadeDrive(double moveValue, double rotateValue) {
-			super.arcadeDrive(moveValue, rotateValue);
-		}
-
-		@Override
-		public void tankDrive(double leftValue, double rightValue) {
-			super.tankDrive(leftValue, rightValue);
+			super.arcadeDrive(moveValue,-rotateValue);
 		}
 
 		public void drive(double speed) {
 			setLeftRightMotorOutputs(speed, speed);
+		}
+		public void turn(float speed) {
+			setLeftRightMotorOutputs(speed,-speed);
 		}
 
 		public boolean turn(double angle) {
@@ -71,10 +66,10 @@ public class DriveController extends Controller {
 			case DONE:
 				return true;
 			case LEFT:
-				setLeftRightMotorOutputs(-TURN_SPEED, TURN_SPEED);
+				turn(-TURN_SPEED);
 				return false;
 			case RIGHT:
-				setLeftRightMotorOutputs(TURN_SPEED, -TURN_SPEED);
+				turn(TURN_SPEED);
 				return false;
 			default:
 				return false;
@@ -106,20 +101,7 @@ public class DriveController extends Controller {
 
 		}
 
-		public boolean turn(double currentangle, double endangle) throws InterruptedException, ExecutionException {
-			return false;
-			// SmartDashboard.putNumber("current angle", currentangle);
-			// SmartDashboard.putNumber("end angle", endangle);
-			// double leftDir = currentangle > 0 ? -1 : 1;
-			// double rightDir = currentangle > 0 ? 1 : -1;
-			// if (Math.abs(currentangle - endangle) > TURN_THRESHOLD) {
-			// setLeftRightMotorOutputs(leftDir * TURN_SPEED, rightDir *
-			// TURN_SPEED);
-			// return turn(Robot.gyro.getAngle(), endangle);
-			// } else {
-			// return true;
-			// }
-		}
+
 
 	}
 

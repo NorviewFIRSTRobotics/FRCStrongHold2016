@@ -17,14 +17,13 @@ public class GameState extends State {
 			try {
 				Thread.currentThread().join();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
 	@Override
-	public State next() throws InvalidStateException {
+	public State next() {
 		return null;
 	}
 	

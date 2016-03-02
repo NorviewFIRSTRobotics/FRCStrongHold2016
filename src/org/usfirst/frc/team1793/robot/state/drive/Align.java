@@ -18,16 +18,14 @@ public class Align extends State {
 		if(!DriveController.turnFinished) {
 			Robot.drive.turn(axis.degree);
 		} else {
-			try {
+			
 				next();
-			} catch (InvalidStateException e) {
-				e.printStackTrace();
-			}
+			
 		}
 	}
 
 	@Override
-	public State next() throws InvalidStateException {
+	public State next() {
 		return next;
 	}
 
