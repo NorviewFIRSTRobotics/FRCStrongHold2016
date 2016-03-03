@@ -3,8 +3,6 @@ package org.usfirst.frc.team1793.robot.system;
 import static org.usfirst.frc.team1793.robot.Constants.TURN_SPEED;
 import static org.usfirst.frc.team1793.robot.Constants.TURN_THRESHOLD;
 
-import java.util.concurrent.ExecutionException;
-
 import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.Robot;
 
@@ -76,7 +74,7 @@ public class DriveController extends Controller {
 			}
 		}
 
-		public Turn angleThreshold(double angle) {
+		public static Turn angleThreshold(double angle) {
 			double diff = angle - Robot.gyro.getAngle();
 			boolean currentBigger = Robot.gyro.getAngle() > angle;
 			if (Math.abs(diff) <= TURN_THRESHOLD) {
