@@ -3,7 +3,7 @@ package org.usfirst.frc.team1793.robot.components;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class SpeedControllerPair implements SpeedController {
-	public SpeedController left,right;
+	private SpeedController left,right;
 	public SpeedControllerPair(SpeedController left, SpeedController right) {
 		this.right = right;
 		this.left = left;
@@ -12,6 +12,7 @@ public class SpeedControllerPair implements SpeedController {
 	@Override
 	public void pidWrite(double output) {
 		left.pidWrite(output);
+		right.pidWrite(output);
 	}
 	@Override
 	public double get() {
@@ -41,6 +42,9 @@ public class SpeedControllerPair implements SpeedController {
 		left.disable();
 		right.disable();
 	}
+	
+	@Override
+	public void stopMotor() {}
 	
 	
 	
