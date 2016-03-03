@@ -1,9 +1,10 @@
 package org.usfirst.frc.team1793.robot;
 
+import org.usfirst.frc.team1793.robot.activities.Activity;
+import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
+import org.usfirst.frc.team1793.robot.activities.Idle;
+import org.usfirst.frc.team1793.robot.activities.ManualDrive;
 import org.usfirst.frc.team1793.robot.components.SpeedControllerPair;
-import org.usfirst.frc.team1793.robot.state.Auto;
-import org.usfirst.frc.team1793.robot.state.GameState;
-import org.usfirst.frc.team1793.robot.state.Teleop;
 import org.usfirst.frc.team1793.robot.system.ArmController;
 import org.usfirst.frc.team1793.robot.system.DriveController;
 import org.usfirst.frc.team1793.robot.system.ShooterController;
@@ -13,26 +14,24 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeRobot implements IRobotActivity {
 	public static int motorChannel = 0;
-	public static DriveController drive;
-	public static ArmController arm;
-	public static ShooterController shooter;
-	public static AnalogGyro gyro;	
-	public static Joystick driveStick, armStick;
+	public DriveController drive;
+	public ArmController arm;
+	public ShooterController shooter;
+	public AnalogGyro gyro;	
+	public Joystick driveStick, armStick;
 	
-	public static GameState state;
+	public Activity currentActivity;
 	
-	public static final Robot INSTANCE = new Robot();
+	private static Robot instance = new Robot();
 	
 	@Override
 	public void robotInit() {
 		driveStick = new Joystick(0);
 		armStick = new Joystick(1);
-		gyro = new AnalogGyro(0);
+		gyro = new AnalogGyro(Constants.GYRO_PID);
 		SpeedControllerPair leftPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
 		SpeedControllerPair rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
 		rightPair.setInverted(true);
@@ -40,40 +39,33 @@ public class Robot extends IterativeRobot {
 		shooter = new ShooterController(new Victor(nextChannel()));
 		arm = new ArmController(new Victor(nextChannel()));
 	}
-	Thread runThread;
+
 
 	@Override
 	public void autonomousInit() {
-		state = new Auto();
-//		runThread = new Thread( () -> state.run() );
+		instance.setActivity(getDefaultActivity());
 	}
 
 	@Override
 	public void autonomousPeriodic() {
-//		if(state != null) {
-//			runThread.start();
-//		}
-//		state= null;
+		instance.currentActivity.update();
 	}
 	
 	@Override
 	public void teleopInit() {
-//		state = new Teleop();
+		instance.setActivity(getDefaultActivity());
 		
 	}
 	@Override
 	public void teleopPeriodic() {
-//		state.run();
-
-//		JoystickButton button = new JoystickButton(armStick, 2);
-//		if(button.get()){
-//			Sensors.test();
-//		}
+		instance.currentActivity.update();
+		
+		//TODO possible event handler for setting a new activity to run in ManualDrive
 	}
 
 	@Override
 	public void disabledInit() {
-	
+		instance.setActivity(getDefaultActivity());
 	}
 
 	@Override
@@ -87,4 +79,37 @@ public class Robot extends IterativeRobot {
 		System.out.println(pid);
 		return pid;
 	}
+
+
+	@Override
+	public Activity getDetectDefenseActivity() {
+		return null;
+	}
+
+	@Override
+	public Activity getBreachLowBarActivity() {
+		return null;
+	}
+	
+	@Override
+	public Activity getDefaultActivity() {
+		if(isAutonomous()) {
+			return getDetectDefenseActivity();
+		} else if(isOperatorControl()) {
+			return new ManualDrive(instance); 
+		} else {
+			return new Idle(instance);
+		}
+	}
+	
+	@Override
+	public void setActivity(Activity activity) {
+		this.currentActivity = activity;
+	}
+
+
+	public static Robot getInstance() {
+		return instance;
+	}
+
 }

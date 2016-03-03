@@ -2,12 +2,20 @@ package org.usfirst.frc.team1793.robot.activities;
 
 public class Turn extends Activity {
 	
-	public Turn() {
-		
+	
+
+	public Turn(IRobotActivity robot) {
+		super(robot);
 	}
+
 	@Override
-	public void run() {
-		
-	}
+	public void initialize() {}
+
+	@Override
+	public void update() {}
+
+	@Override
+	public void cancel() {}
+
 
 }

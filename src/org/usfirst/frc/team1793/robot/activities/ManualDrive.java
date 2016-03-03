@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1793.robot.activities;
 
-public class DepositBoulder extends Activity {
+public class ManualDrive extends Activity {
 
-	public DepositBoulder(IRobotActivity robot) {
+	public ManualDrive(IRobotActivity robot) {
 		super(robot);
 	}
 
@@ -14,6 +14,5 @@ public class DepositBoulder extends Activity {
 
 	@Override
 	public void cancel() {}
-
 
 }

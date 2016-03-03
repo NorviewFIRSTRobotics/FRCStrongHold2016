@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1793.robot.activities;
 
-public class DepositBoulder extends Activity {
+public class Idle extends Activity{
 
-	public DepositBoulder(IRobotActivity robot) {
+	public Idle(IRobotActivity robot) {
 		super(robot);
 	}
 
@@ -10,10 +10,12 @@ public class DepositBoulder extends Activity {
 	public void initialize() {}
 
 	@Override
-	public void update() {}
+	public void update() {
+		
+		
+	}
 
 	@Override
 	public void cancel() {}
-
 
 }

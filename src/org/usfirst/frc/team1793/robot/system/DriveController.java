@@ -77,8 +77,8 @@ public class DriveController extends Controller {
 	}
 
 	public static Turn angleThreshold(double angle) {
-		double diff = angle - Robot.gyro.getAngle();
-		boolean currentBigger = Robot.gyro.getAngle() > angle;
+		double diff = angle - Robot.getInstance().gyro.getAngle();
+		boolean currentBigger = Robot.getInstance().gyro.getAngle() > angle;
 		if (Math.abs(diff) <= TURN_THRESHOLD) {
 			return Turn.DONE;
 		} else {

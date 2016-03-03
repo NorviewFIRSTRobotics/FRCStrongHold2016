@@ -1,11 +1,22 @@
 package org.usfirst.frc.team1793.robot.activities.breach;
 
-public class BreachSimpleDefense extends Breach {
-	public BreachSimpleDefense() {}
+import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
 
-	@Override
-	public void run() {
-		//TODO drive forward until clear		
+public class BreachSimpleDefense extends Breach {
+	
+	public BreachSimpleDefense(IRobotActivity robot) {
+		super(robot);
 	}
 
+	//TODO drive forward until clear		
+
+	@Override
+	public void initialize() {}
+
+	@Override
+	public void update() {}
+
+	@Override
+	public void cancel() {}
+	
 }
