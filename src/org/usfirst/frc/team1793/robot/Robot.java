@@ -97,7 +97,7 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 
 	@Override
 	public void disabledPeriodic() {
-		
+		//No need to update, nothing is happening
 	}
 
 	public static int nextChannel() {
@@ -131,6 +131,7 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 	@Override
 	public void setActivity(Activity activity) {
 		this.currentActivity = activity;
+		this.currentActivity.initialize();
 	}
 
 }
