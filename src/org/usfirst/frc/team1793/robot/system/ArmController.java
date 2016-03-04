@@ -30,18 +30,20 @@ public class ArmController extends Controller {
 
 		});
 	}
-	
+
 	public void setArmPosition(double angle) {
 		executor.execute(() -> {
-			boolean finished = Math.abs(angle-getAngle()) <= Constants.ARM_THRESHOLD;
-			//TODO check which way is which and document it!!!! try to make -1 mean towards the store position!
-			int direction = getAngle() > angle ? -1: 1;
-		
-			while(!finished) {
-				motor.set(Constants.ARM_SPEED*direction);
+			boolean finished = Math.abs(angle - getAngle()) <= Constants.ARM_THRESHOLD;
+			// TODO check which way is which and document it!!!! try to make -1
+			// mean towards the store position!
+			int direction = getAngle() > angle ? -1 : 1;
+
+			while (!finished) {
+				motor.set(Constants.ARM_SPEED * direction);
 			}
 		});
 	}
+
 	public double getAngle() {
 		return rotaryEncoder.getVoltage() - OFFSET;
 	}

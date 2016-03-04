@@ -17,5 +17,4 @@ public class BreachCheval extends Breach {
 	@Override
 	public void cancel() {}
 
-
 }

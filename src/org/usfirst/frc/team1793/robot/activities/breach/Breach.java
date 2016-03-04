@@ -9,13 +9,7 @@ public abstract class Breach extends Activity {
 	}
 
 	public static enum BreachType {
-		Lowbar,
-		SimpleDefense,
-		Portcullis,
-		ChevalDeFries,
-		None;
+		Lowbar, SimpleDefense, Portcullis, ChevalDeFries, None;
 	}
 
-
-	
 }

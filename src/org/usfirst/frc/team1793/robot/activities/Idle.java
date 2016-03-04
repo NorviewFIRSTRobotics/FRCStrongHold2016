@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1793.robot.activities;
 
-public class Idle extends Activity{
+public class Idle extends Activity {
 
 	public Idle(IRobotActivity robot) {
 		super(robot);
@@ -11,8 +11,7 @@ public class Idle extends Activity{
 
 	@Override
 	public void update() {
-		
-		
+
 	}
 
 	@Override

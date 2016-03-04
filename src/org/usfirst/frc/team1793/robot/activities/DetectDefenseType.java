@@ -4,16 +4,14 @@ import org.usfirst.frc.team1793.robot.activities.breach.Breach.BreachType;
 
 public class DetectDefenseType extends Activity {
 
-	
 	public DetectDefenseType(IRobotActivity robot) {
 		super(robot);
 	}
 
 	public static BreachType detectBreachType() {
-	
-		//TODO implement breach detection
-		
-		
+
+		// TODO implement breach detection
+
 		return BreachType.None;
 	}
 

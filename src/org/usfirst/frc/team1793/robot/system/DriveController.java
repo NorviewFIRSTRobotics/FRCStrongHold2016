@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 
 public class DriveController extends Controller {
 	public static volatile boolean turnFinished;
+
 	public static enum Turn {
 		LEFT, RIGHT, DONE
 	}

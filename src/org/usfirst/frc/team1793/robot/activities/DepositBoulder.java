@@ -15,5 +15,4 @@ public class DepositBoulder extends Activity {
 	@Override
 	public void cancel() {}
 
-
 }

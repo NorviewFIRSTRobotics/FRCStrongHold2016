@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1793.robot.activities;
 
 public class Turn extends Activity {
-	
-	
 
 	public Turn(IRobotActivity robot) {
 		super(robot);
@@ -16,6 +14,5 @@ public class Turn extends Activity {
 
 	@Override
 	public void cancel() {}
-
 
 }

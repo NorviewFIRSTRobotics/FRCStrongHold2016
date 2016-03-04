@@ -22,12 +22,12 @@ public class ShooterController extends Controller {
 		executor.execute(() -> {
 			Timer timer = new Timer();
 			timer.start();
-			
-			//Throw ball
+
+			// Throw ball
 			while (timer.get() < .25) {
 				motor.set(speed);
 			}
-			//Return to store position 
+			// Return to store position
 			while (!inStorePosition()) {
 				motor.set(speed / 4);
 			}

@@ -17,6 +17,4 @@ public class BreachLowbar extends Breach {
 	@Override
 	public void cancel() {}
 
-
-
 }

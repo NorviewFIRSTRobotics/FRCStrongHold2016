@@ -17,9 +17,6 @@ public class BreachPortcullis extends Breach {
 	@Override
 	public void cancel() {}
 
-		//TODO arm to lift, drive forward until clear, retract arm
-
-	
-	
+	// TODO arm to lift, drive forward until clear, retract arm
 
 }
