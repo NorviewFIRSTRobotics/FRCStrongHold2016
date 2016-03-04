@@ -1,15 +1,12 @@
 package org.usfirst.frc.team1793.robot;
 
 import org.usfirst.frc.team1793.robot.activities.Activity;
-import org.usfirst.frc.team1793.robot.activities.Autonomy;
 import org.usfirst.frc.team1793.robot.activities.DetectDefenseType;
 import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
-import org.usfirst.frc.team1793.robot.activities.Idle;
-import org.usfirst.frc.team1793.robot.activities.ManualDrive;
+import org.usfirst.frc.team1793.robot.activities.defaults.Autonomy;
+import org.usfirst.frc.team1793.robot.activities.defaults.Idle;
+import org.usfirst.frc.team1793.robot.activities.defaults.ManualDrive;
 import org.usfirst.frc.team1793.robot.components.SpeedControllerPair;
-import org.usfirst.frc.team1793.robot.state.Auto;
-import org.usfirst.frc.team1793.robot.state.GameState;
-import org.usfirst.frc.team1793.robot.state.Teleop;
 import org.usfirst.frc.team1793.robot.system.ArmController;
 import org.usfirst.frc.team1793.robot.system.DriveController;
 import org.usfirst.frc.team1793.robot.system.ShooterController;
@@ -32,14 +29,11 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 	public Joystick driveStick, armStick;
 
 	public Activity currentActivity;
-
+	
 	private ManualDrive _manualDrive;
 	private Idle _idle;
 	private DetectDefenseType _detectDefenseType;
 	private Autonomy _autonomy;
-	
-	public GameState state;
-	
 	
 	@Override
 	public void robotInit() {
@@ -70,29 +64,35 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 
 	@Override
 	public void autonomousInit() {
-		state = new Auto(this);
-
+		setActivity(getDefaultActivity());
 	}
 
 	@Override
 	public void autonomousPeriodic() {
-		state.run();
+		if(!currentActivity.isComplete()) {
+			currentActivity.update();
+		} else {
+			//????
+		}
 	}
 
 	@Override
 	public void teleopInit() {
-		state = new Teleop(this);
-
+		
 	}
 
 	@Override
 	public void teleopPeriodic() {
-		state.run();
+		if(!currentActivity.isComplete()) {
+			currentActivity.update();
+		} else {
+			//????
+		}
 	}
 
 	@Override
 	public void disabledInit() {
-		setActivity(getDefaultActivity());
+		currentActivity.cancel();
 	}
 
 	@Override
@@ -107,14 +107,9 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 		return pid;
 	}
 
-	@Override
+
 	public Activity getDetectDefenseActivity() {
 		return _detectDefenseType;
-	}
-
-	@Override
-	public Activity getBreachLowBarActivity() {
-		return null;
 	}
 
 	@Override
@@ -133,5 +128,6 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 		this.currentActivity = activity;
 		this.currentActivity.initialize();
 	}
+
 
 }

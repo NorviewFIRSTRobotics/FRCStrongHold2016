@@ -1,11 +1,12 @@
 package org.usfirst.frc.team1793.robot.activities;
 
-public abstract class Activity {
-	protected IRobotActivity robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+public abstract class Activity  {
+	protected IRobotActivity robot;
+	protected boolean isComplete;
 	public Activity(IRobotActivity robot) {
 		this.robot = robot;
-
 	}
 
 	// called when an activity is selected as the current activity
@@ -17,5 +18,13 @@ public abstract class Activity {
 
 	// this would allow us to cancel an activity at any time (e.g. when
 	// switching to disabled mode)
-	public abstract void cancel();
+	public void cancel() {
+		robot.setActivity(robot.getDefaultActivity());
+	}
+
+	public boolean isComplete() {
+		if(isComplete)
+			SmartDashboard.putString("Current Activity", this.getClass().getSimpleName()+":completed");
+		return isComplete;
+	}
 }

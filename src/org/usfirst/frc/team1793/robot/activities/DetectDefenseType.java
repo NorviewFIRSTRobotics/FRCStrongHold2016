@@ -21,6 +21,6 @@ public class DetectDefenseType extends Activity {
 	@Override
 	public void update() {}
 
-	@Override
-	public void cancel() {}
+
+
 }

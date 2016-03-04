@@ -1,10 +1,15 @@
 package org.usfirst.frc.team1793.robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 
 public class Sensors {
-
+	public static Ultrasonic leftFront;
+	public static Ultrasonic rightFront;
+	public static Ultrasonic leftBack;
+	public static Ultrasonic rightBack;
+	public static Ultrasonic front;
+	public static Ultrasonic back;
+	
 	public static double getDistance(Ultrasonic sensor) {
 		return sensor.getRangeInches();
 	}
@@ -16,7 +21,7 @@ public class Sensors {
 	public static double getDelta(Ultrasonic left, Ultrasonic right) {
 		return getDistance(left) - getDistance(right);
 	}
-
+/*
 	public static void test() {
 		Ultrasonic u1;
 		double start = Timer.getMatchTime(), end;
@@ -29,6 +34,6 @@ public class Sensors {
 		}
 		end = Timer.getMatchTime();
 		System.out.println(String.format("start:%d, end:%d, diff:%d", start, end, (end - start)));
-	}
+	}*/
 
 }
