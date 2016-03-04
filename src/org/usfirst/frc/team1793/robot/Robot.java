@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1793.robot;
 
 import org.usfirst.frc.team1793.robot.activities.Activity;
+import org.usfirst.frc.team1793.robot.activities.Autonomy;
 import org.usfirst.frc.team1793.robot.activities.DetectDefenseType;
 import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
 import org.usfirst.frc.team1793.robot.activities.Idle;
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 	private ManualDrive _manualDrive;
 	private Idle _idle;
 	private DetectDefenseType _detectDefenseType;
+	private Autonomy _autonomy;
 	
 	public GameState state;
 	
@@ -45,7 +47,7 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 		_manualDrive = new ManualDrive(this);
 		_idle = new Idle(this);
 		_detectDefenseType = new DetectDefenseType(this);
-		
+		_autonomy = new Autonomy(this);
 		driveStick = new EJoystick(0);
 		armStick = new EJoystick(1);
 		gyro = new AnalogGyro(Constants.GYRO_PID);
@@ -95,7 +97,7 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 
 	@Override
 	public void disabledPeriodic() {
-
+		
 	}
 
 	public static int nextChannel() {
@@ -118,7 +120,7 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 	@Override
 	public Activity getDefaultActivity() {
 		if (isAutonomous()) {
-			return getDetectDefenseActivity();
+			return _autonomy;
 		} else if (isOperatorControl()) {
 			return _manualDrive;
 		} else {
