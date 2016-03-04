@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1793.robot.system;
 
+import org.usfirst.frc.team1793.robot.Robot;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
@@ -9,8 +11,8 @@ public class ShooterController extends Controller {
 	private boolean running;
 	private DigitalInput limitSwitch = new DigitalInput(9);
 
-	public ShooterController(SpeedController motor) {
-		super(1);
+	public ShooterController(SpeedController motor,Robot robot) {
+		super(1,robot);
 		this.motor = motor;
 	}
 

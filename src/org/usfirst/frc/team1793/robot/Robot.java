@@ -1,11 +1,14 @@
 package org.usfirst.frc.team1793.robot;
 
-import org.usfirst.frc.team1793.robot.ButtonHandler.PressEvent;
 import org.usfirst.frc.team1793.robot.activities.Activity;
+import org.usfirst.frc.team1793.robot.activities.DetectDefenseType;
 import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
 import org.usfirst.frc.team1793.robot.activities.Idle;
 import org.usfirst.frc.team1793.robot.activities.ManualDrive;
 import org.usfirst.frc.team1793.robot.components.SpeedControllerPair;
+import org.usfirst.frc.team1793.robot.state.Auto;
+import org.usfirst.frc.team1793.robot.state.GameState;
+import org.usfirst.frc.team1793.robot.state.Teleop;
 import org.usfirst.frc.team1793.robot.system.ArmController;
 import org.usfirst.frc.team1793.robot.system.DriveController;
 import org.usfirst.frc.team1793.robot.system.ShooterController;
@@ -20,7 +23,7 @@ import edu.wpi.first.wpilibj.Victor;
 public class Robot extends IterativeRobot implements IRobotActivity {
 	public static int motorChannel = 0;
 	public final boolean TEST_BOARD = false;
-	
+
 	public DriveController drive;
 	public ArmController arm;
 	public ShooterController shooter;
@@ -29,56 +32,65 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 
 	public Activity currentActivity;
 
-	private static Robot instance = new Robot();
-
+	private ManualDrive _manualDrive;
+	private Idle _idle;
+	private DetectDefenseType _detectDefenseType;
+	
+	public GameState state;
+	
+	
 	@Override
 	public void robotInit() {
+		
+		_manualDrive = new ManualDrive(this);
+		_idle = new Idle(this);
+		_detectDefenseType = new DetectDefenseType(this);
+		
 		driveStick = new EJoystick(0);
 		armStick = new EJoystick(1);
 		gyro = new AnalogGyro(Constants.GYRO_PID);
+		
 		SpeedControllerPair leftPair;
 		SpeedControllerPair rightPair;
 		if (TEST_BOARD) {
 			leftPair = new SpeedControllerPair(new Jaguar(nextChannel()), new Jaguar(nextChannel()));
-			rightPair = new SpeedControllerPair(new Jaguar(nextChannel()), new Jaguar(nextChannel()));	
+			rightPair = new SpeedControllerPair(new Jaguar(nextChannel()), new Jaguar(nextChannel()));
 		} else {
 			leftPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
-			rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));			
+			rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
 		}
 		rightPair.setInverted(true);
-		drive = new DriveController(leftPair, rightPair);
-		shooter = new ShooterController(new Victor(nextChannel()));
-		arm = new ArmController(new Victor(nextChannel()));
+		drive = new DriveController(leftPair, rightPair,this);
+		shooter = new ShooterController(new Victor(nextChannel()),this);
+		arm = new ArmController(new Victor(nextChannel()),this);
+
 	}
 
 	@Override
 	public void autonomousInit() {
-		instance.setActivity(getDefaultActivity());
+		state = new Auto(this);
+
 	}
 
 	@Override
 	public void autonomousPeriodic() {
-		instance.currentActivity.update();
+		state.run();
 	}
 
 	@Override
 	public void teleopInit() {
-		instance.setActivity(getDefaultActivity());
-		
+		state = new Teleop(this);
+
 	}
 
 	@Override
 	public void teleopPeriodic() {
-		
-		instance.currentActivity.update();
-		// TODO possible event handler for setting a new activity to run in
-		// ManualDrive
-		PressEvent event = ButtonHandler.listen();
+		state.run();
 	}
 
 	@Override
 	public void disabledInit() {
-		instance.setActivity(getDefaultActivity());
+		setActivity(getDefaultActivity());
 	}
 
 	@Override
@@ -95,7 +107,7 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 
 	@Override
 	public Activity getDetectDefenseActivity() {
-		return null;
+		return _detectDefenseType;
 	}
 
 	@Override
@@ -108,19 +120,15 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 		if (isAutonomous()) {
 			return getDetectDefenseActivity();
 		} else if (isOperatorControl()) {
-			return new ManualDrive(instance);
+			return _manualDrive;
 		} else {
-			return new Idle(instance);
+			return _idle;
 		}
 	}
 
 	@Override
 	public void setActivity(Activity activity) {
 		this.currentActivity = activity;
-	}
-
-	public static Robot getInstance() {
-		return instance;
 	}
 
 }

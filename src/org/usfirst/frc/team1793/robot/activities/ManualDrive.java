@@ -10,7 +10,7 @@ import org.usfirst.frc.team1793.robot.Robot;
 public class ManualDrive extends Activity {
 	private static HashMap<Press,Activity> activities = new HashMap<Press,Activity>();
 	
-	public ManualDrive(IRobotActivity robot) {
+	public ManualDrive(Robot robot) {
 		super(robot);
 	}
 
@@ -21,11 +21,11 @@ public class ManualDrive extends Activity {
 
 	@Override
 	public void update() {
-		Robot robot = Robot.getInstance();
+		Robot robot = (Robot)this.robot;
 		PressEvent event = ButtonHandler.listen();
 		if(!event.isEmpty()) {
 			for(Press press:event) {
-				Robot.getInstance().setActivity(activities.get(press));
+				robot.setActivity(activities.get(press));
 			}
 		} else {			
 			robot.drive.arcadeDrive(robot.driveStick.getY(), robot.driveStick.getZ());

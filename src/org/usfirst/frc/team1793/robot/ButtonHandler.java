@@ -1,12 +1,11 @@
 package org.usfirst.frc.team1793.robot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
+@SuppressWarnings("unused")
 public class ButtonHandler {
 	public static HashSet<EJoystick> joysticks = new HashSet<EJoystick>();
 
@@ -32,8 +31,9 @@ public class ButtonHandler {
 		}		
 		return event;
 	}
-
+	
 	public static class Press {
+		
 		private int joystick, button;
 		public Press(int joystick, int button) {
 			this.joystick = joystick;
@@ -43,6 +43,7 @@ public class ButtonHandler {
 	}
 
 	public static class PressEvent extends ArrayList<Press>{
+		private static final long serialVersionUID = 1L;
 		public PressEvent() {}
 		public PressEvent(Press press) {
 			add(press);

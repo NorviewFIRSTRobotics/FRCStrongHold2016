@@ -18,8 +18,8 @@ public class DriveController extends Controller {
 
 	private Drive drive;
 
-	public DriveController(SpeedController leftMotor, SpeedController rightMotor) {
-		super(4);
+	public DriveController(SpeedController leftMotor, SpeedController rightMotor, Robot robot) {
+		super(4,robot);
 		drive = new Drive(leftMotor, rightMotor);
 	}
 
@@ -44,7 +44,7 @@ public class DriveController extends Controller {
 		});
 	}
 
-	public static class Drive extends RobotDrive {
+	public class Drive extends RobotDrive {
 
 		public Drive(SpeedController leftMotor, SpeedController rightMotor) {
 			super(leftMotor, rightMotor);
@@ -77,9 +77,9 @@ public class DriveController extends Controller {
 
 	}
 
-	public static Turn angleThreshold(double angle) {
-		double diff = angle - Robot.getInstance().gyro.getAngle();
-		boolean currentBigger = Robot.getInstance().gyro.getAngle() > angle;
+	public Turn angleThreshold(double angle) {
+		double diff = angle - robot.gyro.getAngle();
+		boolean currentBigger = robot.gyro.getAngle() > angle;
 		if (Math.abs(diff) <= TURN_THRESHOLD) {
 			return Turn.DONE;
 		} else {
