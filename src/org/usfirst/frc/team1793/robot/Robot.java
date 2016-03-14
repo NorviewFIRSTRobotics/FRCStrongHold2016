@@ -7,20 +7,21 @@ import org.usfirst.frc.team1793.robot.activities.defaults.Autonomy;
 import org.usfirst.frc.team1793.robot.activities.defaults.Idle;
 import org.usfirst.frc.team1793.robot.activities.defaults.ManualDrive;
 import org.usfirst.frc.team1793.robot.components.SpeedControllerPair;
+import org.usfirst.frc.team1793.robot.debug.DebugMotor;
 import org.usfirst.frc.team1793.robot.system.ArmController;
 import org.usfirst.frc.team1793.robot.system.DriveController;
 import org.usfirst.frc.team1793.robot.system.ShooterController;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
 public class Robot extends IterativeRobot implements IRobotActivity, IRobotControllers {
 	public static int motorChannel = 0;
-	public final boolean TEST_BOARD = false;
+	public final boolean TEST_BOARD = true;
 
 	public DriveController drive;
 	public ArmController arm;
@@ -46,11 +47,11 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		armStick = new EJoystick(Constants.ARM_STICK_PID);
 		gyro = new AnalogGyro(Constants.GYRO_PID);
 		
-		SpeedControllerPair leftPair;
-		SpeedControllerPair rightPair;
+		SpeedController leftPair;
+		SpeedController rightPair;
 		if (TEST_BOARD) {
-			leftPair = new SpeedControllerPair(new Jaguar(nextChannel()), new Jaguar(nextChannel()));
-			rightPair = new SpeedControllerPair(new Jaguar(nextChannel()), new Jaguar(nextChannel()));
+			leftPair = new DebugMotor("left");
+			rightPair = new DebugMotor("right");
 		} else {
 			leftPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
 			rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
@@ -59,7 +60,8 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		drive = new DriveController(leftPair, rightPair,this);
 		shooter = new ShooterController(new Victor(nextChannel()),this);
 		arm = new ArmController(new Victor(nextChannel()),this);
-
+		
+		setActivity(getDefaultActivity());
 	}
 
 	@Override
@@ -78,20 +80,22 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 
 	@Override
 	public void teleopInit() {
-		
+		setActivity(getDefaultActivity());
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		if(!currentActivity.isComplete()) {
 			currentActivity.update();
+			Sensors.test();
 		} else {
-			//????
+			
 		}
 	}
 
 	@Override
 	public void disabledInit() {
+		
 		currentActivity.cancel();
 	}
 

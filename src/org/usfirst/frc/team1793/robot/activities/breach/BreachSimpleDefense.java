@@ -3,14 +3,17 @@ package org.usfirst.frc.team1793.robot.activities.breach;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.text.Position;
+
 import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.Constants.Progress;
 import org.usfirst.frc.team1793.robot.IRobotControllers;
-import org.usfirst.frc.team1793.robot.Position;
+import org.usfirst.frc.team1793.robot.Sensors.Ultrasonics;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MoveForward;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.SubActivity;
+import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 
 public class BreachSimpleDefense extends Breach {
 
@@ -30,7 +33,7 @@ public class BreachSimpleDefense extends Breach {
 		_move = new MoveForward(activity,controllers,2);
 		
 		//Not sure about this idea, let me know what you think
-		order = new ArrayList<SubActivity>(Arrays.asList(_approach,_enter,_exit,_clear,_move));
+	
 	}
 /*
 	1. Approach:Move until FWD sensors detect both shields
@@ -42,22 +45,18 @@ public class BreachSimpleDefense extends Breach {
 */
 	@Override
 	public void initialize() {
+		order = new ArrayList<SubActivity>(Arrays.asList(_approach,_enter,_exit,_clear,_move));
 		setActivity(order.remove(0));
 	}
 	
 	@Override
 	public void update() {
-		//run the static method that checks all of the sensors
-		//TODO rework, more info at method
-		Position.sense();
-		
 		if(!currentActivity.isComplete()) {
 			currentActivity.update();
 		} else {
 			if(order.isEmpty()) {
 				isComplete = true;
 			} else {
-
 				setActivity(order.remove(0));
 			}
 		}
@@ -82,7 +81,7 @@ public class BreachSimpleDefense extends Breach {
 	}
 
 	public class ApproachDefense extends SubActivity {
-		
+		UltrasonicPair front;
 		public ApproachDefense(IRobotActivity activity, IRobotControllers controllers) {
 			super(activity,controllers);
 		}
@@ -90,28 +89,33 @@ public class BreachSimpleDefense extends Breach {
 		@Override
 		public void initialize() {
 			isComplete = false;
+			front = new UltrasonicPair(Ultrasonics.FRONTLEFT, Ultrasonics.FRONTRIGHT);
+			front.setRunning(true);
 		}
 
 		@Override
-		public void update() {			
-			if(Position.breaching == Progress.NONE) {
+		public void update() {
+			double sum = front.getLeftRange() + front.getRightRange();
+			
+			if(sum > Constants.BREACH) {
 				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
 			} else {				
 				this.controllers.getDrive().drive(0);
 				isComplete = true;
+				front.setRunning(false);
+				front = null;
 			}
 		}
 		
 	}
 
 	public class EnterDefense extends SubActivity {
-		
+		UltrasonicPair back;
 		public EnterDefense(IRobotActivity activity, IRobotControllers controllers) {
 			super(activity,controllers);
 		}
 
 		@Override
-		public void initialize() {
 			isComplete = false;
 		}
 

@@ -28,7 +28,8 @@ public class Constants {
 	// TODO convert to inches
 	public static final double FARENOUGH = 12;
 	public static final double STRAIGHTENOUGH = 2.5;
-	public static final double BREACH = 25;
+	
+	public static final double BREACH = 30;
 
 	public static final double TURN_SPEED = 0.5d;
 	public static final double TURN_THRESHOLD = 5d;

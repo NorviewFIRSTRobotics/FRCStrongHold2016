@@ -30,9 +30,11 @@ public class ManualDrive extends Activity {
 		PressEvent event = ButtonHandler.listen();
 		if (!event.isEmpty()) {
 			for (Press press : event) {
+				System.out.println(press);
 				activity.setActivity(activities.get(press));
 			}
 		} else {
+			
 			controllers.getDrive().arcadeDrive(controllers.getRight().getY(), controllers.getRight().getZ());
 		}
 
