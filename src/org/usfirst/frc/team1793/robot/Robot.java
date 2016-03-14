@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
-public class Robot extends IterativeRobot implements IRobotActivity {
+public class Robot extends IterativeRobot implements IRobotActivity, IRobotControllers {
 	public static int motorChannel = 0;
 	public final boolean TEST_BOARD = false;
 
@@ -38,12 +38,12 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 	@Override
 	public void robotInit() {
 		
-		_manualDrive = new ManualDrive(this);
-		_idle = new Idle(this);
-		_detectDefenseType = new DetectDefenseType(this);
-		_autonomy = new Autonomy(this);
-		driveStick = new EJoystick(0);
-		armStick = new EJoystick(1);
+		_manualDrive = new ManualDrive(this,this);
+		_idle = new Idle(this,this);
+		_detectDefenseType = new DetectDefenseType(this,this);
+		_autonomy = new Autonomy(this,this);
+		driveStick = new EJoystick(Constants.DRIVE_STICK_PID);
+		armStick = new EJoystick(Constants.ARM_STICK_PID);
 		gyro = new AnalogGyro(Constants.GYRO_PID);
 		
 		SpeedControllerPair leftPair;
@@ -127,6 +127,31 @@ public class Robot extends IterativeRobot implements IRobotActivity {
 	public void setActivity(Activity activity) {
 		this.currentActivity = activity;
 		this.currentActivity.initialize();
+	}
+
+	@Override
+	public DriveController getDrive() {
+		return drive;
+	}
+
+	@Override
+	public ShooterController getShooter() {
+		return shooter;
+	}
+
+	@Override
+	public ArmController getArm() {
+		return arm;
+	}
+
+	@Override
+	public Joystick getLeft() {
+		return armStick;
+	}
+
+	@Override
+	public Joystick getRight() {
+		return driveStick;
 	}
 
 

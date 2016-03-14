@@ -39,6 +39,9 @@ public class Constants {
 	public static final double ARM_THRESHOLD = 0.2;
 
 	public static final double SHOOT_SPEED = .75;
-	public static final int GYRO_PID = 0, RE_PID = 1;
+	
+	
+	public static final int GYRO_PID = 0, RE_PID = 1,DRIVE_STICK_PID=0, ARM_STICK_PID=1;
+	public static final int ARM_THROW_BUTTON=1;
 
 }

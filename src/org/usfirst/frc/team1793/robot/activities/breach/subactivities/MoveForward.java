@@ -1,15 +1,16 @@
 package org.usfirst.frc.team1793.robot.activities.breach.subactivities;
 
 import org.usfirst.frc.team1793.robot.Constants;
-import org.usfirst.frc.team1793.robot.Robot;
+import org.usfirst.frc.team1793.robot.IRobotControllers;
+import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
 
 import edu.wpi.first.wpilibj.Timer;
 
 public class MoveForward extends SubActivity {
 	private double seconds;
 	private Timer timer;
-	public MoveForward(Robot robot, double seconds) {
-		super(robot);
+	public MoveForward(IRobotActivity activity, IRobotControllers controllers,double seconds) {
+		super(activity,controllers);
 		this.seconds = seconds;
 	}
 
@@ -22,9 +23,9 @@ public class MoveForward extends SubActivity {
 	@Override
 	public void update() {
 		if(timer.get() < seconds) {
-			robot.drive.drive(Constants.DRIVE_SPEED);
+			controllers.getDrive().drive(Constants.DRIVE_SPEED);
 		} else {
-			robot.drive.drive(0);
+			controllers.getDrive().drive(0);
 			isComplete = true;
 		}
 	}

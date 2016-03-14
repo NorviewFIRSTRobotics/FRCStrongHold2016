@@ -41,5 +41,8 @@ public class ShooterController extends Controller {
 	public boolean inStorePosition() {
 		return limitSwitch.get();
 	}
+	public boolean isRunning() {
+		return running;
+	}
 
 }

@@ -1,12 +1,17 @@
 package org.usfirst.frc.team1793.robot.activities;
 
+import org.usfirst.frc.team1793.robot.IRobotControllers;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public abstract class Activity  {
-	protected IRobotActivity robot;
+	protected IRobotActivity activity;
+	protected IRobotControllers controllers;
+	
 	protected boolean isComplete;
-	public Activity(IRobotActivity robot) {
-		this.robot = robot;
+	public Activity(IRobotActivity activity,IRobotControllers controllers) {
+		this.activity = activity;
+		this.controllers = controllers;
 	}
 
 	// called when an activity is selected as the current activity
@@ -19,7 +24,7 @@ public abstract class Activity  {
 	// this would allow us to cancel an activity at any time (e.g. when
 	// switching to disabled mode)
 	public void cancel() {
-		robot.setActivity(robot.getDefaultActivity());
+		activity.setActivity(activity.getDefaultActivity());
 	}
 
 	public boolean isComplete() {

@@ -5,14 +5,19 @@ import java.util.HashMap;
 import org.usfirst.frc.team1793.robot.ButtonHandler;
 import org.usfirst.frc.team1793.robot.ButtonHandler.Press;
 import org.usfirst.frc.team1793.robot.ButtonHandler.PressEvent;
+import org.usfirst.frc.team1793.robot.Constants;
+import org.usfirst.frc.team1793.robot.IRobotControllers;
 import org.usfirst.frc.team1793.robot.activities.Activity;
-import org.usfirst.frc.team1793.robot.Robot;
+import org.usfirst.frc.team1793.robot.activities.DepositBoulder;
+import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
 
 public class ManualDrive extends Activity {
+	
 	private static HashMap<Press, Activity> activities = new HashMap<Press, Activity>();
-
-	public ManualDrive(Robot robot) {
-		super(robot);
+	private DepositBoulder depositBoulder = new DepositBoulder(activity,controllers);
+	public ManualDrive(IRobotActivity activity, IRobotControllers controllers) {
+		super(activity,controllers);
+		activities.put(new Press(Constants.ARM_STICK_PID, Constants.ARM_THROW_BUTTON), depositBoulder);
 	}
 
 	@Override
@@ -22,14 +27,13 @@ public class ManualDrive extends Activity {
 
 	@Override
 	public void update() {
-		Robot robot = (Robot) this.robot;
 		PressEvent event = ButtonHandler.listen();
 		if (!event.isEmpty()) {
 			for (Press press : event) {
-				robot.setActivity(activities.get(press));
+				activity.setActivity(activities.get(press));
 			}
 		} else {
-			robot.drive.arcadeDrive(robot.driveStick.getY(), robot.driveStick.getZ());
+			controllers.getDrive().arcadeDrive(controllers.getRight().getY(), controllers.getRight().getZ());
 		}
 
 	}

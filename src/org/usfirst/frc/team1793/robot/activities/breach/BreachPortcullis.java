@@ -1,12 +1,14 @@
 package org.usfirst.frc.team1793.robot.activities.breach;
 
+import org.usfirst.frc.team1793.robot.IRobotControllers;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
 
 public class BreachPortcullis extends Breach {
 
-	public BreachPortcullis(IRobotActivity robot) {
-		super(robot);
+
+	public BreachPortcullis(IRobotActivity activity, IRobotControllers controllers) {
+		super(activity,controllers);
 	}
 
 	@Override

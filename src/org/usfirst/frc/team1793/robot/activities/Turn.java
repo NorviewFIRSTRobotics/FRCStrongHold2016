@@ -1,9 +1,11 @@
 package org.usfirst.frc.team1793.robot.activities;
 
+import org.usfirst.frc.team1793.robot.IRobotControllers;
+
 public class Turn extends Activity {
 
-	public Turn(IRobotActivity robot) {
-		super(robot);
+	public Turn(IRobotActivity activity,IRobotControllers controllers) {
+		super(activity,controllers);
 	}
 
 	@Override

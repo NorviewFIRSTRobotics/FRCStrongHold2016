@@ -5,9 +5,10 @@ import java.util.Arrays;
 
 import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.Constants.Progress;
+import org.usfirst.frc.team1793.robot.IRobotControllers;
 import org.usfirst.frc.team1793.robot.Position;
-import org.usfirst.frc.team1793.robot.Robot;
 import org.usfirst.frc.team1793.robot.activities.Activity;
+import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MoveForward;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.SubActivity;
 
@@ -20,13 +21,13 @@ public class BreachSimpleDefense extends Breach {
 	private ExitDefense _exit;
 	private	ClearDefense _clear;
 	private MoveForward _move;
-	public BreachSimpleDefense(Robot robot) {
-		super(robot);
-		_approach = new ApproachDefense(robot);
-		_enter = new EnterDefense(robot);
-		_exit = new ExitDefense(robot);
-		_clear = new ClearDefense(robot);
-		_move = new MoveForward(robot,2);
+	public BreachSimpleDefense(IRobotActivity activity, IRobotControllers controllers) {
+		super(activity,controllers);
+		_approach = new ApproachDefense(activity,controllers);
+		_enter = new EnterDefense(activity,controllers);
+		_exit = new ExitDefense(activity,controllers);
+		_clear = new ClearDefense(activity,controllers);
+		_move = new MoveForward(activity,controllers,2);
 		
 		//Not sure about this idea, let me know what you think
 		order = new ArrayList<SubActivity>(Arrays.asList(_approach,_enter,_exit,_clear,_move));
@@ -56,6 +57,7 @@ public class BreachSimpleDefense extends Breach {
 			if(order.isEmpty()) {
 				isComplete = true;
 			} else {
+
 				setActivity(order.remove(0));
 			}
 		}
@@ -81,8 +83,8 @@ public class BreachSimpleDefense extends Breach {
 
 	public class ApproachDefense extends SubActivity {
 		
-		public ApproachDefense(Robot robot) {
-			super(robot);
+		public ApproachDefense(IRobotActivity activity, IRobotControllers controllers) {
+			super(activity,controllers);
 		}
 
 		@Override
@@ -93,9 +95,9 @@ public class BreachSimpleDefense extends Breach {
 		@Override
 		public void update() {			
 			if(Position.breaching == Progress.NONE) {
-				robot.drive.drive(Constants.DRIVE_SPEED);
+				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
 			} else {				
-				robot.drive.drive(0);
+				this.controllers.getDrive().drive(0);
 				isComplete = true;
 			}
 		}
@@ -104,8 +106,8 @@ public class BreachSimpleDefense extends Breach {
 
 	public class EnterDefense extends SubActivity {
 		
-		public EnterDefense(Robot robot) {
-			super(robot);
+		public EnterDefense(IRobotActivity activity, IRobotControllers controllers) {
+			super(activity,controllers);
 		}
 
 		@Override
@@ -116,9 +118,9 @@ public class BreachSimpleDefense extends Breach {
 		@Override
 		public void update() {			
 			if(Position.breaching == Progress.JUSTFRONT) {
-				robot.drive.drive(Constants.DRIVE_SPEED);
+				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
 			} else {
-				robot.drive.drive(0);
+				this.controllers.getDrive().drive(0);
 				isComplete = true;
 			}
 		}
@@ -126,8 +128,8 @@ public class BreachSimpleDefense extends Breach {
 	}
 	public class ExitDefense extends SubActivity {
 		
-		public ExitDefense(Robot robot) {
-			super(robot);
+		public ExitDefense(IRobotActivity activity, IRobotControllers controllers) {
+			super(activity,controllers);
 		}
 
 		@Override
@@ -138,9 +140,9 @@ public class BreachSimpleDefense extends Breach {
 		@Override
 		public void update() {			
 			if(Position.breaching == Progress.ALL) {
-				robot.drive.drive(Constants.DRIVE_SPEED);
+				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
 			} else {
-				robot.drive.drive(0);
+				this.controllers.getDrive().drive(0);
 				isComplete = true;
 			}
 		}
@@ -148,8 +150,8 @@ public class BreachSimpleDefense extends Breach {
 	}
 	public class ClearDefense extends SubActivity {
 		
-		public ClearDefense(Robot robot) {
-			super(robot);
+		public ClearDefense(IRobotActivity activity, IRobotControllers controllers) {
+			super(activity,controllers);
 		}
 
 		@Override
@@ -160,9 +162,9 @@ public class BreachSimpleDefense extends Breach {
 		@Override
 		public void update() {			
 			if(Position.breaching == Progress.JUSTBACK) {
-				robot.drive.drive(Constants.DRIVE_SPEED);
+				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
 			} else {
-				robot.drive.drive(0);
+				this.controllers.getDrive().drive(0);
 				isComplete = true;
 			}
 		}

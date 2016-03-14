@@ -28,7 +28,6 @@ public class ArmController extends Controller {
 			} else {
 				motor.set(0);
 			}
-
 		});
 	}
 
