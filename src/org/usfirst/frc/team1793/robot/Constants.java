@@ -1,29 +1,42 @@
 package org.usfirst.frc.team1793.robot;
 
 public class Constants {
-	public enum Progress {
+	public enum SensorPosition {
+		FRONTLEFT(0, 1),
+		FRONTRIGHT(5,4),
+		BACKLEFT(3,4),
+		BACKRIGHT(2,1),
+		FRONT(6,7),
+		BACK(8,7);
+		public int echo,ping;
+		private SensorPosition(int echo, int ping) {
+			this.echo = echo;
+			this.ping = ping;
+		}	
+	}
+	public enum BreachProgress {
 		JUSTFRONT, ALL, JUSTBACK, NONE;
 	}
 
-	public enum Axis {
-		NORTH(0), EAST(90), SOUTH(270), WEST(180);
-		public int degree;
-
-		Axis(int degree) {
-			this.degree = degree;
-		}
-
-	}
-
-	public enum Relative {
-		L90(1, -1), R90(1, 1);
-		public double time, sign;
-
-		private Relative(double time, double sign) {
-			this.time = time;
-			this.sign = sign;
-		}
-	}
+//	public enum Axis {
+//		NORTH(0), EAST(90), SOUTH(270), WEST(180);
+//		public int degree;
+//
+//		Axis(int degree) {
+//			this.degree = degree;
+//		}
+//
+//	}
+//
+//	public enum Relative {
+//		L90(1, -1), R90(1, 1);
+//		public double time, sign;
+//
+//		private Relative(double time, double sign) {
+//			this.time = time;
+//			this.sign = sign;
+//		}
+//	}
 
 	// TODO convert to inches
 	public static final double FARENOUGH = 12;

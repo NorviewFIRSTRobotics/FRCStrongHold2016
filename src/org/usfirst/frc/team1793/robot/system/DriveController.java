@@ -1,8 +1,5 @@
 package org.usfirst.frc.team1793.robot.system;
 
-import static org.usfirst.frc.team1793.robot.Constants.TURN_SPEED;
-import static org.usfirst.frc.team1793.robot.Constants.TURN_THRESHOLD;
-
 import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.Robot;
 
@@ -31,19 +28,12 @@ public class DriveController extends Controller {
 		executor.execute(() -> drive.drive(Constants.DRIVE_SPEED * speed));
 	}
 
-	public void turnToAngle(double angle) {
-		executor.execute(() -> {
-			turnFinished = drive.turnToAngle(angle);
-		});
-
-	}
-
 	public void turn(double speed) {
 		executor.execute(() -> {
 			drive.turn(speed);
 		});
 	}
-
+	
 	public class Drive extends RobotDrive {
 
 		public Drive(SpeedController leftMotor, SpeedController rightMotor) {
@@ -59,47 +49,47 @@ public class DriveController extends Controller {
 			setLeftRightMotorOutputs(speed, -speed);
 		}
 
-		public boolean turnToAngle(double angle) {
-			Turn turn = angleThreshold(angle);
-			switch (turn) {
-			case DONE:
-				return true;
-			case LEFT:
-				turn(-TURN_SPEED);
-				return false;
-			case RIGHT:
-				turn(TURN_SPEED);
-				return false;
-			default:
-				return false;
-			}
-		}
+//		public boolean turnToAngle(double angle) {
+//			Turn turn = angleThreshold(angle);
+//			switch (turn) {
+//			case DONE:
+//				return true;
+//			case LEFT:
+//				turn(-TURN_SPEED);
+//				return false;
+//			case RIGHT:
+//				turn(TURN_SPEED);
+//				return false;
+//			default:
+//				return false;
+//			}
+//		}
 
 	}
-
-	public Turn angleThreshold(double angle) {
-		double diff = angle - robot.gyro.getAngle();
-		boolean currentBigger = robot.gyro.getAngle() > angle;
-		if (Math.abs(diff) <= TURN_THRESHOLD) {
-			return Turn.DONE;
-		} else {
-			if (currentBigger) {
-				if (diff < 0) {
-					return Turn.LEFT;
-
-				} else {
-					return Turn.RIGHT;
-				}
-			} else {
-				if (diff < 0) {
-					return Turn.RIGHT;
-
-				} else {
-					return Turn.LEFT;
-				}
-			}
-		}
-
-	}
+//
+//	public Turn angleThreshold(double angle) {
+//		double diff = angle - controllers.getGyro().getAngle();
+//		boolean currentBigger = controllers.getGyro().getAngle() > angle;
+//		if (Math.abs(diff) <= TURN_THRESHOLD) {
+//			return Turn.DONE;
+//		} else {
+//			if (currentBigger) {
+//				if (diff < 0) {
+//					return Turn.LEFT;
+//
+//				} else {
+//					return Turn.RIGHT;
+//				}
+//			} else {
+//				if (diff < 0) {
+//					return Turn.RIGHT;
+//
+//				} else {
+//					return Turn.LEFT;
+//				}
+//			}
+//		}
+//
+//	}
 
 }

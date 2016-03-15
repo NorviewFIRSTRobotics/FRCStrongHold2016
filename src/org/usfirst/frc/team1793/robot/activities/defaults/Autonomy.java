@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1793.robot.activities.defaults;
 
-import org.usfirst.frc.team1793.robot.IRobotControllers;
 import org.usfirst.frc.team1793.robot.activities.Activity;
-import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 
 public class Autonomy extends Activity {
 	

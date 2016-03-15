@@ -2,6 +2,7 @@ package org.usfirst.frc.team1793.robot.system;
 
 import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.Robot;
+import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -12,7 +13,7 @@ public class ArmController extends Controller {
 	private AnalogInput rotaryEncoder = new AnalogInput(Constants.RE_PID);
 	private SpeedController motor;
 
-	public ArmController(SpeedController motor, Robot robot) {
+	public ArmController(SpeedController motor, IRobotControllers robot) {
 		super(2,robot);
 		this.motor = motor;
 	}

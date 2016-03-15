@@ -1,41 +1,35 @@
 package org.usfirst.frc.team1793.robot.activities.breach;
 
-import org.usfirst.frc.team1793.robot.IRobotControllers;
-import org.usfirst.frc.team1793.robot.activities.Activity;
-import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
-import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MoveForward;
+import org.usfirst.frc.team1793.robot.Constants;
+import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ApproachDefense;
+import org.usfirst.frc.team1793.robot.api.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 
-public class BreachLowbar extends Breach {
+public class BreachLowbar extends BreachSimpleDefense {
 
-	MoveForward _forward = new MoveForward(activity, controllers, 2);
-	Activity currentActivity;
 	public BreachLowbar(IRobotActivity activity, IRobotControllers controllers) {
 		super(activity,controllers);
-	}
-
-	@Override
-	public void initialize() {
-		setActivity(getDefaultActivity());
-	}
-
-	@Override
-	public void update() {
-		currentActivity.update();
-	}
-
-	@Override
-	public Activity getDefaultActivity() {
-		return _forward;
-	}
-
-	@Override
-	public Activity getDetectDefenseActivity() {
-		return null;
-	}
-
-	@Override
-	public void setActivity(Activity activity) {
-		this.currentActivity = activity; 
+		_approach = new ApproachDefense(activity, controllers) {
+			
+			//Save the previous left range
+			private double prevLeftRange = front.getLeftRange();
+			@Override
+			public void update() {
+				//Get the the difference between the current left range and the previous to test if 
+				//one: we have stayed fairly straight
+				//two: are in a lowbar, as there should always be a wall to the left
+				double leftDiff = front.getLeftRange()-prevLeftRange;
+				if(front.getRightRange() > (Constants.BREACH/2) && (leftDiff <= 1)) {
+					this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
+				} else {				
+					this.controllers.getDrive().drive(0);
+					isComplete = true;
+					front.setRunning(false);
+					front = null;
+				}
+				prevLeftRange = front.getLeftRange();
+			}
+		};
 	}
 
 }

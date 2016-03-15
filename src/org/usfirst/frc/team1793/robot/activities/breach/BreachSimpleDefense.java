@@ -3,29 +3,29 @@ package org.usfirst.frc.team1793.robot.activities.breach;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.text.Position;
-
 import org.usfirst.frc.team1793.robot.Constants;
-import org.usfirst.frc.team1793.robot.Constants.Progress;
-import org.usfirst.frc.team1793.robot.IRobotControllers;
-import org.usfirst.frc.team1793.robot.Sensors.Ultrasonics;
 import org.usfirst.frc.team1793.robot.activities.Activity;
-import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
+import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ApproachDefense;
+import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ClearDefense;
+import org.usfirst.frc.team1793.robot.activities.breach.subactivities.EnterDefense;
+import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ExitDefense;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MoveForward;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.SubActivity;
-import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
+import org.usfirst.frc.team1793.robot.api.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 
 public class BreachSimpleDefense extends Breach {
 
 	private ArrayList<SubActivity> order;
 	private SubActivity currentActivity;
-	private ApproachDefense _approach;
-	private EnterDefense _enter;
-	private ExitDefense _exit;
-	private	ClearDefense _clear;
-	private MoveForward _move;
+	protected ApproachDefense _approach;
+	protected EnterDefense _enter;
+	protected ExitDefense _exit;
+	protected	ClearDefense _clear;
+	protected MoveForward _move;
 	public BreachSimpleDefense(IRobotActivity activity, IRobotControllers controllers) {
 		super(activity,controllers);
+		
 		_approach = new ApproachDefense(activity,controllers);
 		_enter = new EnterDefense(activity,controllers);
 		_exit = new ExitDefense(activity,controllers);
@@ -80,98 +80,5 @@ public class BreachSimpleDefense extends Breach {
 		}
 	}
 
-	public class ApproachDefense extends SubActivity {
-		UltrasonicPair front;
-		public ApproachDefense(IRobotActivity activity, IRobotControllers controllers) {
-			super(activity,controllers);
-		}
-
-		@Override
-		public void initialize() {
-			isComplete = false;
-			front = new UltrasonicPair(Ultrasonics.FRONTLEFT, Ultrasonics.FRONTRIGHT);
-			front.setRunning(true);
-		}
-
-		@Override
-		public void update() {
-			double sum = front.getLeftRange() + front.getRightRange();
-			
-			if(sum > Constants.BREACH) {
-				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
-			} else {				
-				this.controllers.getDrive().drive(0);
-				isComplete = true;
-				front.setRunning(false);
-				front = null;
-			}
-		}
-		
-	}
-
-	public class EnterDefense extends SubActivity {
-		UltrasonicPair back;
-		public EnterDefense(IRobotActivity activity, IRobotControllers controllers) {
-			super(activity,controllers);
-		}
-
-		@Override
-			isComplete = false;
-		}
-
-		@Override
-		public void update() {			
-			if(Position.breaching == Progress.JUSTFRONT) {
-				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
-			} else {
-				this.controllers.getDrive().drive(0);
-				isComplete = true;
-			}
-		}
-		
-	}
-	public class ExitDefense extends SubActivity {
-		
-		public ExitDefense(IRobotActivity activity, IRobotControllers controllers) {
-			super(activity,controllers);
-		}
-
-		@Override
-		public void initialize() {
-			isComplete = false;
-		}
-
-		@Override
-		public void update() {			
-			if(Position.breaching == Progress.ALL) {
-				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
-			} else {
-				this.controllers.getDrive().drive(0);
-				isComplete = true;
-			}
-		}
-		
-	}
-	public class ClearDefense extends SubActivity {
-		
-		public ClearDefense(IRobotActivity activity, IRobotControllers controllers) {
-			super(activity,controllers);
-		}
-
-		@Override
-		public void initialize() {
-			isComplete = false;
-		}
-
-		@Override
-		public void update() {			
-			if(Position.breaching == Progress.JUSTBACK) {
-				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
-			} else {
-				this.controllers.getDrive().drive(0);
-				isComplete = true;
-			}
-		}
-		
-	}
+	
 }

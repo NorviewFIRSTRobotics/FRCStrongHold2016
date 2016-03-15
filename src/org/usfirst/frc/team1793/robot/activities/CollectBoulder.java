@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1793.robot.activities;
 
-import org.usfirst.frc.team1793.robot.IRobotControllers;
+import org.usfirst.frc.team1793.robot.api.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 
 public class CollectBoulder extends Activity {
 
@@ -12,7 +13,9 @@ public class CollectBoulder extends Activity {
 	public void initialize() {}
 
 	@Override
-	public void update() {}
+	public void update() {
+		//this is hard
+	}
 
 
 }

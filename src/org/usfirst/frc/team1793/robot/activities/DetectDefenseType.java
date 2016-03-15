@@ -1,7 +1,8 @@
 package org.usfirst.frc.team1793.robot.activities;
 
-import org.usfirst.frc.team1793.robot.IRobotControllers;
 import org.usfirst.frc.team1793.robot.activities.breach.Breach.BreachType;
+import org.usfirst.frc.team1793.robot.api.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 
 public class DetectDefenseType extends Activity {
 

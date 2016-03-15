@@ -2,10 +2,12 @@ package org.usfirst.frc.team1793.robot;
 
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.activities.DetectDefenseType;
-import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
 import org.usfirst.frc.team1793.robot.activities.defaults.Autonomy;
 import org.usfirst.frc.team1793.robot.activities.defaults.Idle;
 import org.usfirst.frc.team1793.robot.activities.defaults.ManualDrive;
+import org.usfirst.frc.team1793.robot.api.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotControllers;
+import org.usfirst.frc.team1793.robot.components.EJoystick;
 import org.usfirst.frc.team1793.robot.components.SpeedControllerPair;
 import org.usfirst.frc.team1793.robot.debug.DebugMotor;
 import org.usfirst.frc.team1793.robot.system.ArmController;
@@ -49,17 +51,23 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		
 		SpeedController leftPair;
 		SpeedController rightPair;
+		
+		SpeedController shooterMotor;
+		SpeedController armMotor;
+		
 		if (TEST_BOARD) {
 			leftPair = new DebugMotor("left");
 			rightPair = new DebugMotor("right");
+			shooterMotor = new DebugMotor("shooter");
+			armMotor = new DebugMotor("arm");
 		} else {
 			leftPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
 			rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
 		}
 		rightPair.setInverted(true);
 		drive = new DriveController(leftPair, rightPair,this);
-		shooter = new ShooterController(new Victor(nextChannel()),this);
-		arm = new ArmController(new Victor(nextChannel()),this);
+		shooter = new ShooterController(shooterMotor,this);
+		arm = new ArmController(armMotor,this);
 		
 		setActivity(getDefaultActivity());
 	}
@@ -74,7 +82,7 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		if(!currentActivity.isComplete()) {
 			currentActivity.update();
 		} else {
-			//????
+		
 		}
 	}
 
@@ -87,7 +95,6 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	public void teleopPeriodic() {
 		if(!currentActivity.isComplete()) {
 			currentActivity.update();
-			Sensors.test();
 		} else {
 			
 		}
@@ -156,6 +163,11 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	@Override
 	public Joystick getRight() {
 		return driveStick;
+	}
+
+	@Override
+	public AnalogGyro getGyro() {
+		return gyro;
 	}
 
 

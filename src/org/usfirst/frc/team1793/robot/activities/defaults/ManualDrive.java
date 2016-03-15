@@ -6,10 +6,10 @@ import org.usfirst.frc.team1793.robot.ButtonHandler;
 import org.usfirst.frc.team1793.robot.ButtonHandler.Press;
 import org.usfirst.frc.team1793.robot.ButtonHandler.PressEvent;
 import org.usfirst.frc.team1793.robot.Constants;
-import org.usfirst.frc.team1793.robot.IRobotControllers;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.activities.DepositBoulder;
-import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 
 public class ManualDrive extends Activity {
 	
@@ -34,7 +34,6 @@ public class ManualDrive extends Activity {
 				activity.setActivity(activities.get(press));
 			}
 		} else {
-			
 			controllers.getDrive().arcadeDrive(controllers.getRight().getY(), controllers.getRight().getZ());
 		}
 

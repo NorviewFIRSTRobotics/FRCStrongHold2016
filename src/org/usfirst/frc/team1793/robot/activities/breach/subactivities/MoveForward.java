@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1793.robot.activities.breach.subactivities;
 
 import org.usfirst.frc.team1793.robot.Constants;
-import org.usfirst.frc.team1793.robot.IRobotControllers;
-import org.usfirst.frc.team1793.robot.activities.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotActivity;
+import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 
 import edu.wpi.first.wpilibj.Timer;
 

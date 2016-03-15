@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1793.robot.components;
 
-import org.usfirst.frc.team1793.robot.Sensors.Ultrasonics;
+import org.usfirst.frc.team1793.robot.Constants.SensorPosition;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -23,7 +23,7 @@ public class UltrasonicPair {
 	private volatile double leftRange, rightRange;
 	private volatile boolean running;
 	private UltrasonicChecker checker = new UltrasonicChecker();
-	public UltrasonicPair(Ultrasonics left, Ultrasonics right) {
+	public UltrasonicPair(SensorPosition left, SensorPosition right) {
 		this.left = new Ultrasonic(left.ping, left.echo);
 		this.right = new Ultrasonic(right.ping, right.echo);
 		
@@ -42,5 +42,11 @@ public class UltrasonicPair {
 			checker.start();
 		}
 		
+	}
+	public double getSum() {
+		return leftRange + rightRange;
+	}
+	public double getDifference() {
+		return leftRange - rightRange;
 	}
 }
