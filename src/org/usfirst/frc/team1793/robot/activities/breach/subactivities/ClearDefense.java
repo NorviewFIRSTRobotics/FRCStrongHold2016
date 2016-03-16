@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1793.robot.activities.breach.subactivities;
 
 import org.usfirst.frc.team1793.robot.Constants;
-import org.usfirst.frc.team1793.robot.Constants.SensorPosition;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
@@ -15,7 +14,7 @@ public class ClearDefense extends SubActivity {
 	@Override
 	public void initialize() {
 		isComplete = false;
-		back = new UltrasonicPair(SensorPosition.BACKLEFT, SensorPosition.BACKRIGHT);
+		back = controllers.getBackSides();
 		back.setRunning(true);
 	}
 

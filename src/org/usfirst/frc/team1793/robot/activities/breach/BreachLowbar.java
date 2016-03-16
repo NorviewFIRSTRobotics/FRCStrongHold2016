@@ -4,11 +4,13 @@ import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ApproachDefense;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
+import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 
 public class BreachLowbar extends BreachSimpleDefense {
-
+	UltrasonicPair front;
 	public BreachLowbar(IRobotActivity activity, IRobotControllers controllers) {
 		super(activity,controllers);
+		front = controllers.getFrontSides();
 		_approach = new ApproachDefense(activity, controllers) {
 			
 			//Save the previous left range

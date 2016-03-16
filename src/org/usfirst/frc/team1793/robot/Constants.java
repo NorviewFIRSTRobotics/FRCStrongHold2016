@@ -1,19 +1,7 @@
 package org.usfirst.frc.team1793.robot;
 
 public class Constants {
-	public enum SensorPosition {
-		FRONTLEFT(0, 1),
-		FRONTRIGHT(5,4),
-		BACKLEFT(3,4),
-		BACKRIGHT(2,1),
-		FRONT(6,7),
-		BACK(8,7);
-		public int echo,ping;
-		private SensorPosition(int echo, int ping) {
-			this.echo = echo;
-			this.ping = ping;
-		}	
-	}
+
 	public enum BreachProgress {
 		JUSTFRONT, ALL, JUSTBACK, NONE;
 	}
@@ -57,5 +45,9 @@ public class Constants {
 	
 	public static final int GYRO_PID = 0, RE_PID = 1,DRIVE_STICK_PID=0, ARM_STICK_PID=1;
 	public static final int ARM_THROW_BUTTON=1;
+	public static final int DRIVE_SIMPLE_DEFENSE_BUTTON=1;
+	public static final int RESET_BUTTON = 8;
+	
+	public static final int LIMIT_SWITCH_PID = 9;
 
 }

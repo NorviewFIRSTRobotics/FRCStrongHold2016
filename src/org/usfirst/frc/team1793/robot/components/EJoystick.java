@@ -15,5 +15,9 @@ public class EJoystick extends Joystick{
 	public int getPort() {
 		return port;
 	}
+	@Override
+	public String toString() {
+		return Integer.toString(port);
+	}
 
 }

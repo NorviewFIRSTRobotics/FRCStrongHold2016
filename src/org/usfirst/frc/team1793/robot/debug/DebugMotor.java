@@ -30,7 +30,7 @@ public class DebugMotor implements SpeedController {
 	@Override
 	public void set(double speed) {
 		SmartDashboard.putNumber("Motor"+ name + ":", (inverted ? -1 : 1) * speed);
-		
+
 	}
 
 	@Override

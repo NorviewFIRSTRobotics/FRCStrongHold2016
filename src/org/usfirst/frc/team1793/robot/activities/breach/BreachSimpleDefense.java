@@ -3,7 +3,6 @@ package org.usfirst.frc.team1793.robot.activities.breach;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ApproachDefense;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ClearDefense;
@@ -13,6 +12,8 @@ import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MoveForwar
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.SubActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BreachSimpleDefense extends Breach {
 
@@ -47,12 +48,14 @@ public class BreachSimpleDefense extends Breach {
 	public void initialize() {
 		order = new ArrayList<SubActivity>(Arrays.asList(_approach,_enter,_exit,_clear,_move));
 		setActivity(order.remove(0));
+		isComplete = false;
 	}
 	
 	@Override
 	public void update() {
 		if(!currentActivity.isComplete()) {
 			currentActivity.update();
+			SmartDashboard.putString("Current Subactivity", currentActivity.getClass().getSimpleName());
 		} else {
 			if(order.isEmpty()) {
 				isComplete = true;

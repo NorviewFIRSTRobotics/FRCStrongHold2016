@@ -22,6 +22,7 @@ public class MoveForward extends SubActivity {
 
 	@Override
 	public void update() {
+		System.out.println(timer.get());
 		if(timer.get() < seconds) {
 			controllers.getDrive().drive(Constants.DRIVE_SPEED);
 		} else {
