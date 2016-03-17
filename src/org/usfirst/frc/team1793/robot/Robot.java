@@ -13,7 +13,6 @@ import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair.SensorPosition;
 import org.usfirst.frc.team1793.robot.debug.DebugMotor;
 import org.usfirst.frc.team1793.robot.inputs.ButtonHandler;
-import org.usfirst.frc.team1793.robot.inputs.PressEvent;
 import org.usfirst.frc.team1793.robot.system.ArmController;
 import org.usfirst.frc.team1793.robot.system.DriveController;
 import org.usfirst.frc.team1793.robot.system.ShooterController;

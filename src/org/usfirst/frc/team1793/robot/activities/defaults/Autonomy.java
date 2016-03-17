@@ -1,7 +1,11 @@
 package org.usfirst.frc.team1793.robot.activities.defaults;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.lang.model.element.Element;
 
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.activities.DepositBoulder;
@@ -10,11 +14,12 @@ import org.usfirst.frc.team1793.robot.activities.breach.BreachSimpleDefense;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.SubActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
-
+@SuppressWarnings("unused")
 public class Autonomy extends Activity implements IRobotActivity {
 	public ArrayList<SubActivity> order;
 	public SubActivity currentActivity;
-	
+
+
 	private DepositBoulder depositBoulder = new DepositBoulder(activity,controllers);
 	private BreachSimpleDefense simpleDefense = new BreachSimpleDefense(activity, controllers);
 	private Turn turn = new Turn(activity, controllers, 90);

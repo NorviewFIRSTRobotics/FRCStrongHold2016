@@ -2,9 +2,6 @@ package org.usfirst.frc.team1793.robot;
 
 public class Constants {
 
-	public enum BreachProgress {
-		JUSTFRONT, ALL, JUSTBACK, NONE;
-	}
 
 	// Breach is the average distance between the two sides of the robot to the
 	// shields on the defenses

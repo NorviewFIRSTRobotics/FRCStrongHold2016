@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.components.EJoystick;
 

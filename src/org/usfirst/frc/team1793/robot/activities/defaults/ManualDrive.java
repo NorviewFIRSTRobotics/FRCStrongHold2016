@@ -10,9 +10,7 @@ import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.inputs.ButtonHandler;
 import org.usfirst.frc.team1793.robot.inputs.Press;
-import org.usfirst.frc.team1793.robot.inputs.PressEvent;
 
-import edu.wpi.first.wpilibj.CircularBuffer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ManualDrive extends Activity {
