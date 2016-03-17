@@ -4,13 +4,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.components.EJoystick;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ButtonHandler {
-	
+	public static PressEvent event;
 	public static HashMap<Press,Activity> activityButtons = new HashMap<Press,Activity>();
 	
 	public static HashSet<EJoystick> joysticks = new HashSet<EJoystick>();
@@ -29,7 +30,7 @@ public class ButtonHandler {
 	public static Activity getActivityFromButton(int joystick, int button) {
 		return getActivityFromButton(new Press(joystick,button));
 	}
-	public static PressEvent listen() {
+	public static void listen() {
 		PressEvent event = new PressEvent();
 		for (Iterator<EJoystick> iterator = joysticks.iterator(); iterator.hasNext();) {
 			EJoystick joystick = (EJoystick) iterator.next();
@@ -39,7 +40,11 @@ public class ButtonHandler {
 			}
 		}
 		SmartDashboard.putString("PressEvent", event.toString());
-		return event;
+		ButtonHandler.event = event; 
+	}
+	
+	public static boolean pressed(int joystick, int button) {
+		return event.isEmpty() ? false : event.pressed(joystick,button);
 	}
 
 	

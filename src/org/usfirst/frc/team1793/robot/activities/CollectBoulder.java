@@ -10,9 +10,6 @@ public class CollectBoulder extends Activity {
 	}
 
 	@Override
-	public void initialize() {}
-
-	@Override
 	public void update() {
 		//this is hard
 	}

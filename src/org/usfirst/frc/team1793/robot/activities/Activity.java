@@ -16,7 +16,9 @@ public abstract class Activity  {
 	}
 
 	// called when an activity is selected as the current activity
-	public abstract void initialize();
+	public void initialize(){
+		isComplete = false;
+	}
 
 	// (called by the xxxPeriodic methods): this would be used to advance the
 	// internal state of each. object

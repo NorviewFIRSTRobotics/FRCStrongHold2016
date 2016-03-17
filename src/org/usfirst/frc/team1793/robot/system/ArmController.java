@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class ArmController extends Controller {
-	public static final double OFFSET = -.2;
+	
 
 	private AnalogInput rotaryEncoder = new AnalogInput(Constants.RE_PID);
 	private SpeedController motor;
-
+	private volatile boolean finishedLatestOperation = false;
 	public ArmController(SpeedController motor, IRobotControllers robot) {
 		super(2,robot);
 		this.motor = motor;
@@ -32,6 +32,7 @@ public class ArmController extends Controller {
 	}
 
 	public void setArmPosition(double angle) {
+		finishedLatestOperation = false; 
 		executor.execute(() -> {
 			boolean finished = Math.abs(angle - getAngle()) <= Constants.ARM_THRESHOLD;
 			// TODO check which way is which and document it!!!! try to make -1
@@ -41,11 +42,20 @@ public class ArmController extends Controller {
 			while (!finished) {
 				motor.set(Constants.ARM_SPEED * direction);
 			}
+			finishedLatestOperation = true;
 		});
 	}
-
-	public double getAngle() {
-		return rotaryEncoder.getVoltage() - OFFSET;
+	public void stow() {
+		setArmPosition(Constants.ARM_STOWED_ANGLE);
 	}
-
+	
+	public void extend() {
+		setArmPosition(Constants.ARM_EXTENDED_ANGLE);
+	}
+	public double getAngle() {
+		return rotaryEncoder.getVoltage() - Constants.ARM_OFFSET;
+	}
+	public boolean isLatestOperationFinished() {
+		return finishedLatestOperation;
+	}
 }

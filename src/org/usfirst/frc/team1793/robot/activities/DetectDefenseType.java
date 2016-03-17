@@ -18,9 +18,6 @@ public class DetectDefenseType extends Activity {
 	}
 
 	@Override
-	public void initialize() {}
-
-	@Override
 	public void update() {}
 
 
