@@ -12,6 +12,8 @@ import org.usfirst.frc.team1793.robot.components.SpeedControllerPair;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair.SensorPosition;
 import org.usfirst.frc.team1793.robot.debug.DebugMotor;
+import org.usfirst.frc.team1793.robot.inputs.ButtonHandler;
+import org.usfirst.frc.team1793.robot.inputs.PressEvent;
 import org.usfirst.frc.team1793.robot.system.ArmController;
 import org.usfirst.frc.team1793.robot.system.DriveController;
 import org.usfirst.frc.team1793.robot.system.ShooterController;
@@ -21,13 +23,12 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot implements IRobotActivity, IRobotControllers {
 	public static int motorChannel = 0;
-	public final boolean TEST_BOARD = true;
+	public final boolean TEST_BOARD = false;
 
 	public DriveController drive;
 	public ArmController arm;
@@ -71,6 +72,8 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		} else {
 			leftPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
 			rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
+			shooterMotor = new Victor(nextChannel());
+			armMotor = new Victor(nextChannel());
 		}
 		
 		rightPair.setInverted(true);
@@ -105,9 +108,8 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 
 	@Override
 	public void teleopPeriodic() {
-		System.out.println("TELEOP!");
 		PressEvent e = ButtonHandler.listen();
-		if(!e.isEmpty() && e.pressed(Constants.DRIVE_STICK_PID,Constants.RESET_BUTTON)) {
+		if(!e.isEmpty() && e.pressed(Constants.DRIVE_STICK_PID,Constants.DRIVE_RESET_BUTTON)) {
 			setActivity(getDefaultActivity());
 		} else if(!currentActivity.isComplete()) {
 			currentActivity.update();
@@ -118,7 +120,6 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 
 	@Override
 	public void disabledInit() {
-		
 		currentActivity.cancel();
 	}
 
@@ -131,7 +132,7 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	public static int nextChannel() {
 		int pid = motorChannel;
 		motorChannel++;
-		System.out.println(pid);
+		System.out.println("Adding motor pid:"+pid);
 		return pid;
 	}
 
@@ -203,5 +204,9 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		return front_back;
 	}
 
-
+	public void information() {
+		SmartDashboard.putNumber("Arm Angle", getArm().getAngle());
+		SmartDashboard.putBoolean("Shooter Stored", getShooter().isInStorePosition());
+	}
+	
 }

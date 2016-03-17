@@ -19,7 +19,8 @@ public class DepositBoulder extends Activity {
 	@Override
 	public void update() {
 		ShooterController shooter = controllers.getShooter();
-		if (!shooter.isRunning() && shooter.inStorePosition()) {
+		//TODO move 
+		if (!shooter.isRunning() && shooter.isInStorePosition()) {
 			shooter.shoot(Constants.SHOOT_SPEED);
 		} else if (!shooter.isRunning()) {
 			isComplete = true;

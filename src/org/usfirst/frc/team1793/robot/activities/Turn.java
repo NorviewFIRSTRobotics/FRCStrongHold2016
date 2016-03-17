@@ -14,6 +14,7 @@ public class Turn extends Activity {
 
 	@Override
 	public void initialize() {
+		isComplete = false;
 		startingAngle = normalizeAngle(controllers.getGyro().getAngle());
 		endAngle = startingAngle+turnAngle;
 	}
@@ -33,7 +34,7 @@ public class Turn extends Activity {
 	private double getTurnDirection() {
 		return Math.pow(endAngle - startingAngle,0);
 	}
-	private double normalizeAngle(double angle) {
+	private static double normalizeAngle(double angle) {
 		return angle%360;
 	}
 

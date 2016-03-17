@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1793.robot.components;
 
-import org.usfirst.frc.team1793.robot.ButtonHandler;
+import org.usfirst.frc.team1793.robot.inputs.ButtonHandler;
 
 import edu.wpi.first.wpilibj.Joystick;
 

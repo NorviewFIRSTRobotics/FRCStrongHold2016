@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1793.robot;
+package org.usfirst.frc.team1793.robot.inputs;
 
 import java.util.HashMap;
 import java.util.HashSet;

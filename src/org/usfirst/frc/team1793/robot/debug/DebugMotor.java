@@ -8,6 +8,7 @@ public class DebugMotor implements SpeedController {
 	private  boolean inverted;
 	public DebugMotor(String name) {
 		this.name = name;
+		System.out.println("WARNING YOU ARE RUNNING A DEBUG MOTOR, PLEASE MAKE SURE IF YOU DO WANT A DEBUG MOTOR");
 		// TODO Auto-generated constructor stub
 	}
 	@Override

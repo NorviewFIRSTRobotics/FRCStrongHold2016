@@ -5,49 +5,46 @@ public class Constants {
 	public enum BreachProgress {
 		JUSTFRONT, ALL, JUSTBACK, NONE;
 	}
-
-//	public enum Axis {
-//		NORTH(0), EAST(90), SOUTH(270), WEST(180);
-//		public int degree;
-//
-//		Axis(int degree) {
-//			this.degree = degree;
-//		}
-//
-//	}
-//
-//	public enum Relative {
-//		L90(1, -1), R90(1, 1);
-//		public double time, sign;
-//
-//		private Relative(double time, double sign) {
-//			this.time = time;
-//			this.sign = sign;
-//		}
-//	}
-
-	// TODO convert to inches
-	public static final double FARENOUGH = 12;
-	public static final double STRAIGHTENOUGH = 2.5;
 	
+	//Breach is the average distance between the two sides of the robot to the shields on the defenses
+	//The sum of the distance of a sensor on left and right is taken and compared to this value to detect if within a defense
 	public static final double BREACH = 30;
 
+	
+	//Speed a which the robot will turn automatically
 	public static final double TURN_SPEED = 0.5d;
+	
+	
+	//Angle threshold when turning automatically with the gyroscope
 	public static final double TURN_THRESHOLD = 5d;
 
+	//Speed used by all automatic drive motors
 	public static final double DRIVE_SPEED = 0.75d;
 
+	//Speed at which the arm rotations
 	public static final double ARM_SPEED = 0.4;
+	
+	//Threshold for the arm reaching its intended angle
 	public static final double ARM_THRESHOLD = 0.2;
 
+	//Speed at which the shooter rotations when throwing.
+	//When returning to store position, speed is SHOOT_SPEED/SHOOT_RETURN_FACTOR
 	public static final double SHOOT_SPEED = .75;
+	public static final double SHOOT_RETURN_FACTOR = 4;
 	
 	
-	public static final int GYRO_PID = 0, RE_PID = 1,DRIVE_STICK_PID=0, ARM_STICK_PID=1;
-	public static final int ARM_THROW_BUTTON=1;
-	public static final int DRIVE_SIMPLE_DEFENSE_BUTTON=1;
-	public static final int RESET_BUTTON = 8;
+	//Amount of time the motors are run for a shoot action
+	public static final double SHOOT_TIME = .25;
 	
-	public static final int LIMIT_SWITCH_PID = 9;
+	
+	public static final int GYRO_PID = 0, RE_PID = 1,DRIVE_STICK_PID=0, ARM_STICK_PID=1,LIMIT_SWITCH_PID = 9;
+	public static final int ARM_THROW_BUTTON=1 ;
+	
+	public static final int DRIVE_SIMPLE_DEFENSE_BUTTON=1,DRIVE_RESET_BUTTON = 8;
+
+
+	public static final double ULTRA_SONIC_DELAY = 0.1;
+	
 
 }
+

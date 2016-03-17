@@ -1,14 +1,14 @@
 package org.usfirst.frc.team1793.robot.activities.defaults;
 
-import org.usfirst.frc.team1793.robot.ButtonHandler;
 import org.usfirst.frc.team1793.robot.Constants;
-import org.usfirst.frc.team1793.robot.Press;
-import org.usfirst.frc.team1793.robot.PressEvent;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.activities.DepositBoulder;
 import org.usfirst.frc.team1793.robot.activities.breach.BreachSimpleDefense;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
+import org.usfirst.frc.team1793.robot.inputs.ButtonHandler;
+import org.usfirst.frc.team1793.robot.inputs.Press;
+import org.usfirst.frc.team1793.robot.inputs.PressEvent;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

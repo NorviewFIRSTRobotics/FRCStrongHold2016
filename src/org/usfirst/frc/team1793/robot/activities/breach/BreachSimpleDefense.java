@@ -55,7 +55,7 @@ public class BreachSimpleDefense extends Breach {
 	public void update() {
 		if(!currentActivity.isComplete()) {
 			currentActivity.update();
-			SmartDashboard.putString("Current Subactivity", currentActivity.getClass().getSimpleName());
+			SmartDashboard.putString(this.getClass().getSimpleName()+ " Current Subactivity", currentActivity.getClass().getSimpleName());
 		} else {
 			if(order.isEmpty()) {
 				isComplete = true;

@@ -27,19 +27,19 @@ public class ShooterController extends Controller {
 			timer.start();
 
 			// Throw ball
-			while (timer.get() < .25) {
+			while (timer.get() < Constants.SHOOT_TIME) {
 				motor.set(speed);
 			}
 			// Return to store position
-			while (!inStorePosition()) {
-				motor.set(speed / 4);
+			while (!isInStorePosition()) {
+				motor.set(speed / Constants.SHOOT_RETURN_FACTOR);
 			}
 			motor.set(0);
 			running = false;
 		});
 	}
 
-	public boolean inStorePosition() {
+	public boolean isInStorePosition() {
 		return limitSwitch.get();
 	}
 	public boolean isRunning() {
