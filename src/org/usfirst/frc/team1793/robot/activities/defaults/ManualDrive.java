@@ -33,8 +33,13 @@ public class ManualDrive extends Activity {
 		if(!ButtonHandler.event.isEmpty()) {
 			detectButtonEvents();
 		} else {
+			if(manualArm) {
+				double stickY = controllers.getLeft().getY();
+				controllers.getArm().lift(stickY);
+			}
 			controllers.getDrive().arcadeDrive(controllers.getRight().getY(), controllers.getRight().getZ());
 		}
+		
 
 	}
 	
