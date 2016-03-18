@@ -43,13 +43,14 @@ public class Constants {
 	public static final double SHOOT_TIME = .25;
 
 	public static final int GYRO_PID = 0, RE_PID = 1, DRIVE_STICK_PID = 0, ARM_STICK_PID = 1, LIMIT_SWITCH_PID = 9;
-	public static final int ARM_EXTEND_BUTTON = 2;
-	public static final int ARM_STOW_BUTTON = 3;
-	public static final int ARM_THROW_BUTTON = 4;
+	
+	public static final int ARM_EXTEND_BUTTON = 4,ARM_STOW_BUTTON = 5,ARM_THROW_BUTTON = 2;
 	
 	public static final int GLOBAL_STICK_MODIFIER_BUTTON = 1; 
 	public static final int DRIVE_SIMPLE_DEFENSE_BUTTON = 7, DRIVE_RESET_BUTTON = 2;
 
 	public static final double ULTRA_SONIC_DELAY = 0.1;
+
+	public static final int ARM_MANUAL_CONTROL_BUTTON = 6;
 
 }

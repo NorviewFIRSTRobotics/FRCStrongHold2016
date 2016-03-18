@@ -14,7 +14,7 @@ import org.usfirst.frc.team1793.robot.inputs.Press;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ManualDrive extends Activity {
-
+	private boolean manualArm = false;
 	private DepositBoulder depositBoulder = new DepositBoulder(activity,controllers);
 	private BreachSimpleDefense simpleDefense = new BreachSimpleDefense(activity, controllers);
 	private ExtendArm extendArm = new ExtendArm(activity, controllers);
@@ -29,7 +29,7 @@ public class ManualDrive extends Activity {
 
 	@Override
 	public void update() {
-		
+		SmartDashboard.putBoolean("Arm Manual Mode", manualArm);
 		if(!ButtonHandler.event.isEmpty()) {
 			detectButtonEvents();
 		} else {
@@ -39,6 +39,9 @@ public class ManualDrive extends Activity {
 	}
 	
 	public void detectButtonEvents() {
+		if(ButtonHandler.isModPressed(Constants.ARM_MANUAL_CONTROL_BUTTON)) {
+			manualArm = !manualArm;
+		}
 		for (Press press : ButtonHandler.event) { 
 			SmartDashboard.putString("Pressing",press.toString());
 			Activity a = ButtonHandler.getActivityFromButton(press);				
