@@ -46,8 +46,9 @@ public class Constants {
 	public static final int ARM_EXTEND_BUTTON = 2;
 	public static final int ARM_STOW_BUTTON = 3;
 	public static final int ARM_THROW_BUTTON = 4;
-
-	public static final int DRIVE_SIMPLE_DEFENSE_BUTTON = 1, DRIVE_RESET_BUTTON = 8;
+	
+	public static final int GLOBAL_STICK_MODIFIER_BUTTON = 1; 
+	public static final int DRIVE_SIMPLE_DEFENSE_BUTTON = 7, DRIVE_RESET_BUTTON = 2;
 
 	public static final double ULTRA_SONIC_DELAY = 0.1;
 
