@@ -29,7 +29,7 @@ public class ArmController extends Controller {
 			int dir = (int) Math.pow(speed, 0);
 			boolean stowed = Utils.withInAbsThreshold(getAngle(), zeroPoint,Constants.ARM_THRESHOLD);
 			boolean extended = Utils.withInAbsThreshold(-getAngle(), -Constants.ARM_EXTENDED_ANGLE, Constants.ARM_THRESHOLD);
-			boolean canRun = (stowed && speed > 0) || (extended && speed < 0);
+			boolean canRun = (stowed && dir == 1) || (extended && dir == -1);
 			motor.set(canRun ? speed:0);
 		
 			
