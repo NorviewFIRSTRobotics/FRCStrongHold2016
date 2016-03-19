@@ -5,6 +5,7 @@ import org.usfirst.frc.team1793.robot.Robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
+//import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Timer;
 
 public class ShooterController extends Controller {
@@ -24,8 +25,9 @@ public class ShooterController extends Controller {
 		running = true;
 		executor.execute(() -> {
 			Timer timer = new Timer();
+			timer.reset();
 			timer.start();
-			
+	
 			// Throw ball
 			while (timer.get() < Constants.SHOOT_TIME) {
 				motor.set(speed);

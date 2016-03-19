@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.usfirst.frc.team1793.robot.Constants;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.components.EJoystick;
 
@@ -44,15 +43,18 @@ public class ButtonHandler {
 	}
 	
 	public static boolean pressed(int joystick, int button) {
-		return event.isEmpty() ? false : event.pressed(joystick,button);
+		return pressed(joystick,button,-1);
 	}
-	public static boolean isModPressed(int joystick) {
-		boolean mod = pressed(joystick,Constants.GLOBAL_STICK_MODIFIER_BUTTON);
-		SmartDashboard.putBoolean("Modifier", mod);
-		return mod; 
+	public static boolean pressed(int joystick, int button, int modifier) {
+		if(event.isEmpty())
+			return false;
+		boolean mod = false;
+		if(modifier != -1) {
+			mod = event.pressed(joystick,modifier);
+			return mod && event.pressed(joystick,button);
+		} else {
+			return event.pressed(joystick,button);
+		}
 	}
-
-	
-	
 	
 }

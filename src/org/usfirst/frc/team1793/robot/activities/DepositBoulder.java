@@ -21,11 +21,9 @@ public class DepositBoulder extends Activity {
 			extendArm.update();
 		} else {
 			ShooterController shooter = controllers.getShooter();
-			// TODO move
 			if (!shooter.isRunning() && shooter.isInStorePosition()) {
 				shooter.shoot(Constants.SHOOT_SPEED);
 			} else if (!shooter.isRunning()) {
-//				isComplete = true;
 				if(!stowArm.isComplete()) {
 					stowArm.update();
 				} else {

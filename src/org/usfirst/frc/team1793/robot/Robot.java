@@ -108,8 +108,7 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	@Override
 	public void teleopPeriodic() {
 		ButtonHandler.listen();
-		ButtonHandler.isModPressed(Constants.ARM_STICK_PID);
-		if(ButtonHandler.isModPressed(Constants.DRIVE_STICK_PID) && ButtonHandler.pressed(Constants.DRIVE_STICK_PID, Constants.DRIVE_RESET_BUTTON)) {
+		if(ButtonHandler.pressed(Constants.DRIVE_STICK_PID, Constants.DRIVE_RESET_BUTTON, Constants.GLOBAL_STICK_MODIFIER_BUTTON)) {
 			setActivity(getDefaultActivity());
 		} else if(!currentActivity.isComplete()) {
 			currentActivity.update();

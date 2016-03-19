@@ -23,7 +23,7 @@ public class BreachLowbar extends BreachSimpleDefense {
 				double leftDiff = front.getLeftRange()-prevLeftRange;
 				if(front.getRightRange() > (Constants.BREACH/2) && (leftDiff <= 1)) {
 					this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
-				} else {				
+				} else {
 					this.controllers.getDrive().drive(0);
 					isComplete = true;
 					front.setRunning(false);
