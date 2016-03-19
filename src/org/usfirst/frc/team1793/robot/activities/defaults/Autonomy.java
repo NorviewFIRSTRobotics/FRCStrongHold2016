@@ -31,6 +31,7 @@ public class Autonomy extends Activity implements IRobotActivity {
 	@Override
 	public void initialize() {
 		order = new ArrayList<SubActivity>(Arrays.asList());
+		setActivity(order.remove(0));
 		isComplete = false;
 	}
 

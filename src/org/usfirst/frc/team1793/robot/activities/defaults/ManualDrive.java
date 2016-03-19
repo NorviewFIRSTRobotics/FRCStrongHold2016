@@ -37,15 +37,13 @@ public class ManualDrive extends Activity {
 		SmartDashboard.putBoolean("Arm Manual Mode", manualArm);
 		
 		if (ButtonHandler.pressed(Constants.ARM_STICK_PID, Constants.ARM_MANUAL_CONTROL_BUTTON)) {
-			
-		
+			toggleManualArm();
 		}
 
 		if (!ButtonHandler.event.isEmpty()) {
 			detectButtonEvents();
 		} else {
 			driveTreads();
-			
 			if (manualArm) {
 				driveArm();
 			}
@@ -58,6 +56,7 @@ public class ManualDrive extends Activity {
 			buttonWait.start();
 		} else if(buttonWait.hasPeriodPassed(Constants.BUTTON_WAIT_PERIOD)){
 			buttonWait.reset();
+			toggleManualArm();
 		}
 	}
 	public void driveTreads() {

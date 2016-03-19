@@ -1,13 +1,15 @@
 package org.usfirst.frc.team1793.robot.components;
 
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SpeedControllerPair implements SpeedController {
 	private SpeedController left, right;
-
-	public SpeedControllerPair(SpeedController left, SpeedController right) {
+	private String name;
+	public SpeedControllerPair(SpeedController left, SpeedController right, String name) {
 		this.right = right;
 		this.left = left;
+		this.name = name;
 	}
 
 	@Override
@@ -29,6 +31,7 @@ public class SpeedControllerPair implements SpeedController {
 
 	@Override
 	public void set(double speed) {
+		SmartDashboard.putNumber(getClass().getSimpleName() + name, speed);
 		left.set(speed);
 		right.set(speed);
 	}

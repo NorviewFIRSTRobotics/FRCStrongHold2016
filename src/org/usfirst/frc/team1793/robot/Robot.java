@@ -8,6 +8,7 @@ import org.usfirst.frc.team1793.robot.activities.defaults.ManualDrive;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.components.EJoystick;
+import org.usfirst.frc.team1793.robot.components.SpeedControllerContainer;
 import org.usfirst.frc.team1793.robot.components.SpeedControllerPair;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair.SensorPosition;
@@ -69,10 +70,10 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 			shooterMotor = new DebugMotor("shooter");
 			armMotor = new DebugMotor("arm");
 		} else {
-			leftPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
-			rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()));
-			shooterMotor = new Victor(nextChannel());
-			armMotor = new Victor(nextChannel());
+			leftPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()), "Left Pair");
+			rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()),"Right Pair");
+			shooterMotor = new SpeedControllerContainer(new Victor(nextChannel()), "Shooter Motor");
+			armMotor = new SpeedControllerContainer(new Victor(nextChannel()), "Arm Motor");
 		}
 		
 		rightPair.setInverted(true);

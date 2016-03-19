@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
 //import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShooterController extends Controller {
 	private SpeedController motor;
@@ -24,19 +25,24 @@ public class ShooterController extends Controller {
 		}
 		running = true;
 		executor.execute(() -> {
+			SmartDashboard.putString("Shootball Progress", "Starting");
 			Timer timer = new Timer();
 			timer.reset();
 			timer.start();
-	
+			SmartDashboard.putString("Shootball Progress", "Initializing Timer");
 			// Throw ball
+			SmartDashboard.putString("Shootball Progress", "Throwing Ball");
 			while (timer.get() < Constants.SHOOT_TIME) {
 				motor.set(speed);
-				System.out.println("ShooterController:"+timer.get());
+				
+				SmartDashboard.putString("Shootball Progress", "Throwing Ball for " + timer.get() + " sec");
 			}
 			// Return to store position
+			SmartDashboard.putString("Shootball Progress", "Returning to store position");
 			while (!isInStorePosition()) {
 				motor.set(speed / Constants.SHOOT_RETURN_FACTOR);
 			}
+			SmartDashboard.putString("Shootball Progress", "Done");
 			motor.set(0);
 			running = false;
 		});
