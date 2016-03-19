@@ -46,7 +46,7 @@ public class BreachSimpleDefense extends Breach {
 */
 	@Override
 	public void initialize() {
-		order = new ArrayList<SubActivity>(Arrays.asList(_approach,_enter,_exit,_clear,_move));
+		order = new ArrayList<SubActivity>(Arrays.asList(_approach,_enter,_exit,_move));
 		for(SubActivity sub: order) {
 			sub.setDir(direction);
 		}

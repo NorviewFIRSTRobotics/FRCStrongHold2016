@@ -38,7 +38,7 @@ public class Constants {
 	// When returning to store position, speed is
 	// SHOOT_SPEED/SHOOT_RETURN_FACTOR
 	public static final double SHOOT_SPEED = -0.75;
-	public static final double SHOOT_RETURN_FACTOR = 4;
+	public static final double SHOOT_RETURN_FACTOR = 2;
 
 	// Amount of time the motors are run for a shoot action
 	public static final double SHOOT_TIME = .25;

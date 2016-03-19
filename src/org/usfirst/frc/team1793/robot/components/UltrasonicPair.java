@@ -96,4 +96,9 @@ public class UltrasonicPair {
 	public double getDifference() {
 		return getLeftRange() - getRightRange();
 	}
+	public void debug() {
+		
+		SmartDashboard.putNumber(leftPos.name(), getLeftRange());
+		SmartDashboard.putNumber(rightPos.name(), getRightRange());
+	}
 }

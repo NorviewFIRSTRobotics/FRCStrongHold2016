@@ -39,6 +39,7 @@ public class ShooterController extends Controller {
 				
 				SmartDashboard.putString("Shootball Progress", "Throwing Ball for " + timer.get() + " sec");
 			}
+			motor.set(0);
 			// Return to store position
 			SmartDashboard.putString("Shootball Progress", "Returning to store position");
 			while (!isInStorePosition()) {
@@ -47,6 +48,7 @@ public class ShooterController extends Controller {
 			SmartDashboard.putString("Shootball Progress", "Done");
 			motor.set(0);
 			running = false;
+//			Timer.delay(.1);
 		});
 	}
 

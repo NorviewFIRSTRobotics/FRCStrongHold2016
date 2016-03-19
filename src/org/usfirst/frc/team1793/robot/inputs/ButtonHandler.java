@@ -21,6 +21,7 @@ public class ButtonHandler {
 	}
 	public static void registerActivityButton(int joystick, int button, Activity activity) {
 		Press p = new Press(joystick,button);
+	
 		activityButtons.put(p, activity);
 	}
 	public static Activity getActivityFromButton(Press press) {

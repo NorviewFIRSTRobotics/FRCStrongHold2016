@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.usfirst.frc.team1793.robot.Constants;
-import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ExtendArm;
+import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MiddleArm;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.StowArm;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.system.ShooterController;
 
 public class DepositBoulder extends Activity implements IRobotActivity {
-	private ExtendArm extendArm = new ExtendArm(activity, controllers);
+	private MiddleArm middleArm = new MiddleArm(activity, controllers);
 	private ShootBall shootBall = new ShootBall(activity, controllers);
 	private StowArm stowArm = new StowArm(activity, controllers);
 	private ArrayList<Activity> order;
@@ -23,7 +23,10 @@ public class DepositBoulder extends Activity implements IRobotActivity {
 
 	@Override
 	public void initialize() {
-		order = new ArrayList<Activity>(Arrays.asList(extendArm, shootBall,stowArm));
+		if(controllers.getArm().getAngle() <= (Constants.ARM_EXTENDED_ANGLE+Constants.ARM_STOWED_ANGLE)/2)
+			order = new ArrayList<Activity>(Arrays.asList(shootBall,stowArm));
+		else 
+			order = new ArrayList<Activity>(Arrays.asList(middleArm, shootBall,stowArm));
 		super.initialize();
 		setActivity(order.remove(0));
 	}

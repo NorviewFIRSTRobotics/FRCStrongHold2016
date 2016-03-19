@@ -52,6 +52,7 @@ public class ArmController extends Controller {
 			// mean towards the store position!
 		
 			int direction = getAngle() > angle ? 1 : -1;
+			
 			while (!finished) {
 				double speed = Constants.ARM_SPEED*direction;
 
@@ -67,7 +68,9 @@ public class ArmController extends Controller {
 			}
 		});
 	}
-
+	public void middle() {
+		setArmPosition((Constants.ARM_EXTENDED_ANGLE+Constants.ARM_STOWED_ANGLE)/2);
+	}
 	public void stow() {
 		setArmPosition(Constants.ARM_STOWED_ANGLE);
 	}
