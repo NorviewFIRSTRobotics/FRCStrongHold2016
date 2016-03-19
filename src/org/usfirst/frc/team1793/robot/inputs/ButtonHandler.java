@@ -47,7 +47,9 @@ public class ButtonHandler {
 		return event.isEmpty() ? false : event.pressed(joystick,button);
 	}
 	public static boolean isModPressed(int joystick) {
-		return pressed(joystick,Constants.GLOBAL_STICK_MODIFIER_BUTTON);
+		boolean mod = pressed(joystick,Constants.GLOBAL_STICK_MODIFIER_BUTTON);
+		SmartDashboard.putBoolean("Modifier", mod);
+		return mod; 
 	}
 
 	

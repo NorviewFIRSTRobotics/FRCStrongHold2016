@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class ShooterController extends Controller {
 	private SpeedController motor;
-	private boolean running;
+	private volatile boolean running;
 	private DigitalInput limitSwitch = new DigitalInput(Constants.LIMIT_SWITCH_PID);
 
 	public ShooterController(SpeedController motor,Robot robot) {
@@ -25,10 +25,11 @@ public class ShooterController extends Controller {
 		executor.execute(() -> {
 			Timer timer = new Timer();
 			timer.start();
-
+			
 			// Throw ball
 			while (timer.get() < Constants.SHOOT_TIME) {
 				motor.set(speed);
+				System.out.println("ShooterController:"+timer.get());
 			}
 			// Return to store position
 			while (!isInStorePosition()) {

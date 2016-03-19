@@ -25,18 +25,18 @@ public class Constants {
 	public static final double ARM_THRESHOLD = 0.2;
 
 	// Offset for arm angle
-	public static final double ARM_OFFSET = -.2;
+	public static final double ARM_OFFSET = 0;
 
 	// Voltage value for the arm angle when all the way extended
-	public static final double ARM_EXTENDED_ANGLE = 1;
+	public static final double ARM_EXTENDED_ANGLE = .5;
 
 	// Voltage value for the arm angle when stowed in robot;
-	public static final double ARM_STOWED_ANGLE = 0;
+	public static final double ARM_STOWED_ANGLE = 3.7;
 
 	// Speed at which the shooter rotations when throwing.
 	// When returning to store position, speed is
 	// SHOOT_SPEED/SHOOT_RETURN_FACTOR
-	public static final double SHOOT_SPEED = .75;
+	public static final double SHOOT_SPEED = -0.75;
 	public static final double SHOOT_RETURN_FACTOR = 4;
 
 	// Amount of time the motors are run for a shoot action

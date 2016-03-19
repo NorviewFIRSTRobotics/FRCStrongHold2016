@@ -14,7 +14,7 @@ import org.usfirst.frc.team1793.robot.inputs.Press;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ManualDrive extends Activity {
-	private boolean manualArm = false;
+	private boolean manualArm = true;
 	private DepositBoulder depositBoulder = new DepositBoulder(activity,controllers);
 	private BreachSimpleDefense simpleDefense = new BreachSimpleDefense(activity, controllers);
 	private ExtendArm extendArm = new ExtendArm(activity, controllers);
@@ -29,24 +29,32 @@ public class ManualDrive extends Activity {
 
 	@Override
 	public void update() {
+		SmartDashboard.putNumber("Arm Angle", controllers.getArm().getAngle());
 		SmartDashboard.putBoolean("Arm Manual Mode", manualArm);
+		if(ButtonHandler.pressed(Constants.ARM_STICK_PID,Constants.ARM_MANUAL_CONTROL_BUTTON)) {
+			manualArm = !manualArm;
+		}
+		
 		if(!ButtonHandler.event.isEmpty()) {
 			detectButtonEvents();
 		} else {
-			if(manualArm) {
-				double stickY = controllers.getLeft().getY();
-				controllers.getArm().lift(stickY);
-			}
 			controllers.getDrive().arcadeDrive(controllers.getRight().getY(), controllers.getRight().getZ());
+			if(manualArm) {
+				double y = controllers.getLeft().getY();
+				if(Math.abs(y) > .2) {
+					controllers.getArm().lift(y*Constants.ARM_SPEED);
+				}
+				else {
+					controllers.getArm().lift(0);
+				}
+			}
 		}
-		
 
 	}
 	
 	public void detectButtonEvents() {
-		if(ButtonHandler.isModPressed(Constants.ARM_MANUAL_CONTROL_BUTTON)) {
-			manualArm = !manualArm;
-		}
+		
+		
 		for (Press press : ButtonHandler.event) { 
 			SmartDashboard.putString("Pressing",press.toString());
 			Activity a = ButtonHandler.getActivityFromButton(press);				
