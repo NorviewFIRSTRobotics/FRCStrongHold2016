@@ -8,14 +8,15 @@ public class ExtendArm extends SubActivity {
 	public ExtendArm(IRobotActivity activity, IRobotControllers controllers) {
 		super(activity, controllers);
 	}
-
+	@Override
+	public void initialize() {
+		super.initialize();
+		controllers.getArm().extend();
+	}
 	@Override
 	public void update() {
-		if(!controllers.getArm().isLatestOperationFinished()) {
-			controllers.getArm().extend();
-		} else {
+		if(controllers.getArm().isFinished()) 
 			isComplete = true;
-		}
 	}
 
 }

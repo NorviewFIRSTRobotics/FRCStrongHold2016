@@ -6,7 +6,6 @@ import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 
 public class ExitDefense extends SubActivity {
-		UltrasonicPair front;
 		public ExitDefense(IRobotActivity activity, IRobotControllers controllers) {
 			super(activity,controllers);
 		}
@@ -14,15 +13,15 @@ public class ExitDefense extends SubActivity {
 		@Override
 		public void initialize() {
 			isComplete = false;
-			front = controllers.getFrontSides();
-			front.setRunning(true);
+			sensor = direction ? controllers.getFrontSides() : controllers.getBackSides();
+			sensor.setRunning(true);
 		}
 
 		@Override
 		public void update() {		
 		
-			if(front.getSum() <= Constants.BREACH) {
-				this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
+			if(sensor.getSum() <= Constants.BREACH) {
+				this.controllers.getDrive().drive(direction ? -1 : 1 * Constants.DRIVE_SPEED);
 			} else {
 				this.controllers.getDrive().drive(0);
 				isComplete = true;

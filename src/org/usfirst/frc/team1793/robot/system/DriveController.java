@@ -25,7 +25,7 @@ public class DriveController extends Controller {
 	}
 
 	public void drive(double speed) {
-		executor.execute(() -> drive.drive(Constants.DRIVE_SPEED * speed));
+		executor.execute(() -> drive.drive(speed));
 	}
 
 	public void turn(double speed) {

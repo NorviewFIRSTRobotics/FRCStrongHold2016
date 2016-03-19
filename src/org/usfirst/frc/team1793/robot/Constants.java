@@ -10,13 +10,14 @@ public class Constants {
 	public static final double BREACH = 30;
 
 	// Speed a which the robot will turn automatically
-	public static final double TURN_SPEED = 0.5d;
+	public static final double TURN_SPEED = 0.75d;
 
 	// Angle threshold when turning automatically with the gyroscope
 	public static final double TURN_THRESHOLD = 5d;
 
 	// Speed used by all automatic drive motors
-	public static final double DRIVE_SPEED = 0.75d;
+	//Has to be negative to flip the direction
+	public static final double DRIVE_SPEED = 0.5d;
 
 	// Speed at which the arm rotations
 	public static final double ARM_SPEED = 0.4;

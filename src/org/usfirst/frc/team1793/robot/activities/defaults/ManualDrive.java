@@ -51,13 +51,13 @@ public class ManualDrive extends Activity {
 
 	}
 	public void toggleManualArm() {
-		if(buttonWait.get() == 0) {
+//		if(buttonWait.get() == 0) {
 			manualArm = !manualArm;
-			buttonWait.start();
-		} else if(buttonWait.hasPeriodPassed(Constants.BUTTON_WAIT_PERIOD)){
-			buttonWait.reset();
-			toggleManualArm();
-		}
+//			buttonWait.start();
+//		} else if(buttonWait.hasPeriodPassed(Constants.BUTTON_WAIT_PERIOD)){
+//			buttonWait.reset();
+//			toggleManualArm();
+//		}
 	}
 	public void driveTreads() {
 		controllers.getDrive().arcadeDrive(controllers.getRight().getY(), controllers.getRight().getZ());

@@ -10,12 +10,14 @@ public class StowArm extends SubActivity {
 	}
 
 	@Override
+	public void initialize() {
+		super.initialize();
+		controllers.getArm().stow();
+	}
+	@Override
 	public void update() {
-		if(!controllers.getArm().isLatestOperationFinished()) {
-			controllers.getArm().stow();
-		} else {
+		if(controllers.getArm().isFinished()) 
 			isComplete = true;
-		}
 	}
 
 }

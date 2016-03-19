@@ -16,8 +16,8 @@ import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 @SuppressWarnings("unused")
 public class Autonomy extends Activity implements IRobotActivity {
-	public ArrayList<SubActivity> order;
-	public SubActivity currentActivity;
+	public ArrayList<Activity> order;
+	public Activity currentActivity;
 
 
 	private DepositBoulder depositBoulder = new DepositBoulder(activity,controllers);
@@ -30,7 +30,9 @@ public class Autonomy extends Activity implements IRobotActivity {
 
 	@Override
 	public void initialize() {
-		order = new ArrayList<SubActivity>(Arrays.asList());
+		order = new ArrayList<Activity>();
+		order.add(simpleDefense);
+//		order.add(simpleDefense);
 		setActivity(order.remove(0));
 		isComplete = false;
 	}
@@ -54,10 +56,10 @@ public class Autonomy extends Activity implements IRobotActivity {
 
 	@Override
 	public void setActivity(Activity activity) {
-		if(activity instanceof SubActivity) {
-			this.currentActivity = (SubActivity) activity;
+		
+			this.currentActivity = activity;
 			this.currentActivity.initialize();
-		}
+	
 	}
 
 	@Override

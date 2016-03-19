@@ -16,7 +16,7 @@ import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BreachSimpleDefense extends Breach {
-
+	private boolean direction = true;
 	private ArrayList<SubActivity> order;
 	private SubActivity currentActivity;
 	protected ApproachDefense _approach;
@@ -47,6 +47,9 @@ public class BreachSimpleDefense extends Breach {
 	@Override
 	public void initialize() {
 		order = new ArrayList<SubActivity>(Arrays.asList(_approach,_enter,_exit,_clear,_move));
+		for(SubActivity sub: order) {
+			sub.setDir(direction);
+		}
 		setActivity(order.remove(0));
 		isComplete = false;
 	}
@@ -81,6 +84,13 @@ public class BreachSimpleDefense extends Breach {
 			this.currentActivity = (SubActivity) activity;
 			this.currentActivity.initialize();
 		}
+	}
+	public boolean getDirection() {
+		return direction;
+	}
+	public void setDirection(boolean direction) {
+		this.direction = direction;
+	
 	}
 
 	

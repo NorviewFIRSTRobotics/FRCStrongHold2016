@@ -97,7 +97,7 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		if(!currentActivity.isComplete()) {
 			currentActivity.update();
 		} else {
-			setActivity(getDefaultActivity());
+			setActivity(_idle);
 		}
 	}
 

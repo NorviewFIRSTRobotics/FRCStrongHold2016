@@ -6,7 +6,6 @@ import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 
 public class EnterDefense extends SubActivity {
-	UltrasonicPair back;
 	public EnterDefense(IRobotActivity activity, IRobotControllers controllers) {
 		super(activity,controllers);
 	}
@@ -14,20 +13,20 @@ public class EnterDefense extends SubActivity {
 	@Override
 	public void initialize() {
 		isComplete = false;
-		back = controllers.getBackSides();
-		back.setRunning(true);
+		sensor = !direction ? controllers.getFrontSides() : controllers.getBackSides();
+		sensor.setRunning(true);
 	}
 
 	@Override
 	public void update() {			
 		
-		if(back.getSum() > Constants.BREACH) {
-			this.controllers.getDrive().drive(Constants.DRIVE_SPEED);
+		if(sensor.getSum() > Constants.BREACH) {
+			this.controllers.getDrive().drive(direction ? -1 : 1 *Constants.DRIVE_SPEED);
 		} else {
 			this.controllers.getDrive().drive(0);
 			isComplete = true;
-			back.setRunning(false);
-			back = null;
+			sensor.setRunning(false);
+			sensor = null;
 		}
 	}
 	

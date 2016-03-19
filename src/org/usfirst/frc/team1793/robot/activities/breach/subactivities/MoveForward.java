@@ -24,7 +24,7 @@ public class MoveForward extends SubActivity {
 	public void update() {
 		System.out.println(timer.get());
 		if(!timer.hasPeriodPassed(seconds)) {
-			controllers.getDrive().drive(Constants.DRIVE_SPEED);
+			controllers.getDrive().drive(-Constants.DRIVE_SPEED);
 		} else {
 			controllers.getDrive().drive(0);
 			isComplete = true;

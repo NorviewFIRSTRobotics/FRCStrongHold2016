@@ -41,18 +41,15 @@ public class ButtonHandler {
 		SmartDashboard.putString("PressEvent", event.toString());
 		ButtonHandler.event = event; 
 	}
-	
+
 	public static boolean pressed(int joystick, int button) {
-		return pressed(joystick,button,-1);
-	}
+		return event.pressed(joystick,button);
+		}
 	public static boolean pressed(int joystick, int button, int modifier) {
 		if(event.isEmpty())
 			return false;
-		if(modifier != -1) {
+		else
 			return event.pressed(joystick,modifier) && event.pressed(joystick,button);
-		} else {
-			return event.pressed(joystick,button);
-		}
 	}
 	
 }
