@@ -19,7 +19,7 @@ public class PressEvent extends ArrayList<Press> {
 
 	public boolean pressed(Press press) {
 		for(Press p:this) {
-			if(p.button == press.button && p.joystick ==  press.joystick)
+			if(p.getButton() == press.getButton() && p.getJoystick() ==  press.getJoystick())
 				return true;
 		}
 		return false;

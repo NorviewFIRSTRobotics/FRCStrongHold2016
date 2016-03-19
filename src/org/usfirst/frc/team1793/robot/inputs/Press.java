@@ -2,7 +2,8 @@ package org.usfirst.frc.team1793.robot.inputs;
 
 public class Press {
 
-		protected int joystick, button;
+		private int joystick;
+		private int button;
 		public Press(int joystick, int button) {
 			this.joystick = joystick;
 			this.button = button;
@@ -24,4 +25,11 @@ public class Press {
 			}
 			return false;
 		}
+		public int getJoystick() {
+			return joystick;
+		}
+		public int getButton() {
+			return button;
+		}
+		
 	}

@@ -24,23 +24,12 @@ public class ArmController extends Controller {
 
 		SmartDashboard.putNumber("Arm Motor", speed);
 		executor.execute(() -> {
-			// s
-			// if(speed == 0) {
-			// motor.set(speed);
-			// return;
-			// }
-			//
-			// boolean stowed = Utils.withInAbsThreshold(getAngle(),
-			// zeroPoint,Constants.ARM_THRESHOLD);
-			// boolean extended = Utils.withInAbsThreshold(-getAngle(),
-			// -Constants.ARM_EXTENDED_ANGLE, Constants.ARM_THRESHOLD);
-			// boolean canRun = (stowed && dir == 1) || (extended && dir == -1);
-			// motor.set(canRun ? speed:0);
 			
 			//To extend arm speed goes to negative
 			//To stow arm speed goes positive
 			
-	
+			SmartDashboard.putNumber("Arm Angle", controllers.getArm().getAngle());
+			
 			if (speed > 0 && getAngle() > Constants.ARM_EXTENDED_ANGLE) {
 				motor.set(speed);
 			} else if (speed < 0 && getAngle() < Constants.ARM_STOWED_ANGLE) {
@@ -48,16 +37,6 @@ public class ArmController extends Controller {
 			} else {
 				motor.set(0);
 			}
-			//
-			// if (speed < 0) {
-			// if (getAngle() < 1)
-			// motor.set(speed);
-			// } else if (speed > 0) {
-			// if (getAngle() > Constants.ARM_EXTENDED_ANGLE)
-			// motor.set(speed);
-			// } else {
-			// motor.set(0);
-			// }
 		});
 	}
 

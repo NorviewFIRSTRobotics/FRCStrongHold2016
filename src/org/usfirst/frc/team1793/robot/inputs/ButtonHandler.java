@@ -48,10 +48,8 @@ public class ButtonHandler {
 	public static boolean pressed(int joystick, int button, int modifier) {
 		if(event.isEmpty())
 			return false;
-		boolean mod = false;
 		if(modifier != -1) {
-			mod = event.pressed(joystick,modifier);
-			return mod && event.pressed(joystick,button);
+			return event.pressed(joystick,modifier) && event.pressed(joystick,button);
 		} else {
 			return event.pressed(joystick,button);
 		}

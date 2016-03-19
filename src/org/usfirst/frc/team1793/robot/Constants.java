@@ -53,4 +53,6 @@ public class Constants {
 
 	public static final int ARM_MANUAL_CONTROL_BUTTON = 6;
 
+	public static final double BUTTON_WAIT_PERIOD = 3;
+
 }

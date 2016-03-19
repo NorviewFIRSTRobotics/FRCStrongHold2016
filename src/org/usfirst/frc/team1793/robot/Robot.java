@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	public AnalogGyro gyro;
 	public EJoystick driveStick, armStick;
 	
-		public UltrasonicPair frontSides;
+	public UltrasonicPair frontSides;
 	public UltrasonicPair backSides;
 	public UltrasonicPair front_back;
 	
