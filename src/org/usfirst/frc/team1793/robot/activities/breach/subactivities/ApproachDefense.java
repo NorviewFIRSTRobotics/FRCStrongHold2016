@@ -1,11 +1,12 @@
 package org.usfirst.frc.team1793.robot.activities.breach.subactivities;
 
 import org.usfirst.frc.team1793.robot.Constants;
+import org.usfirst.frc.team1793.robot.Constants.Direction;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 
-public class ApproachDefense extends SubActivity {
+public class ApproachDefense extends SensorActivity {
 	UltrasonicPair sensor;
 
 	// true goes forward, false goes reverse
@@ -17,13 +18,13 @@ public class ApproachDefense extends SubActivity {
 	@Override
 	public void initialize() {
 		isComplete = false;
-		sensor = direction ? controllers.getFrontSides() : controllers.getBackSides();
+		sensor = direction == Direction.FORWARD ? controllers.getFrontSides() : controllers.getBackSides();
 		sensor.setRunning(true);
 	}
 
 	public void update() {
 		if (sensor.getSum() > Constants.BREACH) {
-			this.controllers.getDrive().drive(direction ? -1 : 1 * Constants.DRIVE_SPEED);
+			this.controllers.getDrive().drive(getDriveSpeed());
 		} else {
 			this.controllers.getDrive().drive(0);
 			isComplete = true;

@@ -1,7 +1,10 @@
 package org.usfirst.frc.team1793.robot;
 
 public class Constants {
-
+	public enum Direction {
+		FORWARD,
+		REVERSE;
+	}
 
 	// Breach is the average distance between the two sides of the robot to the
 	// shields on the defenses
@@ -17,10 +20,10 @@ public class Constants {
 
 	// Speed used by all automatic drive motors
 	//Has to be negative to flip the direction
-	public static final double DRIVE_SPEED = 0.5d;
+	public static final double DRIVE_SPEED = -0.6d;
 
 	// Speed at which the arm rotations
-	public static final double ARM_SPEED = 0.4;
+	public static final double ARM_SPEED = 0.75;
 
 	// Threshold for the arm reaching its intended angle
 	public static final double ARM_THRESHOLD = 0.2;
@@ -45,7 +48,7 @@ public class Constants {
 
 	public static final int GYRO_PID = 0, RE_PID = 1, DRIVE_STICK_PID = 0, ARM_STICK_PID = 1, LIMIT_SWITCH_PID = 9;
 	
-	public static final int ARM_EXTEND_BUTTON = 4,ARM_STOW_BUTTON = 5,ARM_THROW_BUTTON = 2;
+	public static final int ARM_EXTEND_BUTTON = 4,ARM_STOW_BUTTON = 5,ARM_THROW_BUTTON = 2, ARM_MIDDLE_BUTTON = 3;
 	
 	public static final int GLOBAL_STICK_MODIFIER_BUTTON = 1; 
 	public static final int DRIVE_SIMPLE_DEFENSE_BUTTON = 7, DRIVE_RESET_BUTTON = 2;

@@ -11,13 +11,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class UltrasonicPair {
 	public enum SensorPosition {
 		
-		FRONTLEFT(0, 1), FRONTRIGHT(5, 4), BACKLEFT(3, 4), BACKRIGHT(2, 1), FRONT(6, 7), BACK(8, 7);
+		FRONTLEFT(0, 1), FRONTRIGHT(6, 5), BACKLEFT(4, 5), BACKRIGHT(3, 1);
+		
 		public int echo, ping;
 		private SensorPosition(int echo, int ping) {
 			this.echo = echo;
 			this.ping = ping;
 		}
-		public static final SensorPosition[] VALUES = new SensorPosition[]{FRONTLEFT,FRONTRIGHT,BACKLEFT,BACKRIGHT,FRONT,BACK};
+		public static final SensorPosition[] VALUES = new SensorPosition[]{FRONTLEFT,FRONTRIGHT,BACKLEFT,BACKRIGHT};
 	}
 
 	private static DigitalOutput[] outputs = new DigitalOutput[10];
@@ -66,17 +67,16 @@ public class UltrasonicPair {
 	public double getLeftRange() {
 		left.ping();
 		Timer.delay(Constants.ULTRA_SONIC_DELAY);
-		leftRange =left.getRangeInches(); 
-		SmartDashboard.putNumber(String.format("Sonic-e%d-p%d", leftPos.echo, leftPos.ping), leftRange);
+		leftRange = left.getRangeInches(); 
+		SmartDashboard.putNumber("Sonic-" + leftPos.name(), leftRange);
 		return leftRange;
-
 	}
 
 	public double getRightRange() {
 		right.ping();
 		Timer.delay(Constants.ULTRA_SONIC_DELAY);
 		rightRange = right.getRangeInches();
-		SmartDashboard.putNumber(String.format("Sonic-e%d-p%d", rightPos.echo, rightPos.ping), rightRange);
+		SmartDashboard.putNumber("Sonic-" + rightPos.name(), rightRange);
 		return rightRange;
 	}
 

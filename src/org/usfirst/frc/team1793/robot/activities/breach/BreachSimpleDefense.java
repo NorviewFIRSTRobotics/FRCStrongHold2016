@@ -3,12 +3,14 @@ package org.usfirst.frc.team1793.robot.activities.breach;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.usfirst.frc.team1793.robot.Constants.Direction;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ApproachDefense;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ClearDefense;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.EnterDefense;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ExitDefense;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MoveForward;
+import org.usfirst.frc.team1793.robot.activities.breach.subactivities.SensorActivity;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.SubActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
@@ -16,7 +18,7 @@ import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BreachSimpleDefense extends Breach {
-	private boolean direction = true;
+	private Direction direction = Direction.FORWARD;
 	private ArrayList<SubActivity> order;
 	private SubActivity currentActivity;
 	protected ApproachDefense _approach;
@@ -46,9 +48,11 @@ public class BreachSimpleDefense extends Breach {
 */
 	@Override
 	public void initialize() {
-		order = new ArrayList<SubActivity>(Arrays.asList(_approach,_enter,_exit,_move));
+		order = new ArrayList<SubActivity>(Arrays.asList(_approach,_enter,_exit,_clear));
 		for(SubActivity sub: order) {
-			sub.setDir(direction);
+			if(sub instanceof SensorActivity) {
+				((SensorActivity)sub).setDir(direction);
+			}
 		}
 		setActivity(order.remove(0));
 		isComplete = false;
@@ -61,6 +65,7 @@ public class BreachSimpleDefense extends Breach {
 			SmartDashboard.putString(this.getClass().getSimpleName()+ " Current Subactivity", currentActivity.getClass().getSimpleName());
 		} else {
 			if(order.isEmpty()) {
+				SmartDashboard.putString(this.getClass().getSimpleName()+ " Current Subactivity", "COMPLETE");
 				isComplete = true;
 			} else {
 				setActivity(order.remove(0));
@@ -85,10 +90,10 @@ public class BreachSimpleDefense extends Breach {
 			this.currentActivity.initialize();
 		}
 	}
-	public boolean getDirection() {
+	public Direction getDirection() {
 		return direction;
 	}
-	public void setDirection(boolean direction) {
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	
 	}

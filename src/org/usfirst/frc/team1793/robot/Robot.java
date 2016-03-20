@@ -30,18 +30,18 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	public static int motorChannel = 0;
 	public final boolean TEST_BOARD = false;
 
-	public DriveController drive;
-	public ArmController arm;
-	public ShooterController shooter;
-	public AnalogGyro gyro;
-	public EJoystick driveStick, armStick;
+	private DriveController drive;
+	private ArmController arm;
+	private ShooterController shooter;
+	private AnalogGyro gyro;
+	private EJoystick driveStick, armStick;
 	
-	public UltrasonicPair frontSides;
-	public UltrasonicPair backSides;
-	public UltrasonicPair front_back;
+	private UltrasonicPair frontSides;
+	private UltrasonicPair backSides;
+	private UltrasonicPair front_back;
 	
 	
-	public Activity currentActivity;
+	private Activity currentActivity;
 	
 	private ManualDrive _manualDrive;
 	private Idle _idle;
@@ -80,9 +80,11 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		drive = new DriveController(leftPair, rightPair,this);
 		shooter = new ShooterController(shooterMotor,this);
 		arm = new ArmController(armMotor,this);
+		
 		frontSides = new UltrasonicPair(SensorPosition.FRONTLEFT, SensorPosition.FRONTRIGHT);
 		backSides = new UltrasonicPair(SensorPosition.BACKLEFT, SensorPosition.BACKRIGHT);
-		front_back = new UltrasonicPair(SensorPosition.FRONT,SensorPosition.BACK);
+//		front_back = new UltrasonicPair(SensorPosition.FRONT,SensorPosition.BACK);
+		
 		setActivity(getDefaultActivity());
 	}
 
@@ -93,7 +95,6 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	
 	@Override
 	public void autonomousPeriodic() {
-
 		if(!currentActivity.isComplete()) {
 			currentActivity.update();
 		} else {
@@ -129,7 +130,7 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		//No need to update, nothing is happening
 	}
 
-	public static int nextChannel() {
+	private static int nextChannel() {
 		int pid = motorChannel;
 		motorChannel++;
 		System.out.println("Adding motor pid:"+pid);

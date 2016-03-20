@@ -4,5 +4,6 @@
 *.swp
 .classpath
 .project
+/.metadata/
 
 

@@ -26,26 +26,26 @@ public class ShooterController extends Controller {
 		Timer timer = new Timer();
 		running = true;
 		executor.execute(() -> {
-			SmartDashboard.putString("Shootball Progress", "Starting");
+			//SmartDashboard.putString("Shootball Progress", "Starting");
 			
 			timer.reset();
 			timer.start();
 			
-			SmartDashboard.putString("Shootball Progress", "Initializing Timer");
+			//SmartDashboard.putString("Shootball Progress", "Initializing Timer");
 			// Throw ball
-			SmartDashboard.putString("Shootball Progress", "Throwing Ball");
+			//SmartDashboard.putString("Shootball Progress", "Throwing Ball");
 			while (timer.get() < Constants.SHOOT_TIME) {
 				motor.set(speed);
 				
-				SmartDashboard.putString("Shootball Progress", "Throwing Ball for " + timer.get() + " sec");
+				//SmartDashboard.putString("Shootball Progress", "Throwing Ball for " + timer.get() + " sec");
 			}
 			motor.set(0);
 			// Return to store position
-			SmartDashboard.putString("Shootball Progress", "Returning to store position");
+			//SmartDashboard.putString("Shootball Progress", "Returning to store position");
 			while (!isInStorePosition()) {
 				motor.set(-speed/2);
 			}
-			SmartDashboard.putString("Shootball Progress", "Done");
+			//SmartDashboard.putString("Shootball Progress", "Done");
 			motor.set(0);
 			running = false;
 //			Timer.delay(.1);

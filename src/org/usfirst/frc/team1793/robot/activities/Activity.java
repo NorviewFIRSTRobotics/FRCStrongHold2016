@@ -32,7 +32,7 @@ public abstract class Activity  {
 
 	public boolean isComplete() {
 		if(isComplete)
-			SmartDashboard.putString(this.getClass().getSimpleName()+" Current Activity", this.getClass().getSimpleName()+":completed");
+			SmartDashboard.putString(this.getClass().getSimpleName(), this.getClass().getSimpleName()+":completed");
 		return isComplete;
 	}
 	

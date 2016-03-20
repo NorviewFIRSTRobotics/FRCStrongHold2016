@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class MoveForward extends SubActivity {
 	private double seconds;
+	private double start;
 	private Timer timer;
 	public MoveForward(IRobotActivity activity, IRobotControllers controllers,double seconds) {
 		super(activity,controllers);
@@ -16,6 +17,7 @@ public class MoveForward extends SubActivity {
 
 	@Override
 	public void initialize() {
+		start = Timer.getFPGATimestamp();
 		timer = new Timer();
 		timer.start();
 	}
@@ -23,8 +25,8 @@ public class MoveForward extends SubActivity {
 	@Override
 	public void update() {
 		System.out.println(timer.get());
-		if(!timer.hasPeriodPassed(seconds)) {
-			controllers.getDrive().drive(-Constants.DRIVE_SPEED);
+				if(!timer.hasPeriodPassed(seconds)) {
+			controllers.getDrive().drive(Constants.DRIVE_SPEED);
 		} else {
 			controllers.getDrive().drive(0);
 			isComplete = true;
