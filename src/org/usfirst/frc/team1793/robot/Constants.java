@@ -59,4 +59,6 @@ public class Constants {
 
 	public static final double BUTTON_WAIT_PERIOD = 3;
 
+	public static final double FOOT = 12;
+
 }

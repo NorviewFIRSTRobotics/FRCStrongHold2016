@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1793.robot.api;
 
+import org.usfirst.frc.team1793.robot.components.UltrasonicContainer;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 import org.usfirst.frc.team1793.robot.system.ArmController;
 import org.usfirst.frc.team1793.robot.system.DriveController;
@@ -17,5 +18,5 @@ public interface IRobotControllers {
 	public Joystick getRight();
 	public UltrasonicPair getFrontSides();
 	public UltrasonicPair getBackSides();
-	public UltrasonicPair getFrontAndBack();
+	public UltrasonicContainer getFace();
 }

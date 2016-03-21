@@ -14,7 +14,6 @@ public class ClearDefense extends SensorActivity {
 	public void initialize() {
 		isComplete = false;
 		sensor = direction == Direction.FORWARD ? controllers.getBackSides() : controllers.getFrontSides();
-		sensor.setRunning(true);
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package org.usfirst.frc.team1793.robot.activities.defaults;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team1793.robot.Constants.Direction;
 import org.usfirst.frc.team1793.robot.activities.Activity;
 import org.usfirst.frc.team1793.robot.activities.DepositBoulder;
 import org.usfirst.frc.team1793.robot.activities.Turn;

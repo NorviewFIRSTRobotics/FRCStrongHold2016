@@ -14,7 +14,6 @@ public class ExitDefense extends SensorActivity {
 	public void initialize() {
 		isComplete = false;
 		sensor = direction == Direction.FORWARD ? controllers.getFrontSides() : controllers.getBackSides();
-		sensor.setRunning(true);
 	}
 
 	@Override

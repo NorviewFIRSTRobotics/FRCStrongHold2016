@@ -10,8 +10,6 @@ import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.system.ShooterController;
 
-import edu.wpi.first.wpilibj.Ultrasonic;
-
 public class DepositBoulder extends Activity implements IRobotActivity {
 	private MiddleArm middleArm = new MiddleArm(activity, controllers);
 	private ShootBall shootBall = new ShootBall(activity, controllers);

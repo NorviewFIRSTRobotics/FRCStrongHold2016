@@ -10,9 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class UltrasonicPair {
 	public enum SensorPosition {
-		
-		FRONTLEFT(0, 1), FRONTRIGHT(6, 5), BACKLEFT(4, 5), BACKRIGHT(3, 1);
-		
+		FRONTLEFT(0, 1), FRONTRIGHT(6, 5), BACKLEFT(4, 5), BACKRIGHT(3, 1),FACE(7,8);
 		public int echo, ping;
 		private SensorPosition(int echo, int ping) {
 			this.echo = echo;
@@ -29,33 +27,11 @@ public class UltrasonicPair {
 				outputs[pos.ping] = new DigitalOutput(pos.ping);			
 			}			
 		}
-//		outputs[1] = new DigitalOutput(1);
-//		outputs[4] = new DigitalOutput(4);
-//		outputs[7] = new DigitalOutput(7);
 	}
-
-//	private class UltrasonicChecker extends Thread {
-//		public synchronized void run() {
-//			while (running) {
-//				left.ping();
-//				Timer.delay(.1);
-//				leftRange = left.getRangeInches();
-//				
-//				right.ping();
-//				Timer.delay(.1);
-//				rightRange = right.getRangeInches();
-//				
-//				Timer.delay(.3);
-//			}
-//		}
-//	}
 
 	private Ultrasonic left, right;
 	private SensorPosition leftPos, rightPos;
 	private volatile double leftRange, rightRange;
-//	private volatile boolean running;
-
-//	private UltrasonicChecker checker = new UltrasonicChecker();
 
 	public UltrasonicPair(SensorPosition left, SensorPosition right) {
 		this.left = new Ultrasonic(outputs[left.ping], new DigitalInput(left.echo));
@@ -78,15 +54,6 @@ public class UltrasonicPair {
 		rightRange = right.getRangeInches();
 		SmartDashboard.putNumber("Sonic-" + rightPos.name(), rightRange);
 		return rightRange;
-	}
-
-	public void setRunning(boolean run) {
-
-		// running = run;
-		// if(running) {
-		// checker.start();
-		// }
-
 	}
 
 	public double getSum() {

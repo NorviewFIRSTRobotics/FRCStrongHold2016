@@ -10,6 +10,7 @@ import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.components.EJoystick;
 import org.usfirst.frc.team1793.robot.components.SpeedControllerContainer;
 import org.usfirst.frc.team1793.robot.components.SpeedControllerPair;
+import org.usfirst.frc.team1793.robot.components.UltrasonicContainer;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair;
 import org.usfirst.frc.team1793.robot.components.UltrasonicPair.SensorPosition;
 import org.usfirst.frc.team1793.robot.debug.DebugMotor;
@@ -38,8 +39,7 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	
 	private UltrasonicPair frontSides;
 	private UltrasonicPair backSides;
-	private UltrasonicPair front_back;
-	
+	private UltrasonicContainer face;
 	
 	private Activity currentActivity;
 	
@@ -83,8 +83,7 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		
 		frontSides = new UltrasonicPair(SensorPosition.FRONTLEFT, SensorPosition.FRONTRIGHT);
 		backSides = new UltrasonicPair(SensorPosition.BACKLEFT, SensorPosition.BACKRIGHT);
-//		front_back = new UltrasonicPair(SensorPosition.FRONT,SensorPosition.BACK);
-		
+		face = new UltrasonicContainer(SensorPosition.FACE);
 		setActivity(getDefaultActivity());
 	}
 
@@ -117,6 +116,7 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 		} else {
 			setActivity(getDefaultActivity());
 		}
+		face.debug();
 	}
 
 	@Override
@@ -201,13 +201,8 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	}
 
 	@Override
-	public UltrasonicPair getFrontAndBack() {
-		return front_back;
-	}
-
-	public void information() {
-		SmartDashboard.putNumber("Arm Angle", getArm().getAngle());
-		SmartDashboard.putBoolean("Shooter Stored", getShooter().isInStorePosition());
+	public UltrasonicContainer getFace() {
+		return face;
 	}
 	
 }

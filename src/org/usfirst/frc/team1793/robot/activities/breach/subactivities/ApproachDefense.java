@@ -19,7 +19,6 @@ public class ApproachDefense extends SensorActivity {
 	public void initialize() {
 		isComplete = false;
 		sensor = direction == Direction.FORWARD ? controllers.getFrontSides() : controllers.getBackSides();
-		sensor.setRunning(true);
 	}
 
 	public void update() {
@@ -27,8 +26,6 @@ public class ApproachDefense extends SensorActivity {
 			this.controllers.getDrive().drive(getDriveSpeed());
 		} else {
 			isComplete = true;
-			sensor.setRunning(false);
-			sensor = null;
 		}
 	}
 

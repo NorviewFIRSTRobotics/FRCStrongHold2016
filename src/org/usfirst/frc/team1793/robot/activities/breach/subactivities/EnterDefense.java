@@ -14,7 +14,6 @@ public class EnterDefense extends SensorActivity {
 	public void initialize() {
 		isComplete = false;
 		sensor = direction == Direction.FORWARD ? controllers.getBackSides() : controllers.getFrontSides();
-		sensor.setRunning(true);
 	}
 
 	@Override
@@ -24,8 +23,6 @@ public class EnterDefense extends SensorActivity {
 			this.controllers.getDrive().drive(getDriveSpeed());
 		} else {
 			isComplete = true;
-			sensor.setRunning(false);
-			sensor = null;
 		}
 	}
 
