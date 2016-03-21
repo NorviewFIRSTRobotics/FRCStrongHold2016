@@ -25,6 +25,9 @@ public class MoveForward extends SubActivity {
 	public void update() {
 		if( (start-Timer.getFPGATimestamp()) < seconds) {
 			controllers.getDrive().drive(getDriveSpeed());
+		} else {
+			controllers.getDrive().zero();
+			isComplete = true;
 		}
 	}
 	protected double getDriveSpeed() {

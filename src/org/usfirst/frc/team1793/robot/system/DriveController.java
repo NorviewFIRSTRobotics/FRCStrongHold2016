@@ -32,7 +32,9 @@ public class DriveController extends Controller {
 			drive.turn(speed);
 		});
 	}
-	
+	public void zero() {
+		drive(0);
+	}
 	public class Drive extends RobotDrive {
 
 		public Drive(SpeedController leftMotor, SpeedController rightMotor) {
@@ -90,5 +92,7 @@ public class DriveController extends Controller {
 //		}
 //
 //	}
+
+
 
 }

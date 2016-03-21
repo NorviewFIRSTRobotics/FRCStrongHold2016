@@ -23,7 +23,6 @@ public class ExitDefense extends SensorActivity {
 		if (sensor.getSum() <= Constants.BREACH) {
 			this.controllers.getDrive().drive(getDriveSpeed());
 		} else {
-			this.controllers.getDrive().drive(0);
 			isComplete = true;
 		}
 	}
