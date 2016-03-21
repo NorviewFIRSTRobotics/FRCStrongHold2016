@@ -10,19 +10,22 @@ import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
 import org.usfirst.frc.team1793.robot.system.ShooterController;
 
+import edu.wpi.first.wpilibj.Ultrasonic;
+
 public class DepositBoulder extends Activity implements IRobotActivity {
 	private MiddleArm middleArm = new MiddleArm(activity, controllers);
 	private ShootBall shootBall = new ShootBall(activity, controllers);
 	private StowArm stowArm = new StowArm(activity, controllers);
 	private ArrayList<Activity> order;
 	private Activity currentActivity;
-
+	
 	public DepositBoulder(IRobotActivity activity, IRobotControllers controllers) {
 		super(activity, controllers);
 	}
 
 	@Override
 	public void initialize() {
+		
 		if(controllers.getArm().getAngle() <= (Constants.ARM_EXTENDED_ANGLE+Constants.ARM_STOWED_ANGLE)/2)
 			order = new ArrayList<Activity>(Arrays.asList(shootBall,stowArm));
 		else 

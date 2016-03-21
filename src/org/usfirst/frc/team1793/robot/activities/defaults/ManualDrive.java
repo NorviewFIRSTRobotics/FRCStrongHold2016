@@ -6,7 +6,6 @@ import org.usfirst.frc.team1793.robot.activities.DepositBoulder;
 import org.usfirst.frc.team1793.robot.activities.breach.BreachSimpleDefense;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ExtendArm;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MiddleArm;
-import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MoveForward;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.StowArm;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
