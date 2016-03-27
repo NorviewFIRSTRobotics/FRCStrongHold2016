@@ -23,7 +23,7 @@ public class Constants {
 	public static final double DRIVE_SPEED = -0.6d;
 
 	// Speed at which the arm rotations
-	public static final double ARM_SPEED = 0.75;
+	public static final double ARM_SPEED = 1;
 
 	// Threshold for the arm reaching its intended angle
 	public static final double ARM_THRESHOLD = 0.2;
@@ -60,5 +60,7 @@ public class Constants {
 	public static final double BUTTON_WAIT_PERIOD = 3;
 
 	public static final double FOOT = 12;
+	
+	public static final double RANGE_OF_DEFENSE = 22;
 
 }

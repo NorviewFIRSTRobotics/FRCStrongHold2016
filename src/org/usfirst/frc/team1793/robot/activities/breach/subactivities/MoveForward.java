@@ -11,10 +11,11 @@ import edu.wpi.first.wpilibj.Timer;
 public class MoveForward extends SubActivity {
 	private Direction direction;
 	private UltrasonicContainer sensor;
-	private double seconds;
+	private final double seconds;
 	private double start;
-	public MoveForward(IRobotActivity activity, IRobotControllers controllers,double seconds) {
-		super(activity,controllers);
+
+	public MoveForward(IRobotActivity activity, IRobotControllers controllers, double seconds) {
+		super(activity, controllers);
 		this.seconds = seconds;
 	}
 
@@ -22,22 +23,25 @@ public class MoveForward extends SubActivity {
 	public void initialize() {
 		start = Timer.getFPGATimestamp();
 		sensor = controllers.getFace();
+		System.out.println("start:" + start);
 	}
 
 	@Override
 	public void update() {
-		if(sensor.getRange() > Constants.FOOT) {
-			isComplete = true;
-		} 
-		else if( (start-Timer.getFPGATimestamp()) < seconds) {
+
+		System.out.println(Timer.getFPGATimestamp() - start);
+		/*
+		 * if(sensor.getRange() > Constants.FOOT) { isComplete = true; } else
+		 */if ((Timer.getFPGATimestamp() - start) < seconds) {
 			controllers.getDrive().drive(getDriveSpeed());
 		} else {
 			controllers.getDrive().zero();
 			isComplete = true;
 		}
 	}
+
 	protected double getDriveSpeed() {
-		return (direction == Direction.FORWARD ? 1 : -1) * Constants.DRIVE_SPEED; 
+		return (direction == Direction.FORWARD ? 1 : -1) * Constants.DRIVE_SPEED;
 	}
 
 	public void setDirection(Direction direction) {

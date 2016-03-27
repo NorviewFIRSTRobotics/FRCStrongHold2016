@@ -6,6 +6,7 @@ import org.usfirst.frc.team1793.robot.activities.DepositBoulder;
 import org.usfirst.frc.team1793.robot.activities.breach.BreachSimpleDefense;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.ExtendArm;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MiddleArm;
+import org.usfirst.frc.team1793.robot.activities.breach.subactivities.MoveForward;
 import org.usfirst.frc.team1793.robot.activities.breach.subactivities.StowArm;
 import org.usfirst.frc.team1793.robot.api.IRobotActivity;
 import org.usfirst.frc.team1793.robot.api.IRobotControllers;
@@ -27,10 +28,10 @@ public class ManualDrive extends Activity {
 	public ManualDrive(IRobotActivity activity, IRobotControllers controllers) {
 		super(activity, controllers);
 		ButtonHandler.registerActivityButton(Constants.ARM_STICK_PID, Constants.ARM_THROW_BUTTON, depositBoulder);
-		ButtonHandler.registerActivityButton(Constants.DRIVE_STICK_PID, Constants.DRIVE_SIMPLE_DEFENSE_BUTTON,
-				simpleDefense);
-		ButtonHandler.registerActivityButton(Constants.DRIVE_STICK_PID, 3,
-				new DebugSensors(activity, controllers));
+//		ButtonHandler.registerActivityButton(Constants.DRIVE_STICK_PID, Constants.DRIVE_SIMPLE_DEFENSE_BUTTON,
+//				simpleDefense);
+//		ButtonHandler.registerActivityButton(Constants.DRIVE_STICK_PID, 4,
+//				new MoveForward(activity, controllers,10));
 		ButtonHandler.registerActivityButton(Constants.ARM_STICK_PID, Constants.ARM_EXTEND_BUTTON, extendArm);
 		ButtonHandler.registerActivityButton(Constants.ARM_STICK_PID, Constants.ARM_STOW_BUTTON, stowArm);
 		ButtonHandler.registerActivityButton(Constants.ARM_STICK_PID, Constants.ARM_MIDDLE_BUTTON, midArm);

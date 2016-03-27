@@ -24,6 +24,13 @@ public class UltrasonicContainer {
 	}
 	public void debug() {	
 		SmartDashboard.putNumber(s.name(),getRange());
+		
+	}
+	
+	public boolean isCloseEnough() {
+		boolean inrange = (getRange() <= Constants.RANGE_OF_DEFENSE);
+		SmartDashboard.putBoolean("Front Close Enough", inrange);
+		return inrange;
 	}
 }
  

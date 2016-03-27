@@ -22,6 +22,7 @@ import org.usfirst.frc.team1793.robot.system.ShooterController;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
@@ -36,34 +37,36 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	private ShooterController shooter;
 	private AnalogGyro gyro;
 	private EJoystick driveStick, armStick;
-	
+
 	private UltrasonicPair frontSides;
 	private UltrasonicPair backSides;
 	private UltrasonicContainer face;
-	
+
 	private Activity currentActivity;
-	
+
 	private ManualDrive _manualDrive;
 	private Idle _idle;
 	private DetectDefenseType _detectDefenseType;
 	private Autonomy _autonomy;
-	
+
+	private PowerDistributionPanel pdp;
+
 	@Override
 	public void robotInit() {
-		_manualDrive = new ManualDrive(this,this);
-		_idle = new Idle(this,this);
-		_detectDefenseType = new DetectDefenseType(this,this);
-		_autonomy = new Autonomy(this,this);
+		_manualDrive = new ManualDrive(this, this);
+		_idle = new Idle(this, this);
+		_detectDefenseType = new DetectDefenseType(this, this);
+		_autonomy = new Autonomy(this, this);
 		driveStick = new EJoystick(Constants.DRIVE_STICK_PID);
 		armStick = new EJoystick(Constants.ARM_STICK_PID);
 		gyro = new AnalogGyro(Constants.GYRO_PID);
-		
+
 		SpeedController leftPair;
 		SpeedController rightPair;
-		
+
 		SpeedController shooterMotor;
 		SpeedController armMotor;
-		
+
 		if (TEST_BOARD) {
 			leftPair = new DebugMotor("left");
 			rightPair = new DebugMotor("right");
@@ -71,16 +74,16 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 			armMotor = new DebugMotor("arm");
 		} else {
 			leftPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()), "Left Pair");
-			rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()),"Right Pair");
+			rightPair = new SpeedControllerPair(new Talon(nextChannel()), new Talon(nextChannel()), "Right Pair");
 			shooterMotor = new SpeedControllerContainer(new Victor(nextChannel()), "Shooter Motor");
 			armMotor = new SpeedControllerContainer(new Victor(nextChannel()), "Arm Motor");
 		}
-		
+
 		rightPair.setInverted(true);
-		drive = new DriveController(leftPair, rightPair,this);
-		shooter = new ShooterController(shooterMotor,this);
-		arm = new ArmController(armMotor,this);
-		
+		drive = new DriveController(leftPair, rightPair, this);
+		shooter = new ShooterController(shooterMotor, this);
+		arm = new ArmController(armMotor, this);
+
 		frontSides = new UltrasonicPair(SensorPosition.FRONTLEFT, SensorPosition.FRONTRIGHT);
 		backSides = new UltrasonicPair(SensorPosition.BACKLEFT, SensorPosition.BACKRIGHT);
 		face = new UltrasonicContainer(SensorPosition.FACE);
@@ -91,10 +94,10 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	public void autonomousInit() {
 		setActivity(getDefaultActivity());
 	}
-	
+
 	@Override
 	public void autonomousPeriodic() {
-		if(!currentActivity.isComplete()) {
+		if (!currentActivity.isComplete()) {
 			currentActivity.update();
 		} else {
 			setActivity(_idle);
@@ -104,19 +107,26 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	@Override
 	public void teleopInit() {
 		setActivity(getDefaultActivity());
+		pdp = new PowerDistributionPanel();
 	}
-
+//
 	@Override
 	public void teleopPeriodic() {
 		ButtonHandler.listen();
-		if(ButtonHandler.pressed(Constants.DRIVE_STICK_PID, Constants.DRIVE_RESET_BUTTON, Constants.GLOBAL_STICK_MODIFIER_BUTTON)) {
+		if (ButtonHandler.pressed(Constants.DRIVE_STICK_PID, Constants.DRIVE_RESET_BUTTON,
+				Constants.GLOBAL_STICK_MODIFIER_BUTTON)) {
 			setActivity(getDefaultActivity());
-		} else if(!currentActivity.isComplete()) {
+		} else if (!currentActivity.isComplete()) {
 			currentActivity.update();
 		} else {
 			setActivity(getDefaultActivity());
 		}
-		face.debug();
+
+		// for(int i =0; i<=3;i++)
+		// SmartDashboard.putNumber("PDP-Current-"+i, pdp.getCurrent(i));
+		// face.debug();
+		face.isCloseEnough();
+		
 	}
 
 	@Override
@@ -126,17 +136,16 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 
 	@Override
 	public void disabledPeriodic() {
-		
-		//No need to update, nothing is happening
+
+		// No need to update, nothing is happening
 	}
 
 	private static int nextChannel() {
 		int pid = motorChannel;
 		motorChannel++;
-		System.out.println("Adding motor pid:"+pid);
+		System.out.println("Adding motor pid:" + pid);
 		return pid;
 	}
-
 
 	public Activity getDetectDefenseActivity() {
 		return _detectDefenseType;
@@ -204,5 +213,5 @@ public class Robot extends IterativeRobot implements IRobotActivity, IRobotContr
 	public UltrasonicContainer getFace() {
 		return face;
 	}
-	
+
 }

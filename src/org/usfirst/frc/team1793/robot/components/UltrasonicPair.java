@@ -44,7 +44,7 @@ public class UltrasonicPair {
 		left.ping();
 		Timer.delay(Constants.ULTRA_SONIC_DELAY);
 		leftRange = left.getRangeInches(); 
-		SmartDashboard.putNumber("Sonic-" + leftPos.name(), leftRange);
+		SmartDashboard.putNumber(leftPos.name(), leftRange);
 		return leftRange;
 	}
 
@@ -52,7 +52,7 @@ public class UltrasonicPair {
 		right.ping();
 		Timer.delay(Constants.ULTRA_SONIC_DELAY);
 		rightRange = right.getRangeInches();
-		SmartDashboard.putNumber("Sonic-" + rightPos.name(), rightRange);
+		SmartDashboard.putNumber(rightPos.name(), rightRange);
 		return rightRange;
 	}
 

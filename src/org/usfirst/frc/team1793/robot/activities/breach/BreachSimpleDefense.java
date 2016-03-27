@@ -47,7 +47,7 @@ public class BreachSimpleDefense extends Breach {
 	 */
 	@Override
 	public void initialize() {
-		order = new ArrayList<SubActivity>(Arrays.asList(_approach, _enter, _exit, _clear));
+		order = new ArrayList<SubActivity>(Arrays.asList(_approach, _enter, _exit, _clear,_move));
 		for (SubActivity sub : order) {
 			if (sub instanceof SensorActivity) {
 				((SensorActivity) sub).setDir(direction);
@@ -63,10 +63,12 @@ public class BreachSimpleDefense extends Breach {
 			currentActivity.update();
 			SmartDashboard.putString(this.getClass().getSimpleName() + " Current Subactivity",
 					currentActivity.getClass().getSimpleName());
+			
 		} else {
 			if (order.isEmpty()) {
 				SmartDashboard.putString(this.getClass().getSimpleName() + " Current Subactivity", "COMPLETE");
 				isComplete = true;
+				controllers.getDrive().drive(0);
 			} else {
 				setActivity(order.remove(0));
 			}
