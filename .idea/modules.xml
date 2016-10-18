@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FRCStrongHold.iml" filepath="$PROJECT_DIR$/.idea/modules/FRCStrongHold.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FRCStrongHold_main.iml" filepath="$PROJECT_DIR$/.idea/modules/FRCStrongHold_main.iml" group="FRCStrongHold" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FRCStrongHold_test.iml" filepath="$PROJECT_DIR$/.idea/modules/FRCStrongHold_test.iml" group="FRCStrongHold" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,50 @@
+**** CRASH LOG ****
+Your robot has crashed. Following is a crash log and more details.
+This log has been saved to: /home/tyler/Code/Robotics/FRCStrongHold/run/gradle/simulation/toast/crash/crash-2016-10-16_09-27-09.txt
+This log will also be duplicated to USB devices, with the filename: crash-2016-10-16_09-27-09.txt
+ ________     __  ____       ____  __
+((       )   / / / / /_     / __ \/ /_
+||  x x  |  / / / / __ \   / / / / __ \
+||   ^   | / /_/ / / / /  / /_/ / / / /
+\\_______/ \____/_/ /_/   \____/_/ /_/
+
+java.util.concurrent.RejectedExecutionException: Task frc.team1793.frcstronghold.RobotModule$$Lambda$42/1459672753@6fd02e5 rejected from java.util.concurrent.ThreadPoolExecutor@5bcab519[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]
+	at java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2047)
+	at java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:823)
+	at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1369)
+	at frc.team1793.frcstronghold.RobotModule.tickState(RobotModule.java:43)
+	at jaci.openrio.toast.core.StateTracker.tick(StateTracker.java:130)
+	at jaci.openrio.toast.core.StateTracker.init(StateTracker.java:102)
+	at jaci.openrio.toast.core.Toast.startCompetition_2(Toast.java:123)
+	at jaci.openrio.toast.core.Toast.startCompetition(Toast.java:88)
+	at jaci.openrio.toast.core.ToastBootstrap.fakeRobotBase(ToastBootstrap.java:304)
+	at jaci.openrio.toast.core.ToastBootstrap.main(ToastBootstrap.java:267)
+
+Crash Information: 
+	Toast: 
+		Toast Version: 2.4.14
+		Loaded Modules:
+			FRCStrongHold@0.0.1
+
+	Environment: 
+		    Toast: 2.4.14
+		      Git: 2022e41 (2022e4195a90b9630403ab119a953bb91d6dcefb)
+		     Type: Simulation
+		      FMS: false
+		       OS: Linux 4.7.6-1-ARCH (amd64)
+		     Java: 1.8.0_102 (Oracle Corporation)
+		Java Path: /usr/lib/jvm/java-8-openjdk/jre
+		  JScript: Supported (Nashorn)
+
+	Modules: 
+		FRCStrongHold
+			Name: FRCStrongHold
+			Version: 0.0.1
+			File: /home/tyler/Code/Robotics/FRCStrongHold/run/gradle/simulation/toast/modules/FRCStrongHold.jar
+			Bypass Class: null
+			Core Module Class: null
+			Owned Packages: 
+				frc.team1793.frcstronghold
+
+
+*******************

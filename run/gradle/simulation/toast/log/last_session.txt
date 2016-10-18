@@ -1,0 +1,18 @@
+ ________    ______                 __   
+((       )  /_  __/___  ____ ______/ /_  
+||  o o  |   / / / __ \/ __ `/ ___/ __/  
+||   3   |  / / / /_/ / /_/ (__  ) /_    
+\\_______/ /_/  \____/\__,_/____/\__/    
+
+[16/10/16-09:48:57] [Toast] [Bootstrap] [INFO] Toast Version: 2.4.14
+[16/10/16-09:48:57] [Toast] [Bootstrap] [INFO] Toast Commit Hash: 2022e41
+[16/10/16-09:48:57] [Toast] [Core-Initialization] [INFO] Toast Started with Run Arguments: [-sim]
+[16/10/16-09:48:57] [Toast] [Pre-Initialization] [INFO] Slicing Loaf...
+[16/10/16-09:48:57] [Toast] [Initialization] [INFO] Nuking Toast...
+platform: /Linux/amd64/
+[16/10/16-09:48:57] [Toast] [Pre-Start] [INFO] Buttering Bread...
+[16/10/16-09:48:57] [Toast|Loader] [Pre-Start] [INFO] Module Loaded: FRCStrongHold@0.0.1
+[16/10/16-09:48:57] [Toast] [Start] [INFO] Fabricating Sandwich...
+[16/10/16-09:48:57] [Toast] [Start] [INFO] Verdict: Delicious
+[16/10/16-09:48:57] [Toast] [Main] [INFO] Total Initiation Time: 0.711 seconds
+[16/10/16-09:54:00] [Toast] [AWT-EventQueue-0] [INFO] Robot Shutting Down...
