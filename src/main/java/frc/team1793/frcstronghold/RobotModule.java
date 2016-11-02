@@ -8,81 +8,90 @@ import jaci.openrio.toast.lib.state.RobotState;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static frc.team1793.frcstronghold.Activities.*;
+
 public class RobotModule extends ToastStateModule {
     public static Logger logger;
-    private static RobotDrive treadDrive;
-    private static SpeedController armDrive,bucketDrive;
-    private static Joystick left, right;
-    private static DigitalInput limitSwitch1;
-    private static ExecutorService executor;
-    private static AnalogInput armRotaryEncoder;
+    public static TrackableTimer autonomousTimer;
+    public static RobotDrive treadDrive;
+    public static SpeedController armDrive, bucketDrive;
+    public static volatile DigitalInput limitSwitch;
+    public static ExecutorService executor;
+    public static AnalogInput armRotaryEncoder;
+    public static Joystick left, right;
+
+
+    private static boolean controller = false;
+
+    /**
+     * Used to detect if the current joystick setup is the single controller or two independent joysticks
+     */
+    private void initJoysticks() {
+        Joystick l = new Joystick(0), r = new Joystick(1);
+
+        if (l.getName().contains("Attack")) {
+            left = l;
+            right = r;
+            logger.info(String.format("Initializing left:%s right:%s joysticks", left.hashCode(), right.hashCode()));
+        } else {
+            controller = true;
+            left = right = new Joystick(2);
+            logger.info(String.format("Initializing %s,%s joystick", left.hashCode(), right.hashCode()));
+        }
+    }
+
     private static int motorPID = 0;
+
     private static int nextPID() {
         return motorPID++;
     }
+
     @Override
     public void prestart() {
         logger = new Logger("FRCStrongHold", Logger.ATTR_DEFAULT);
-        treadDrive = new RobotDrive(nextPID(),nextPID(),nextPID(),nextPID());
-        armDrive = new Victor(nextPID());
+        treadDrive = new RobotDrive(nextPID(), nextPID(), nextPID(), nextPID());
         bucketDrive = new Victor(nextPID());
-        left = new Joystick(1);
-        right = new Joystick(0);
-        limitSwitch1 = new DigitalInput(9);
+        armDrive = new Victor(nextPID());
+        limitSwitch = new DigitalInput(9);
         armRotaryEncoder = new AnalogInput(1);
+        initJoysticks();
     }
-    private TrackableTimer autonomousTimer;
+
     @Override
     public void start() {
         autonomousTimer = new TrackableTimer();
-        executor = Executors.newFixedThreadPool(3);
     }
-    private volatile boolean isShooting = false;
+
     @Override
     public void tickState(RobotState state) {
-        switch(state) {
+        if (executor == null)
+            createExecutor();
+        switch (state) {
             case TELEOP:
-                executor.execute(() -> treadDrive.arcadeDrive(right.getY(),right.getTwist()));
-                executor.execute(()-> armDrive.set(left.getY()));
-                if(!isShooting && right.getButton(Joystick.ButtonType.kTrigger)) {
-                    executor.execute(() -> {
-                        isShooting = true;
-                        TrackableTimer bucketTimer = new TrackableTimer();
-                        bucketTimer.start();
-                        while(bucketTimer.get() < 2) {
-                            logger.info("Throwing Ball!");
-                            bucketDrive.set(.5);
-                        }
-                        autonomousTimer.stop();
-                        autonomousTimer.start();
-                        while(!limitSwitch1.get()) {
-                            if(autonomousTimer.get() > 5)
-                                break;
-                            bucketDrive.set(-.5);
-                            logger.info("Returning Bucket");
-                        }
-                        bucketDrive.stopMotor();
-                        logger.info("Successful Return!");
-                        isShooting = false;
-                    });
+                Activities.runBiConsumerActivity(manualDrive, right.getY(), right.getX());
+                if (controller) {
+                    Activities.runConsumerActivity(arm, left.getY());
+
+                    //TODO test this; likely doesn't work
+                    if(left.getRawButton(0))
+                        Activities.runBiConsumerActivity(armToAngle,360.0,.5d);
+                    if(left.getRawButton(1))
+                        Activities.runBiConsumerActivity(armToAngle,0.0,.5d);
                 }
+                else Activities.runConsumerActivity(arm, left.getTwist());
+                if (controller ? left.getRawButton(8) : left.getRawButton(1)) Activities.runActivity(bucket);
                 break;
             case AUTONOMOUS:
-                if(autonomousTimer.isStarted()) {
-                    logger.info(""+ autonomousTimer.get());
-                    if(autonomousTimer.getLap() == 0 && !autonomousTimer.hasPeriodPassed(10)) {
-                        //Go forward for 10 seconds for only the first lap
-                        treadDrive.drive(1, 0);
-                    } else {
-                        treadDrive.stopMotor();
-                    }
-                } else {
-                    autonomousTimer.start();
-                }
+                Activities.runConsumerActivity(autonomousDrive, 5d);
                 break;
             case DISABLED:
+                executor = null;
                 break;
         }
+    }
+
+    private void createExecutor() {
+        executor = Executors.newFixedThreadPool(3);
     }
 
     @Override
@@ -94,5 +103,4 @@ public class RobotModule extends ToastStateModule {
     public String getModuleVersion() {
         return "0.0.1";
     }
-
 }

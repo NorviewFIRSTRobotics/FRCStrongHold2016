@@ -15,11 +15,9 @@ public class TrackableTimer extends Timer  {
         super.start();
     }
 
-    @Override
-    public void reset() {
-        super.reset();
+    public boolean hasPeriodPassed(double period, int lap) {
+        return (hasPeriodPassed(period) && this.lap == lap);
     }
-
     @Override
     public boolean hasPeriodPassed(double period) {
         boolean has = super.hasPeriodPassed(period);
