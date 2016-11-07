@@ -1,8 +1,11 @@
 package frc.team1793.frcstronghold;
 
 
+import jaci.openrio.toast.core.Toast;
+
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import static frc.team1793.frcstronghold.RobotModule.*;
 
@@ -10,14 +13,19 @@ import static frc.team1793.frcstronghold.RobotModule.*;
  * Created by tyler on 10/28/16.
  */
 public class Activities {
-    private static final double ARM_START = 0, ARM_END = 360;
+    private static volatile boolean abort = false;
+    public static void setAbort(boolean abort) {
+        Activities.abort = abort;
+    }
+    private static final double ARM_START = 10, ARM_END = 3030;
     /**
      * @param activity, Activity to invoke run within a new Executor Thread
      */
     public static void runActivity(Runnable activity) {
+        if(RobotModule.isDebug)
+            RobotModule.logger.info(String.format("Running Activity %s", activity.getClass().getTypeName()));
         executor.execute(activity);
     }
-
 
 
     /**
@@ -26,6 +34,8 @@ public class Activities {
      * @param <T> Type to pass to the activity
      */
     public static <T> void runConsumerActivity(Consumer<T> activity, T t) {
+        if(RobotModule.isDebug)
+        RobotModule.logger.info(String.format("Running Activity %s", activity.getClass().getTypeName()));
         executor.execute( () -> activity.accept(t));
     }
 
@@ -38,6 +48,8 @@ public class Activities {
      * @param <U> Type to pass to the activity
      */
     public static <T,U> void runBiConsumerActivity(BiConsumer<T,U> activity, T t, U u) {
+        if(RobotModule.isDebug)
+            RobotModule.logger.info(String.format("Running Activity %s", activity.getClass().getTypeName()));
         executor.execute( () -> activity.accept(t,u));
     }
 
@@ -45,12 +57,19 @@ public class Activities {
      * @param forward {@link Double} value to pass to {@link edu.wpi.first.wpilibj.RobotDrive} threadDrive
      * @param turn {@link Double} value to pass to {@link edu.wpi.first.wpilibj.RobotDrive} threadDrive
      */
-    public static BiConsumer<Double,Double> manualDrive = (forward, turn) -> treadDrive.arcadeDrive(-forward, -turn);
+    public static BiConsumer<Double,Double> manualDrive = (forward, turn) -> {
+        if(forward == 0 && turn == 0)
+            treadDrive.stopMotor();
+        else
+            treadDrive.arcadeDrive(-forward, -turn);
+    };
 
     /**
      * @param time {@link Double} value for the length of time the robot should go forward
      */
     public static Consumer<Double> autonomousDrive = (time) -> {
+        if(abort)
+            return;
         if (autonomousTimer.isStarted()) {
             logger.info("" + autonomousTimer.get());
             if (autonomousTimer.getLap() == 0 && !autonomousTimer.hasPeriodPassed(time)) {
@@ -69,6 +88,8 @@ public class Activities {
 
     private static boolean isShooting = false;
     public static Runnable bucket = () -> {
+        if(abort)
+            return;
         if (isShooting)
             return;
         isShooting = true;
@@ -77,11 +98,15 @@ public class Activities {
         timer.start();
         System.out.println(timer.get());
         while (!timer.hasPeriodPassed(.2, 1)) {
+            if(abort)
+                break;
             bucketDrive.set(-.5);
         }
         System.out.println("Shot");
         timer.stop();
         while (!limitSwitch.get()) {
+            if(abort)
+                break;
             bucketDrive.set(.5);
         }
         bucketDrive.stopMotor();
@@ -105,16 +130,31 @@ public class Activities {
     }
 
     public static double getArmAngle() {
-        return mapToRange(armRotaryEncoder.getValue(),ARM_START,ARM_END, 0,360);
+        double inputAngle = clampDouble(armRotaryEncoder.getValue(),ARM_START,ARM_START);
+        if(Toast.isSimulation())
+            inputAngle = ARM_END;
+        return mapToRange(inputAngle,ARM_START,ARM_END, -1,1);
     }
     public static double clampDouble(double val, double min, double max) {
         return val > max ? max : val < min ? min : val;
     }
-    public static Consumer<Double> arm = (v) ->armDrive.set(-v);
+    public static Consumer<Double> arm = (v) -> { if(v < .2d)  armDrive.stopMotor(); else armDrive.set(-v); };
 
+    //TODO this might work?
     public static BiConsumer<Double, Double> armToAngle = (theta, speed) -> {
+        if(abort)
+            return;
+        //input read angle from the rotary encoder
         double currentAngle = getArmAngle();
-        while(theta > currentAngle || theta < currentAngle) {
+        //set predicate if the intended angle is < or > than currentAngle
+        Predicate<Double> reached = theta <= currentAngle ? (c) -> theta <= c : (c1) -> theta > c1;
+        System.out.println(String.format("t %s, c %s,  t < c: %s",theta, currentAngle, theta <= currentAngle));
+        //test if the arm has not reached the angle yet
+        while(reached.test(currentAngle)) {
+            if(abort)
+                break;
+            //move the arm towards the angle
+            System.out.println("moving!");
             arm.accept(clampDouble(currentAngle-theta, -speed,speed));
         }
     };
